@@ -197,7 +197,7 @@
                     <th><h6 class="text-gray mb-0">ชื่อ-นามสกุล</h6></th>
                     <th><h6 class="text-gray mb-0">ตำเเหน่งงาน</h6></th>
                     <th><h6 class="text-gray mb-0">username</h6></th>
-                    <th><h6 class="text-gray mb-0">อายุ</h6></th>
+                    <th><h6 class="text-gray mb-0">เพศ</h6></th>
                     <th><h6 class="text-gray mb-0">เบอร์โทรศัพท์มือถือ</h6></th>
                     <th><h6 class="text-gray mb-0" align="center">ตัวเลือก</h6></th>
                   </tr>
