@@ -164,7 +164,7 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--6 animate-bottom">
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -174,7 +174,7 @@
                   <tr>
                     <td align="left">
                       <div class="col-xl-12"><br>
-                        <h6 class="mb-0">รายละเอียด</h6><br>
+                        <h5 class="mb-0">รายละเอียดพนักงาน</h5><br>
                       </div>
                     </td>
                     <td align="right">
@@ -189,7 +189,7 @@
               </div>
             </div>
             <!-- Projects table -->
-            <div class="table-responsive">
+            <div class="table-responsive ">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>

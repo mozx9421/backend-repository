@@ -1,22 +1,22 @@
 <?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
-        echo "<script>
+if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
+    echo "<script>
         alert('กรุณาเข้าสู่ระบบก่อน..');
         window.location.replace('login_page.php');
         </script>";
-    }
+}
 
-    if (isset($_GET['logout'])) {
-        session_destroy();
-        unset($_SESSION['username'], $_SESSION['emp_level']);
-        echo "<script>
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username'], $_SESSION['emp_level']);
+    echo "<script>
         alert('ออกจากระบบสำเร็จ');
         window.location.replace('login_page.php');
         </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,8 +81,8 @@
                             </a>
                         </li>
                         <?php
-                            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
-                                echo "<li class='nav-item'>
+                        if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+                            echo "<li class='nav-item'>
                                 <a class='nav-link' href='emp.php'>
                                     <i class='ni ni-single-02 text-orange'></i>
                                     <span class='nav-link-text'>พนักงาน</span>
@@ -94,7 +94,7 @@
                                     <span class='nav-link-text'>รายงาน</span>
                                 </a>
                                 </li>";
-                            }
+                        }
                         ?><br>
                         <li class="nav-item">
                             <a class="nav-link" a href="index_manager.php?logout='1'">
@@ -104,10 +104,10 @@
                         </li>
                         <br>
                         <li class="nav-item">
-                        <a class="nav-link" a href="tutorial.pdf">
-                            <i class="fas fa-book text-orange"></i>
-                            <span class="nav-link-text" >คู่มือ</span>
-                        </a>
+                            <a class="nav-link" a href="tutorial.pdf">
+                                <i class="fas fa-book text-orange"></i>
+                                <span class="nav-link-text">คู่มือ</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -183,8 +183,8 @@
                                             <a class="nav-link" href="stock_out.php"><i class="fas fa-file-export"></i> เบิกสินค้า</a>
                                         </li>
                                         <?php
-                                            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
-                                                echo "<li class='nav-item'>
+                                        if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+                                            echo "<li class='nav-item'>
                                                 <a class='nav-link ' href='editstock.php'><i class='fas fa-cubes'></i> ปรับสต็อก</a>
                                                 </li>
                                                 <li class='nav-item'>
@@ -196,18 +196,20 @@
                                                 <li class='nav-item'>
                                                 <a class='nav-link' href='unit.php'><i class='fas fa-ruler-vertical'></i> หน่วยนับ</a>
                                                 </li>";
-                                            }
+                                        }
                                         ?>
                                     </ul>
                                     <!-- MAIN CONTENT -->
-                                    <div class="container"><br />
+                                    <div class="container animate-left">
+                                    <br><br>
                                         <!-- top table -->
                                         <div class="row col-12">
+                                            
                                             <div class="col-xl-4 ">
                                                 <?php
-                                                    include('DT.php');
-                                                    date_default_timezone_set('Asia/Bangkok');
-                                                    $ddd = date('Y-m-d H:i');
+                                                include('DT.php');
+                                                date_default_timezone_set('Asia/Bangkok');
+                                                $ddd = date('Y-m-d H:i');
                                                 ?>
                                                 วันที่ :
                                                 <input type="text" value="<?php echo thai_date_short(strtotime($ddd)); ?>" class="form-control " disabled="disabled">
@@ -225,9 +227,15 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped" id="crud_table">
                                                 <thead>
-                                                    <th width="5%" class="text-center"><h6 class="mb-0">ลำดับ</h6></th>
-                                                    <th width="30%"><h6 class="mb-0">สินค้า</h6></th>
-                                                    <th width="20%"><h6 class="mb-0">จำนวน(แพ็ค)</h6></th>
+                                                    <th width="5%" class="text-center">
+                                                        <h6 class="mb-0">ลำดับ</h6>
+                                                    </th>
+                                                    <th width="30%">
+                                                        <h6 class="mb-0">สินค้า</h6>
+                                                    </th>
+                                                    <th width="20%">
+                                                        <h6 class="mb-0">จำนวน(แพ็ค)</h6>
+                                                    </th>
                                                     <th width="5%"></th>
                                                 </thead>
                                                 <tbody class="data_product">
@@ -240,12 +248,12 @@
                                                                 $sqlpro = "SELECT * FROM product";
                                                                 $resultpro = $conn->query($sqlpro);
                                                                 while ($row = $resultpro->fetch_assoc()) :
-                                                                echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
+                                                                    echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
                                                                 endwhile
                                                                 ?>
                                                             </select>
                                                         </td>
-                                                        <td contenteditable="true" ><input type="number" value="1" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
+                                                        <td contenteditable="true"><input type="number" value="1" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
                                                         <td>
                                                             <div align="center">
                                                                 <button type="button" name="add" id="add" class="btn btn-outline-success btn-xs"><i class="fas fa-plus"></i></button>
@@ -257,13 +265,15 @@
                                             <div align="center">
                                                 <button type="button" name="save" id="save" class="btn btn-outline-success">บันทึก</button>
                                             </div>
-                                            <a href="stock_in.php">
-                                                <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
-                                            </a>
                                             <div id="inserted_item_data"></div>
                                         </div><!-- Page Content -->
-                                    </div><!-- Main Content -->
 
+                                    </div><!-- Main Content -->
+                                    <div class="ml-3 mb-2">
+                                    <a href="stock_in.php">
+                                        <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
+                                    </a>
+                                    </div>
                                     <!-- Argon Scripts -->
                                     <!-- Core -->
                                     <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -290,12 +300,12 @@
                                                 var html_code = "<tr id='row" + count + "'>";
                                                 html_code += "<td contenteditable='false' class='runNum' align='center'>" + count + "</td>";
                                                 html_code += "<td contenteditable='true' ><select class='form-control product_id' id='productID' name='productID'><?php
-                                                $sqlpro = "SELECT * FROM product";
-                                                $resultpro = $conn->query($sqlpro);
-                                                while ($row = $resultpro->fetch_assoc()) :
-                                                    echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
-                                                endwhile
-                                                ?></select></td>";
+                                                                                                                                                                    $sqlpro = "SELECT * FROM product";
+                                                                                                                                                                    $resultpro = $conn->query($sqlpro);
+                                                                                                                                                                    while ($row = $resultpro->fetch_assoc()) :
+                                                                                                                                                                        echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
+                                                                                                                                                                    endwhile
+                                                                                                                                                                    ?></select></td>";
                                                 html_code += "<td contenteditable='true'><input type='number' value='1' min='1' class='form-control product_qty' id='product_qty' name='product_qty' required></td>";
                                                 html_code += "<td align=center><button type='button' name='remove' data-row='row" + count + "' class='btn btn-outline-danger btn-xs remove'><i class='fas fa-minus'></i></button></td>";
                                                 html_code += "</tr>";
@@ -314,28 +324,28 @@
                                                 var stock_status = 'รับเข้าสินค้า'
                                                 var emp_id = $('#emp_id').val()
                                                 var u = 0
-                                                var rowCount = $('#crud_table tr').length -1
-                                                $('.data_product tr').each(function (a, b) {
+                                                var rowCount = $('#crud_table tr').length - 1
+                                                $('.data_product tr').each(function(a, b) {
 
-                                                    if($('.product_qty', b).val() == ""){
+                                                    if ($('.product_qty', b).val() == "") {
                                                         alert('กรุณาใส่จำนวน')
                                                         return false
-                                                    }else if($('.product_exp', b).val() == ""){
+                                                    } else if ($('.product_exp', b).val() == "") {
                                                         alert('กรุณาใส่วันหมดอายุ')
                                                         return false
                                                     }
 
                                                     data.push({
-                                                        product_id:$('.product_id', b).val(),
-                                                        product_qty:$('.product_qty', b).val(),
-                                                        product_exp:$('.product_exp', b).val(),
-                                                        emp_id:emp_id,
-                                                        stock_status:stock_status,
+                                                        product_id: $('.product_id', b).val(),
+                                                        product_qty: $('.product_qty', b).val(),
+                                                        product_exp: $('.product_exp', b).val(),
+                                                        emp_id: emp_id,
+                                                        stock_status: stock_status,
                                                     })
                                                     u++
                                                 })
 
-                                                if(u == rowCount){
+                                                if (u == rowCount) {
                                                     $.ajax({
                                                         url: "stock_in=insert.php",
                                                         method: "POST",
@@ -343,9 +353,9 @@
                                                             data: data
                                                         },
                                                         success: function(data) {
-                                                            console.log(data);
-                                                            // alert ('บันทึกลงฐานข้อมูลสำเร็จ ')
-                                                            // window.location.replace('stock_in.php')
+                                                            // console.log(data);
+                                                            alert ('บันทึกลงฐานข้อมูลสำเร็จ ')
+                                                            window.location.replace('stock_in.php')
                                                         }
                                                     })
                                                 }
@@ -356,4 +366,5 @@
                                         });
                                     </script>
 </body>
+
 </html>

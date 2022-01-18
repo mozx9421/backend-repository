@@ -200,7 +200,7 @@
                   </ul>
 
                   <!-- Modal Button -->
-                  <table class="table-white col-xl-12">
+                  <table class="table-white col-xl-12 animate-left">
                     <tr>
                       <td align="left">
                         <div class="col-xl-12"><br>
@@ -213,7 +213,7 @@
 
                 <!-- Projects Table -->
                 <div class="table-responsive table-white table-striped">
-                  <table class="table align-items-center table-flush">
+                  <table class="table align-items-center table-flush animate-left">
                     <tr class="thead-light" align=center>
                       <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6></th>
@@ -249,19 +249,17 @@
                     <?php
                       }
                     ?>
-                    <table class="table">
-                        <tr>
-                            <td align="left">
-                                <br>
-                                <a href="stock_out.php">
-                                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
+                    </div>
                   </table>
+                  <br>
+                  <br>
+                  <div class="ml-3 mb-2">
+                  <a href="stock_out.php">
+                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
+                  </a>
                 </div>
-              </div>
+                </div>
+              </div>            
             </div>
           </div>
         </div>

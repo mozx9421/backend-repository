@@ -167,7 +167,7 @@
       </div>
     </div>
     <!-- Content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--6 animate-bottom">
       <div class="fetch">
         <div class="col-xl-12">
           <div class="card">

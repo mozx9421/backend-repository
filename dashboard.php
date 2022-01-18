@@ -156,7 +156,7 @@
       </div>
     </nav>
     <!-- Header -->
-    <div class="header bg-gradient-danger pb-6">
+    <div class="header bg-gradient-danger pb-6 ">
       <div class="container-fluid">
         <div class="header-body">
           <div class="header bg-danger pb-6">
@@ -172,11 +172,11 @@
             </div>
           </div>
           <!-- Page content -->
-          <div class="container-fluid mt--6">
+          <div class="container-fluid mt--6 animate-bottom">
             <div class="row">
               <div class="col-xl-12">
                 <div class="card">
-                  <div class="card-header bg-transparent">
+                  <div class="card-header bg-transparent ">
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
@@ -202,7 +202,7 @@
               <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <div class="card-body animate-left">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -229,7 +229,7 @@
               <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <div class="card-body animate-left">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -255,7 +255,7 @@
               <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <div class="card-body animate-left">
                     <div class="row">
                       <div class="col">
                         <center>

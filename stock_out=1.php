@@ -203,8 +203,9 @@ if (isset($_GET['logout'])) {
                                         ?>
                                     </ul>
                                     <!-- MAIN CONTENT -->
-                                    <div class="container">
-                                        <br />
+                                    <div class="container animate-left">
+                                        <br>
+                                        <br>
 
                                         <!-- top table -->
 
@@ -265,15 +266,17 @@ if (isset($_GET['logout'])) {
                                             <div align="center">
                                                 <button type="button" name="save" id="save" class="btn btn-outline-success">บันทึก</button>
                                             </div>
-                                            <a href="stock_out.php">
-                                                <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
-                                            </a>
                                             <div id="inserted_item_data"></div>
 
 
                                         </div><!-- Page Content -->
+                                        
                                     </div><!-- Main Content -->
-
+                                    <div class="ml-3 mb-2">
+                                    <a href="stock_out.php">
+                                        <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
+                                    </a>
+                                    </div>
                                     <!-- Argon Scripts -->
                                     <!-- Core -->
                                     <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

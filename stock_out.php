@@ -198,7 +198,7 @@
                     ?>
                   </ul>
                   <!-- Modal Button -->
-                  <table class="table-white col-xl-12">
+                  <table class="table-white col-xl-12 animate-left">
                     <tr>
                       <td align="left">
                         <div class="col-xl-12"><br>
@@ -217,7 +217,7 @@
                 </div>
 
                 <!-- Projects Table -->
-                <div class="table-responsive table-white table-striped">
+                <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
                     <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>

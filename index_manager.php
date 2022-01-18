@@ -43,10 +43,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
+<!-- 
+<body onload="myFunction()" style="margin:0;">
+<div id="loader"></div> -->
 
-<body>
+
   <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <nav tyle="display:none;" class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white " id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
@@ -109,7 +112,7 @@
     </div>
   </nav>
   <!-- Main content -->
-  <div class="main-content" id="panel">
+  <div class="main-content " id="panel">
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-gradient-danger border-bottom">
       <div class="container-fluid">
@@ -149,7 +152,7 @@
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
-            <div class="col-lg-4">
+            <div class="col-lg-4 animate-bottom">
               <!-- Page content -->
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4"></nav>
               <div class="content">
@@ -187,6 +190,8 @@
    
    
 </div>
+
+
 </body>
   <!-- Argon Scripts -->
   <!-- Core -->
