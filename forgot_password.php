@@ -1,21 +1,20 @@
 <?php 
 include('connect.php');
 include('errors.php');
-    session_start();
-
-    if(isset($_SESSION['username'],$_SESSION['emp_level'])){
-      if($_SESSION['emp_level'] == "พนักงาน" ){
+session_start();
+if(isset($_SESSION['username'],$_SESSION['emp_level'])){
+    if($_SESSION['emp_level'] == "พนักงาน" ){
+    echo "<script>
+    alert('กรุณาออกจากระบบก่อน..');
+    window.location.replace('index_employee.php');
+    </script>";
+    }else{
       echo "<script>
-      alert('กรุณาออกจากระบบก่อน..');
-      window.location.replace('index_employee.php');
-      </script>";
-      }else{
-        echo "<script>
-      alert('กรุณาออกจากระบบก่อน..');
-      window.location.replace('index_manager.php');
-      </script>";
-      }
+    alert('กรุณาออกจากระบบก่อน..');
+    window.location.replace('index_manager.php');
+    </script>";
     }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ include('errors.php');
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Login</title>
+  <title>Forgot Password</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/img/brand/pingan_icon.png" type="image/png">
   <!-- Fonts -->
@@ -58,17 +57,16 @@ include('errors.php');
       </div>
     </div>
     <!-- Page content -->
-    <form action="login_db.php" method="post">
-      <div class="container mt--9 pb-5 animate-bottom">
+    <form action="forgot_db.php" method="post">
+      <div class="container mt--9 pb-5 animate-left">
         <div class="row justify-content-center">
           <div class="col-lg-5 col-md-4">
             <div class="card bg-secondary border-0 mb-0">
               <div class="card-header bg-transparent pb-5">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <h2>เข้าสู่ระบบ</h2>
-                    <p>กรอก username เเละ password <br> เพื่อเข้าสู่ระบบ </p>
-                    
+                    <h2>ลืมรหัสผ่าน</h2>
+                    <p>กรอก ชื่อผู้ใช้ เเละ บัตรประจำตัวประชาชน <br> เพื่อเข้าเปลี่ยนรหัสผ่าน</p>
                   <div class="content">
                 </div>
               </div>
@@ -80,25 +78,25 @@ include('errors.php');
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-badge"></i></span>
                 </div>
-                <input type="text" name="login_username" class="form-control"  placeholder="username">
+                <input type="text" name="forgot_username" class="form-control"  placeholder="username" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="input-group text-default">รหัสผ่าน</label>
+              <label class="input-group text-default">บัตรประจำตัวประชาชน</label>
               <div class="input-group input-group-merge input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input type="password" name="login_password" class="form-control" placeholder="password">
+                <input type="number" name="idcardnum" class="form-control" placeholder="บัตรประจำตัวประชาชน" minlength="13" required>
               </div>
             </div>
 
             <div class="text-center">
-              <button type="submit" name ="login_btn" class="btn btn-danger my-4" >Login</button>
-            </div>
-            <p class="text-center">กด<a href="forgot_password.php">ที่นี่</a>หากลืมรหัส</p>
+              <button type="submit" name ="forgot_bth" class="btn btn-danger my-4" >ยืนยัน</button>
+            </div><p class="text-center">กด<a href="login_page.php">ที่นี่</a>เพื่อเข้าสู่ระบบ</p>
           </div>
+          
         </div>
       </div>
     </form>

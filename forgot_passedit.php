@@ -2,20 +2,12 @@
 include('connect.php');
 include('errors.php');
     session_start();
-
-    if(isset($_SESSION['username'],$_SESSION['emp_level'])){
-      if($_SESSION['emp_level'] == "พนักงาน" ){
-      echo "<script>
-      alert('กรุณาออกจากระบบก่อน..');
-      window.location.replace('index_employee.php');
-      </script>";
-      }else{
+    if(!isset($_SESSION['emp_id'])){
         echo "<script>
-      alert('กรุณาออกจากระบบก่อน..');
-      window.location.replace('index_manager.php');
-      </script>";
+        alert('กรุณาใส่ชื่อผู้ใช้เเละรหัสบัตรประชาชนก่อน..');
+        window.location.replace('forgot_password.php');
+        </script>";
       }
-    }
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +17,7 @@ include('errors.php');
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Login</title>
+  <title>Forgot Password</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/img/brand/pingan_icon.png" type="image/png">
   <!-- Fonts -->
@@ -58,50 +50,58 @@ include('errors.php');
       </div>
     </div>
     <!-- Page content -->
-    <form action="login_db.php" method="post">
-      <div class="container mt--9 pb-5 animate-bottom">
+    <form action="new_password_db.php" method="post">
+      <div class="container mt--9 pb-5 animate-left">
         <div class="row justify-content-center">
           <div class="col-lg-5 col-md-4">
             <div class="card bg-secondary border-0 mb-0">
               <div class="card-header bg-transparent pb-5">
                 <div class="card-body px-lg-5 py-lg-5">
-                  <div class="text-center text-muted mb-4">
-                    <h2>เข้าสู่ระบบ</h2>
-                    <p>กรอก username เเละ password <br> เพื่อเข้าสู่ระบบ </p>
-                    
+                  <div class="text-center text-muted mb-4 ">
+                      
+                    <h2>กำหนดรหัสผ่านใหม่</h2>
+                    <p>รหัสพนักงาน <?php echo $_SESSION['emp_id']?> <br>
+                       ชื่อ - สกุล : <?php echo $_SESSION['emp_name']?> <?php echo $_SESSION['emp_surname']?></p>
                   <div class="content">
                 </div>
               </div>
             </div>
             <!-- section 1 -->
             <div class="form-group mb-3">
-              <label class="input-group text-default">ชื่อผู้ใช้</label>
-              <div class="input-group input-group-merge input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-badge"></i></span>
-                </div>
-                <input type="text" name="login_username" class="form-control"  placeholder="username">
-              </div>
-            </div>
-
-            <div class="form-group">
               <label class="input-group text-default">รหัสผ่าน</label>
               <div class="input-group input-group-merge input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input type="password" name="login_password" class="form-control" placeholder="password">
+                <input type="text" name="emp_password" class="form-control"  placeholder="password">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="input-group text-default">ยืนยันรหัสผ่าน</label>
+              <div class="input-group input-group-merge input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input type="text" name="confirm_new_password" class="form-control" placeholder="new password">
               </div>
             </div>
 
             <div class="text-center">
-              <button type="submit" name ="login_btn" class="btn btn-danger my-4" >Login</button>
+              <button type="submit" name ="forgot_bth" class="btn btn-danger my-4" >ยืนยัน</button>
+            </form>
+            <a href="login_page.php">
+                      <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i>ยกเลิก</button>
+                      <?php
+                      session_destroy();
+                      ?>
+            </a>
             </div>
-            <p class="text-center">กด<a href="forgot_password.php">ที่นี่</a>หากลืมรหัส</p>
+
           </div>
         </div>
       </div>
-    </form>
+    
   </div>
 
   <!-- Argon Scripts -->
