@@ -172,7 +172,7 @@
             </div>
           </div>
           <!-- Page content -->
-          <div class="container-fluid mt--6 animate-right">
+          <div class="container-fluid mt--6 animate-left">
             <div class="row">
               <div class="col-xl-12">
                 <div class="card">
@@ -182,8 +182,8 @@
                         <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
                         <h4 class="card-title text-uppercase mb-0">กราฟแสดงจำนวน รับเข้า/เบิกออก ของสินค้าแต่ละตัว(แพ็ค) ภายใน 30 วัน</h4>
                         <div class="" align="right">
-                          <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> <u>รับเข้า</u>
-                          <a href="dashboard2.php"><i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> เบิกออก</a>
+                          <a href="dashboard.php"><i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า</a>
+                          <i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> <u>เบิกออก</u>
                         </div>
                       </div>
                     </div>
@@ -191,7 +191,7 @@
                   <div class="card-body">
                     <!-- Chart -->
                     <div class="chart">
-                      <canvas id="chart-bars2"></canvas>
+                      <canvas id="chart-bars3"></canvas>
                     </div>
                   </div>
                 </div>
@@ -255,7 +255,7 @@
               <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <div class="card-body ">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -427,6 +427,6 @@
   <script src="assets/js/argon.js?v=1.2.0"></script>
   <script src="assets/js/components/charts/chart-line.js"></script>
   <!-- <script src="assets/js/components/charts/chart-bars.php"></script> -->
-  <?php  include('chart-bars.php')?> 
+  <?php  include('chart-bars2.php')?> 
 </body>
 </html>

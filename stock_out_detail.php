@@ -204,7 +204,7 @@
                     <tr>
                       <td align="left">
                         <div class="col-xl-12"><br>
-                          <h6 class="mb-0">รายละเอียด</h6><br>
+                          <h6 class="mb-0">รายละเอียดการเบิกออก</h6><br>
                         </div>
                       </td>
                     </tr>

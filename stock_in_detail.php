@@ -206,7 +206,7 @@ if (isset($_GET['logout'])) {
                     <tr>
                       <td align="left">
                         <div class="col-xl-12"><br>
-                          <h6 class="mb-0">รายละเอียด</h6><br>
+                          <h6 class="mb-0">รายละเอียดรับเข้า</h6><br>
                         </div>
                       </td>
                     </tr>

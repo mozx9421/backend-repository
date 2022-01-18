@@ -44,10 +44,14 @@
   <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css">
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  
 
 </head>
 <!--body-->
 <body class="bg-light">
+
+<?php sleep(1.5); ?>
     <div class="main-wraper">
 
     <!-- Header -->
@@ -69,7 +73,7 @@
     </div>
 
 <!--Content-->
-<div class="container mt--9 pb-5">
+<div class="container mt--9 pb-5 animate-bottom">
       <div class="row justify-content-center">
         <div class="col-xl-9 col-md-4">
           <div class="card bg-secondary border-0 mb-0">
@@ -226,7 +230,6 @@
                     <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i> ย้อนกลับ</button>
                 </a>
             </div>
-
         </div>    
     </form>
 
@@ -241,6 +244,5 @@
   <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
 </html>

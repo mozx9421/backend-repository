@@ -169,7 +169,7 @@
               </div>
               <!-- logged in user information -->
               <?php if (isset($_SESSION['username'])):?>
-              <h5 class="text-white">ยินดีตอนรับ !!!</h5><br>
+              <h5 class="text-white">ยินดีตอนรับ</h5><br>
               <div class="card">
                 <div class="card-body border-0">
                   <div class="col-xl-12">

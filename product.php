@@ -223,7 +223,7 @@
                       <th><h6 class="text-gray text-ml mb-0">รหัสสินค้า</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ชื่อ</h6</th>
                       <th><h6 class="text-gray text-ml mb-0">หมวดหมู่</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">หน่วยนับหลัก(ย่อย)</h6></th>
+                      <th><h6 class="text-gray text-ml mb-0">หน่วยนับหลัก(เเพ็ค)</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ตัวเลือก</h6></th>
                     </tr>
                     <?php

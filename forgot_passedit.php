@@ -73,7 +73,7 @@ include('errors.php');
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input type="text" name="emp_password" class="form-control"  placeholder="password">
+                <input type="password" name="emp_password" class="form-control"  placeholder="password">
               </div>
             </div>
 
@@ -83,7 +83,7 @@ include('errors.php');
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input type="text" name="confirm_new_password" class="form-control" placeholder="new password">
+                <input type="password" name="confirm_new_password" class="form-control" placeholder="new password">
               </div>
             </div>
 

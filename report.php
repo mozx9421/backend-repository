@@ -159,7 +159,7 @@
     </nav>
 
     <!-- Header -->
-    <div class="header bg-gradient-danger pb-6">
+    <div class="header bg-gradient-danger pb-6 animate-left">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
@@ -173,7 +173,7 @@
     </div>
 
     <!-- Page Content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--6 animate-right">
       <div class="row"><div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
         <div class="col-10">
           <div class="card">
