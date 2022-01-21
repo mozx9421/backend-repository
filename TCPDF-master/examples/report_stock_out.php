@@ -301,21 +301,22 @@ class MYPDF extends TCPDF {
     $this->SetFont('thsarabun', 'B', 20);
     $to_date;
     $from_date;
-    $to_date =$_POST['to_date'];
-    $from_date =$_POST['from_date'];
+    $to_date = $_POST['to_date'];
+    $from_date = $_POST['from_date'];
    
       if($status_select=="รับเข้าสินค้า" or $status_select=="เบิกออกสินค้า" or $status_select=="สินค้าเกิน" or $status_select=="สินค้าเสียหาย"){
         $txt1 = <<<EOD
         รายงาน$status_select
         EOD;
-      }
-      else{ $txt1 = <<<EOD
+      }else{
+        $txt1 = <<<EOD
         รายงานข้อมูลทั้งหมด
-        EOD;}
+        EOD;
+      }
     
 $this->Write(0, " ", '', 0, 'C', true, 0, false, false, 0);
 $this->Write(0, $txt1, '', 0, 'C', true, 0, false, false, 0);
-$this->SetFont('thsarabun', 'l', 15); 
+$this->SetFont('thsarabun', 'l', 15);
 $this->Write(0, $txt2, '', 0, 'R', true, 0, false, true, 0);
 
   }
@@ -369,20 +370,20 @@ $product_select =$_POST['product_select'];
 $emp_select =$_POST['emp_select'];
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock.emp_id LIKE '%".$emp_select."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id";
-// $tbl = <<<EOD
-// <table border="1" align="center">
-// <thead>
-// <tr>
-// <th width="63">ลำดับที่</th>
-// <th width="88">รหัสรายการ</th>
-// <th width="100">วันที่</th>
-// <th width="117">สินค้า</th>
-// <th width="92">จำนวน(เเพ็ค)</th>
-// <th width="180">พนักงาน</th>
-// </tr>
-// </thead>
-// EOD;
-// $txtxxx = '';
+$tbl = <<<EOD
+<table border="1" align="center">
+<thead>
+<tr>
+<th width="63">ลำดับที่</th>
+<th width="88">รหัสรายการ</th>
+<th width="100">วันที่</th>
+<th width="117">สินค้า</th>
+<th width="92">จำนวน(เเพ็ค)</th>
+<th width="180">พนักงาน</th>
+</tr>
+</thead>
+EOD;
+$txtxxx = '';
 
 $sql = "SELECT * FROM product 
 JOIN stock ON  product.product_id = stock.product_id
@@ -399,65 +400,6 @@ $status_text=@$_POST['status_select'];
   $query = "SELECT * FROM stock JOIN product JOIN emp_data
   WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id LIKE '%".$product_select."%' 
   AND stock.emp_id LIKE '%".$emp_select."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
-
-$tbl = <<<EOD
-<table border="1" align="center">
-<thead>
-<tr>
-<th width="80">ลำดับที่</th>
-<th width="120">รหัสรายการ</th>
-<th width="150">ประเภท</th>
-<th width="150">วันที่</th>
-<th width="120">จำนวน(เเพ็ค)</th>
-</tr>
-</thead>
-EOD;
-$txtxxx = '';
-
-$query_run = mysqli_query($conn, $query);
-if(mysqli_num_rows($query_run) > 0)
-{
-    foreach($query_run as $row)
-    {
-    require_once 'DT2.php';
-    $stock_datetime= $row["stock_datetime"]; // convert date and time
-    $runid = $row['runid'];
-    $stock_id = $row['stock_id'];
-      $product_name = $row['product_name'];
-      $product_count = $row['product_count'];
-      $emp_name = $row['emp_name'];
-      $emp_surname = $row['emp_surname'];
-      $stock_status = $row['stock_status'];
-
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="80">'.$i.'</td>
-      <td align="center" width="120">'.$stock_id.'</td>
-      <td align="center" width="150">'.$stock_status.'</td>
-      <td align="center" width="150">'.DateThai($stock_datetime).'</td>
-      <td align="center" width="120">'.$product_count.'</td>
-      </tr>'; 
-      $i++;
-    }
-  }
-  else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="150">'.$not_found.'</td>
-      <td align="center" width="150">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      </tr>'; 
-  }
-
-  
-$tbl2 = <<<EOD
-$txtxxx
-EOD;
-$tbl3 = <<<EOD
-</table>
-EOD;
 }
 //empty from_date,to_date,emp | isset product
   else if($product_select!=""&&$from_date=="" && $to_date=="" && $emp_select==""){
@@ -467,68 +409,6 @@ EOD;
   $query = "SELECT * FROM stock JOIN product JOIN emp_data
   WHERE stock_status LIKE '%".$status_text."%'AND stock.product_id LIKE '%".$product_select."%' 
   AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
-
-  $tbl = <<<EOD
-<table border="1" align="center">
-<thead>
-<tr>
-<th width="60">ลำดับที่</th>
-<th width="90">รหัสรายการ</th>
-<th width="100">ประเภท</th>
-<th width="100">วันที่</th>
-<th width="90">จำนวน(เเพ็ค)</th>
-<th width="180">พนักงาน</th>
-</tr>
-</thead>
-EOD;
-$txtxxx = '';
-
-$query_run = mysqli_query($conn, $query);
-if(mysqli_num_rows($query_run) > 0)
-{
-    foreach($query_run as $row)
-    {
-    require_once 'DT2.php';
-    $stock_datetime= $row["stock_datetime"]; // convert date and time
-    $runid = $row['runid'];
-    $stock_id = $row['stock_id'];
-      $product_name = $row['product_name'];
-      $product_count = $row['product_count'];
-      $emp_name = $row['emp_name'];
-      $emp_surname = $row['emp_surname'];
-      $stock_status = $row['stock_status'];
-
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="60">'.$i.'</td>
-      <td align="center" width="90">'.$stock_id.'</td>
-      <td align="center" width="100">'.$stock_status.'</td>
-      <td align="center" width="100">'.DateThai($stock_datetime).'</td>
-      <td align="center" width="90">'.$product_count.'</td>
-      <td align="center" width="180">'.$emp_name." ".$emp_surname.'</td>
-      </tr>'; 
-      $i++;
-    }
-  }
-  else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="60">-</td>
-      <td align="center" width="90">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="90">'.$not_found.'</td>
-      <td align="center" width="180">'.$not_found.'</td>
-      </tr>'; 
-  }
-
-  
-$tbl2 = <<<EOD
-$txtxxx
-EOD;
-$tbl3 = <<<EOD
-</table>
-EOD;
 }
 //empty from_date,to_date,product | isset emp
   else if($product_select==""&&$from_date=="" && $to_date=="" && $emp_select!=""){
@@ -538,71 +418,6 @@ EOD;
   $query = "SELECT * FROM stock JOIN product JOIN emp_data
   WHERE stock_status LIKE '%".$status_text."%'AND stock.emp_id LIKE '%".$emp_select."%' 
   AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
-
-  $tbl = <<<EOD
-  <table border="1" align="center">
-  <thead>
-  <tr>
-  <th width="60">ลำดับที่</th>
-  <th width="90">รหัสรายการ</th>
-  <th width="100">ประเภท</th>
-  <th width="100">วันที่</th>
-  <th width="180">สินค้า</th>
-  <th width="90">จำนวน(เเพ็ค)</th>
-  
-  </tr>
-  </thead>
-  EOD;
-  $txtxxx = '';
-  
-  $query_run = mysqli_query($conn, $query);
-  if(mysqli_num_rows($query_run) > 0)
-  {
-      foreach($query_run as $row)
-      {
-      require_once 'DT2.php';
-      $stock_datetime= $row["stock_datetime"]; // convert date and time
-      $runid = $row['runid'];
-      $stock_id = $row['stock_id'];
-        $product_name = $row['product_name'];
-        $product_count = $row['product_count'];
-        $emp_name = $row['emp_name'];
-        $emp_surname = $row['emp_surname'];
-        $stock_status = $row['stock_status'];
-  
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="60">'.$i.'</td>
-        <td align="center" width="90">'.$stock_id.'</td>
-        <td align="center" width="100">'.$stock_status.'</td>
-        <td align="center" width="100">'.DateThai($stock_datetime).'</td>
-        <td align="center" width="180">'.$product_name.'</td>
-        <td align="center" width="90">'.$product_count.'</td>
-        
-        </tr>'; 
-        $i++;
-      }
-    }
-    else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="60">-</td>
-        <td align="center" width="90">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="90">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        </tr>'; 
-    }
-  
-    
-  $tbl2 = <<<EOD
-  $txtxxx
-  EOD;
-  $tbl3 = <<<EOD
-  </table>
-  EOD;
-
 }
 //empty product,emp | from_date == to_date 
 else if($from_date!=""&&$to_date!=""&&$from_date==$to_date&&$emp_select==""&&$product_select==""){
@@ -622,71 +437,6 @@ else if($from_date!=""&&$to_date!=""&&$from_date==$to_date&&$emp_select==""&&$pr
   $query = "SELECT * FROM stock JOIN product JOIN emp_data
   WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id
   AND stock_datetime BETWEEN '$from_date' AND '$to_date' ORDER BY stock_id DESC";
-
-  $tbl = <<<EOD
-  <table border="1" align="center">
-  <thead>
-  <tr>
-  <th width="80">ลำดับที่</th>
-  <th width="90">รหัสรายการ</th>
-  <th width="120">ประเภท</th>
-  <th width="120">สินค้า</th>
-  <th width="90">จำนวน(เเพ็ค)</th>
-  <th width="150">พนักงาน</th>
-  
-  </tr>
-  </thead>
-  EOD;
-  $txtxxx = '';
-  
-  $query_run = mysqli_query($conn, $query);
-  if(mysqli_num_rows($query_run) > 0)
-  {
-      foreach($query_run as $row)
-      {
-      require_once 'DT2.php';
-      $stock_datetime= $row["stock_datetime"]; // convert date and time
-      $runid = $row['runid'];
-      $stock_id = $row['stock_id'];
-        $product_name = $row['product_name'];
-        $product_count = $row['product_count'];
-        $emp_name = $row['emp_name'];
-        $emp_surname = $row['emp_surname'];
-        $stock_status = $row['stock_status'];
-  
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="80">'.$i.'</td>
-        <td align="center" width="90">'.$stock_id.'</td>
-        <td align="center" width="120">'.$stock_status.'</td>
-        <td align="center" width="120">'.$product_name.'</td>
-        <td align="center" width="90">'.$product_count.'</td>
-        <td align="center" width="150">'.$emp_name." ".$emp_surname.'</td>
-        
-        </tr>'; 
-        $i++;
-      }
-    }
-    else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="80">-</td>
-        <td align="center" width="90">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="90">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        </tr>'; 
-    }
-  
-    
-  $tbl2 = <<<EOD
-  $txtxxx
-  EOD;
-  $tbl3 = <<<EOD
-  </table>
-  EOD;
-
 }
 //empty product | isset from_date,to_date,emp
   else if($from_date!=""&&$to_date!=""&&$emp_select!=""&&$product_select==""){
@@ -799,22 +549,7 @@ else if($from_date!="" && $to_date!="" && $emp_select!=""&&$product_select!=""){
 else{
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
-
-$tbl = <<<EOD
-<table border="1" align="center">
-<thead>
-<tr>
-<th width="63">ลำดับที่</th>
-<th width="88">รหัสรายการ</th>
-<th width="100">วันที่</th>
-<th width="117">สินค้า</th>
-<th width="92">จำนวน(เเพ็ค)</th>
-<th width="180">พนักงาน</th>
-</tr>
-</thead>
-EOD;
-$txtxxx = '';
-
+}
 
 $query_run = mysqli_query($conn, $query);
 if(mysqli_num_rows($query_run) > 0)
@@ -861,8 +596,6 @@ EOD;
 $tbl3 = <<<EOD
 </table>
 EOD;
-}
-
 $pdf->Write(0, '', '', 0, 'C', true, 0, false, false, 0);
 $pdf->writeHTML($tbl.$tbl2.$tbl3, true, false, false, false, '');
 $pdf->Output('example_004.pdf', 'I');
