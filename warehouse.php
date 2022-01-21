@@ -253,10 +253,10 @@
                           echo "<td class=text-success> $row[product_qty] แพ็ค</td>";
                         }
 
-                        $product_qty = $row['product_qty'];
-                        $unit_pack = $row['unit_pack'];
+                        $product_qty = $row['product_qty']; //ลังหน่วยใหญ่
+                        $unit_pack = $row['unit_pack']; //เเพ็คหน่วยย่อย
 
-                        $box = $product_qty / $unit_pack;
+                        $box = $product_qty / $unit_pack; 
                         $box = (integer)$box;
                         $pack = $product_qty % $unit_pack;
 
