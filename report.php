@@ -225,8 +225,9 @@
                           <option value="">--ว่าง--</option>
                           <option value="รับเข้าสินค้า">รับเข้า</option>
                           <option value="เบิกออกสินค้า">เบิกออก</option>
-                          <option value="สินค้าเสียหาย">สินค้าเสียหาย</option>
-                          <option value="สินค้าเกิน">สินค้าเกิน</option>
+                          <option value="ปรับเคลม">เคลม</option>
+                          <option value="ปรับลดสินค้า">สินค้าเสียหาย</option>
+                          <option value="ปรับเพิ่มสินค้า">สินค้าเกิน</option>
                         </select>
                         
                       </div>
