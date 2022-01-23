@@ -1,11 +1,12 @@
+
 <?php 
 session_start();
 include('connect.php');
 
-if($_SESSION['emp_id'] ==''){
+if(!isset($_SESSION['emp_id'])){
     echo "<script type='text/javascript'>"; 
-    echo "alert('Error Contact Admin !!');"; 
-    echo "window.location = 'forgot_passedit.php'; "; 
+    echo "alert('Error: empty session emp_id.');"; 
+    echo "window.location = 'forgot_password.php'; ";
     echo "</script>";
     }
 
@@ -22,7 +23,7 @@ if($_SESSION['emp_id'] ==''){
     
         if($result){
         echo "<script type='text/javascript'>";
-        echo "alert('Update Succesfuly');";
+        echo "alert('เปลี่ยนรหัสผ่านสำเร็จ');";
         echo "window.location = 'login_page.php'; ";
         echo "</script>";
         session_destroy();

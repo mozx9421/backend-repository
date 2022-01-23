@@ -1,6 +1,6 @@
+
 <?php 
 include('connect.php');
-include('errors.php');
     session_start();
     if(!isset($_SESSION['emp_id'])){
         echo "<script>
@@ -90,11 +90,8 @@ include('errors.php');
             <div class="text-center">
               <button type="submit" name ="forgot_bth" class="btn btn-danger my-4" >ยืนยัน</button>
             </form>
-            <a href="login_page.php">
+            <a href="des.php">
                       <button type="button" class="btn btn-outline-primary"><i class="fas fa-reply"></i>ยกเลิก</button>
-                      <?php
-                      session_destroy();
-                      ?>
             </a>
             </div>
 
@@ -118,4 +115,3 @@ include('errors.php');
   <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
 </html>
-
