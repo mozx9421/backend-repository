@@ -153,7 +153,7 @@
 
           <!-- logged in user information -->
           <?php if (isset($_SESSION['username'])):?>
-            <h2 class="text-white">ยินดีตอนรับ</h2><br>
+            <h2 class="text-white">ยินดีต้อนรับ</h2><br>
                 <div class="card">
                   <div class="card-body border-0">
                       <div class="col-xl-12">
