@@ -180,7 +180,8 @@
             <div class="card-header">
               <div class="row align-items-center">
               
-                <form action="TCPDF-master/examples/report_stock_out.php" method="POST">
+              <!-- POST -->
+                <form action="TCPDF-master/examples/report_stock_out_old.php" method="POST">
                   <div class="card-body col-12 ml-4">
                     <div class="row">
                       <div class="col-md-5 ml-4 mt-4 mb-4">

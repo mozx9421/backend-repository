@@ -415,6 +415,7 @@ $emp_select =$_POST['emp_select'];
 $sql = "SELECT * FROM product 
 JOIN stock ON  product.product_id = stock.product_id
 JOIN emp_data ON emp_data.emp_id = stock.emp_id ORDER BY stock_id DESC";
+
 $i=1;  
 //empty all
 $tbl = <<<EOD
@@ -431,12 +432,15 @@ $tbl = <<<EOD
 </tr>
 </thead>
 EOD;
+
+
 $txtxxx = '';
 
 //1.isset emp 
 if($emp_select!="" && $to_date=="" && $from_date=="" &&$product_select==""&&$status_text==""){
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock.emp_id LIKE '%".$emp_select."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_datetime DESC";
+
 $tbl = <<<EOD
 <table border="1" align="center">
 <thead>
@@ -450,12 +454,33 @@ $tbl = <<<EOD
 </tr>
 </thead>
 EOD;
+
+// $tbl .= <<<EOD
+// <tr>
+//     <td rowspan="2"> 1 </td>
+//     <td> 2 </td>
+//     <td> 3 </td>
+//     <td> 4 </td>
+//     <td> 5 </td>
+//     <td> 6 </td>
+//     <td> 7 </td>
+// </tr>
+// <tr>
+//     <td> 2 </td>
+//     <td> 3 </td>
+//     <td> 4 </td>
+//     <td> 5 </td>
+//     <td> 6 </td>
+// </tr>
+// EOD;
+
 $txtxxx = '';
 $query_run = mysqli_query($conn, $query);
 if(mysqli_num_rows($query_run) > 0)
 {
     foreach($query_run as $row)
     {
+      
     require_once 'DT2.php';
     $stock_datetime= $row["stock_datetime"]; // convert date and time
     $runid = $row['runid'];
@@ -466,8 +491,10 @@ if(mysqli_num_rows($query_run) > 0)
       $emp_surname = $row['emp_surname'];
       $stock_status = $row['stock_status'];
 
+
+
       $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="60">'.$i.'</td>
+      <td align="center" width="60">'.$S_id.'</td>
       <td align="center" width="80">'.$stock_id.'</td>
       <td align="center" width="110">'.$stock_status.'</td>
       <td align="center" width="120">'.DateThai($stock_datetime).'</td>
@@ -1707,6 +1734,7 @@ else{
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
 $query_run = mysqli_query($conn, $query);
+$cap = '';
 if(mysqli_num_rows($query_run) > 0)
 {
     foreach($query_run as $row)
@@ -1720,16 +1748,39 @@ if(mysqli_num_rows($query_run) > 0)
       $emp_name = $row['emp_name'];
       $emp_surname = $row['emp_surname'];
       $stock_status = $row['stock_status'];
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">'.$i.'</td>
-      <td align="center" width="80">'.$stock_id.'</td>
-      <td align="center" width="100">'.$stock_status.'</td>
-      <td align="center" width="100">'.DateThai($stock_datetime).'</td>
+
+      $S_id = "SELECT stock_id FROM stock WHERE stock_id = '$stock_id'";
+      $query_S_id = mysqli_query($conn, $S_id);
+      $query_S_id_1 = mysqli_num_rows($query_S_id);
+
+      if($cap == ""){
+        $txtxxx =$txtxxx.'<tr>
+      <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+      <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+      <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+      <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
       <td align="center" width="120">'.$product_name.'</td>
       <td align="center" width="80">'.$product_count.'</td>
-      <td align="center" width="130">'.$emp_name." ".$emp_surname.'</td>
-      </tr>'; 
+      <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+      </tr>';
+      }else if($stock_id == $cap){
+        $txtxxx =$txtxxx.'<tr>
+        <td align="center" width="120">'.$product_name.'</td>
+        <td align="center" width="80">'.$product_count.'</td>
+        </tr>'; 
+      }else{
+        $txtxxx =$txtxxx.'<tr>
+      <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+      <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+      <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+      <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+      <td align="center" width="120">'.$product_name.'</td>
+      <td align="center" width="80">'.$product_count.'</td>
+      <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+      </tr>';
+      } 
       $i++;
+      $cap = $stock_id;
     }
   }
   else{
