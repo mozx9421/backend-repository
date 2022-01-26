@@ -608,7 +608,7 @@ else{
     <td align="center" width="50">-</td>
     <td align="center" width="80">'.$not_found.'</td>
     <td align="center" width="100">'.$not_found.'</td>
-    <td align="center" width="100">'.$stock_status.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
     <td align="center" width="120">'.$not_found.'</td>
     <td align="center" width="80">'.$not_found.'</td>
     <td align="center" width="130">'.$not_found.'</td>

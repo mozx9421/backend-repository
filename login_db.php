@@ -29,7 +29,7 @@
                 if($_SESSION['emp_level'] == "ผู้จัดการ"){
                     echo "<script>
                     alert('กำลังเข้าสู่ระบบ.. ');
-                    window.location.replace('index_manager.php');
+                    window.location.replace('dashboard.php');
                     </script>";
                 
                 }
