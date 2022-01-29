@@ -711,8 +711,7 @@ if($product_select!="" && $emp_select==""  && $status_text=="" &&  $from_date=="
   // print_r($product_select);
   // exit;
   $query = "SELECT * FROM stock JOIN product JOIN emp_data
-  WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id LIKE '%".$product_select."%' 
-  AND stock.emp_id LIKE '%".$emp_select."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_datetime DESC";
+  WHERE stock.product_id LIKE '%".$product_select."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_datetime DESC";
   
   $tbl = <<<EOD
   <table border="1" align="center">
@@ -728,52 +727,75 @@ if($product_select!="" && $emp_select==""  && $status_text=="" &&  $from_date=="
   </thead>
   EOD;
   $txtxxx = '';
-  $query_run = mysqli_query($conn, $query);
-  if(mysqli_num_rows($query_run) > 0)
+  $cap = '';
+$query_run = mysqli_query($conn, $query);
+if(mysqli_num_rows($query_run) > 0)
+{
+  foreach($query_run as $row)
   {
-      foreach($query_run as $row)
-      {
-      require_once 'DT2.php';
-      $stock_datetime= $row["stock_datetime"]; // convert date and time
-      $runid = $row['runid'];
-      $stock_id = $row['stock_id'];
-        $product_name = $row['product_name'];
-        $product_count = $row['product_count'];
-        $emp_name = $row['emp_name'];
-        $emp_surname = $row['emp_surname'];
-        $stock_status = $row['stock_status'];
-  
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="60">'.$i.'</td>
-        <td align="center" width="80">'.$stock_id.'</td>
-        <td align="center" width="100">'.$stock_status.'</td>
-        <td align="center" width="130">'.DateThai($stock_datetime).'</td>
-        <td align="center" width="100">'.$product_count.'</td>
-        <td align="center" width="180">'.$emp_name.' '.$emp_surname.'</td>
-        </tr>'; 
-        $i++;
-      }
-    }
-    else{
+  require_once 'DT2.php';
+  $stock_datetime= $row["stock_datetime"]; // convert date and time
+  $runid = $row['runid'];
+  $stock_id = $row['stock_id'];
+    $product_name = $row['product_name'];
+    $product_count = $row['product_count'];
+    $emp_name = $row['emp_name'];
+    $emp_surname = $row['emp_surname'];
+    $stock_status = $row['stock_status'];
+    $S_id = "SELECT stock_id FROM stock WHERE stock_id = '$stock_id'";
+    $query_S_id = mysqli_query($conn, $S_id);
+    $query_S_id_1 = mysqli_num_rows($query_S_id);
+    $query_S_id_1 = $stock_id;
+
+    if($cap == ""){
+      $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="60" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="100">'.$product_count.'</td>
+    <td align="center" width="180" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
     
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="60">'.$not_found.'</td>
-        <td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="130">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        </tr>'; 
-    }
-  
+    }else if($stock_id == $cap){
+      $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="100">'.$product_count.'</td>
+      </tr>'; 
+    }else{
+      $i++;
+      $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="60" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="100">'.$product_count.'</td>
+    <td align="center" width="180" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
+    } 
     
-  $tbl2 = <<<EOD
-  $txtxxx
-  EOD;
-  $tbl3 = <<<EOD
-  </table>
-  EOD;
+    $cap = $stock_id;
+  }
+}
+else{
+
+  $not_found = "ไม่พบข้อมูล";
+    $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="50">-</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="120">'.$not_found.'</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="130">'.$not_found.'</td>
+    </tr>'; 
+}
+  
+$tbl2 = <<<EOD
+$txtxxx
+EOD;
+$tbl3 = <<<EOD
+</table>
+EOD;
   
 }
 
@@ -1703,49 +1725,74 @@ else if($from_date==""&&$to_date!=""&&$product_select==""&&$emp_select==""){
   </script>";
 }
 //status
-else{
+else if($from_date=="" &&  $to_date=="" &&  $product_select=="" && $status_text==""  && $emp_select=="" ){
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";
+$cap = '';
 $query_run = mysqli_query($conn, $query);
 if(mysqli_num_rows($query_run) > 0)
 {
-    foreach($query_run as $row)
-    {
-    require_once 'DT2.php';
-    $stock_datetime= $row["stock_datetime"]; // convert date and time
-    $runid = $row['runid'];
-    $stock_id = $row['stock_id'];
-      $product_name = $row['product_name'];
-      $product_count = $row['product_count'];
-      $emp_name = $row['emp_name'];
-      $emp_surname = $row['emp_surname'];
-      $stock_status = $row['stock_status'];
+  foreach($query_run as $row)
+  {
+  require_once 'DT2.php';
+  $stock_datetime= $row["stock_datetime"]; // convert date and time
+  $runid = $row['runid'];
+  $stock_id = $row['stock_id'];
+    $product_name = $row['product_name'];
+    $product_count = $row['product_count'];
+    $emp_name = $row['emp_name'];
+    $emp_surname = $row['emp_surname'];
+    $stock_status = $row['stock_status'];
+
+    $S_id = "SELECT stock_id FROM stock WHERE stock_id = '$stock_id'";
+    $query_S_id = mysqli_query($conn, $S_id);
+    $query_S_id_1 = mysqli_num_rows($query_S_id);
+
+    if($cap == ""){
       $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">'.$i.'</td>
-      <td align="center" width="80">'.$stock_id.'</td>
-      <td align="center" width="100">'.$stock_status.'</td>
-      <td align="center" width="100">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="120">'.$product_name.'</td>
+    <td align="center" width="80">'.$product_count.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
+    
+    }else if($stock_id == $cap){
+      $txtxxx =$txtxxx.'<tr>
       <td align="center" width="120">'.$product_name.'</td>
       <td align="center" width="80">'.$product_count.'</td>
-      <td align="center" width="130">'.$emp_name." ".$emp_surname.'</td>
       </tr>'; 
+    }else{
       $i++;
-    }
-  }
-  else{
-  
-    $not_found = "ไม่พบข้อมูล";
       $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="100">'.$stock_status.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="130">'.$not_found.'</td>
-      </tr>'; 
+    <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="120">'.$product_name.'</td>
+    <td align="center" width="80">'.$product_count.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
+    } 
+    
+    $cap = $stock_id;
   }
+}
+else{
 
+  $not_found = "ไม่พบข้อมูล";
+    $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="50">-</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="120">'.$not_found.'</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="130">'.$not_found.'</td>
+    </tr>'; 
+}
   
 $tbl2 = <<<EOD
 $txtxxx
@@ -1753,7 +1800,7 @@ EOD;
 $tbl3 = <<<EOD
 </table>
 EOD;
-}
+}else{}
 
 
 $pdf->Write(0, '', '', 0, 'C', true, 0, false, false, 0);
