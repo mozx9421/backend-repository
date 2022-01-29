@@ -219,7 +219,7 @@
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
                     <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6></th>
+                      <th><a href="editstock.php"><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6><a></th>
                       <th><h6 class="text-gray text-ml mb-0">สถานะ</h6</th>
                       <th><h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6></th>
@@ -232,7 +232,7 @@
                       AND stock.product_id = product.product_id
                       AND stock_status LIKE 'ปรับ%'
                       GROUP BY stock_id
-                      ORDER BY stock_datetime DESC") or die(mysqli_error());
+                      ORDER BY stock_status  DESC") or die(mysqli_error());
                       include 'DT.php';
                       $x = 1;
                       while($fetch = mysqli_fetch_array($query)){
@@ -245,10 +245,10 @@
                         if($fetch['stock_status']=="ปรับเพิ่มสินค้า"){
                           echo "<td class=text-success>";
                         }else if($fetch['stock_status']=="ปรับลดสินค้า"){
-                          echo "<td class=text-success>";
+                          echo "<td class=text-danger>";
                         }
                         else{
-                          echo "<td class=text-danger>";
+                          echo "<td class=text-warning>";
                         }
                       ?>
                       <?php echo $fetch['stock_status']?></td>

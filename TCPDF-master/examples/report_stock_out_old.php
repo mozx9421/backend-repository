@@ -581,12 +581,14 @@ if(mysqli_num_rows($query_run) > 0)
     <td align="center" width="80">'.$product_count.'</td>
     <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
     </tr>';
+    
     }else if($stock_id == $cap){
       $txtxxx =$txtxxx.'<tr>
       <td align="center" width="120">'.$product_name.'</td>
       <td align="center" width="80">'.$product_count.'</td>
       </tr>'; 
     }else{
+      $i++;
       $txtxxx =$txtxxx.'<tr>
     <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
     <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
@@ -597,7 +599,7 @@ if(mysqli_num_rows($query_run) > 0)
     <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
     </tr>';
     } 
-    $i++;
+    
     $cap = $stock_id;
   }
 }

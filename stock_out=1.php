@@ -242,17 +242,19 @@ if (isset($_GET['logout'])) {
                                                     <tr>
                                                         
                                                         <td contenteditable="true">
-                                                            <select class="form-control product_id" id="product_id <?php echo "$i" ?>" name="product_id<?php echo "$i" ?>" placeholder="" onkeyup="keyuppername(<?php echo $i ?>) " required>
+                                                        <input id="num_product" type="hidden" value="0">
+                                                            <select class="form-control product_id" id="product_id_0" name="product_id" placeholder="" required>
                                                                 <?php
                                                                 $sqlpro = "SELECT * FROM product WHERE product_qty != 0";
                                                                 $resultpro = $conn->query($sqlpro);
+                                                                echo "<option value='' disabled selected>กรุณาเลือกสินค้า</option>";
                                                                 while ($row = $resultpro->fetch_assoc()) :
                                                                 echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
                                                                 endwhile
                                                                 ?>
                                                             </select>
                                                         </td>
-                                                        <td contenteditable="true" ><input type="number" value="1" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
+                                                        <td contenteditable="false" ><input type="number" value="1" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
                                                         <!-- <td contenteditable="true" ><input type="datetime-local" id="product_exp<?php echo "$i" ?>" name="product_exp<?php echo "$i" ?>" placeholder="" onkeyup="keyuppermiddle(<?php echo $i ?>)" class="form-control col-md-12 product_exp" required></td> -->
                                                         <td>
                                                             <div align="center">
@@ -300,19 +302,24 @@ if (isset($_GET['logout'])) {
                                             var count = 1;
                                             $('#add').click(function() {
                                                 count = count + 1;
+                                                var t = parseInt($('#num_product').val())
+                                                a = t + 1
                                                 var html_code = "<tr id='row" + count + "'>";
-                                                html_code += "<td contenteditable='true' ><select class='form-control product_id' id='productID' name='productID'><?php
-                                                $sqlpro = "SELECT * FROM product WHERE product_qty != 0";
-                                                $resultpro = $conn->query($sqlpro);
-                                                while ($row = $resultpro->fetch_assoc()) :
-                                                    echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
-                                                endwhile
-                                                ?></select></td>";
-                                                html_code += "<td contenteditable='true'><input type='number' value='1' min='1' class='form-control product_qty' id='product_qty' name='product_qty' required></td>";
                                                 
-                                                html_code += "<td align=center><button type='button' name='remove' data-row='row" + count + "' class='btn btn-outline-danger btn-xs remove'><i class='fas fa-minus'></button></td>";
+                                                html_code += "<td contenteditable='true' ><select class='form-control product_id' id='product_id_" + a + "' name='productID'><option disabled selected value>กรุณาเลือกสินค้า</option><?php
+                                                                                                                                                                    $sqlpro = "SELECT * FROM product";
+                                                                                                                                                                    $resultpro = $conn->query($sqlpro);
+                                                                                                                                                                    
+                                                                                                                                                                    while ($row = $resultpro->fetch_assoc()) :
+                                                                                                                                                                        
+                                                                                                                                                                        echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
+                                                                                                                                                                    endwhile
+                                                                                                                                                                    ?></select></td>";
+                                                html_code += "<td contenteditable='true'><input type='number' value='1' min='1' class='form-control product_qty' id='product_qty' name='product_qty' required></td>";
+                                                html_code += "<td align=center><button type='button' name='remove' data-row='row" + count + "' class='btn btn-outline-danger btn-xs remove'><i class='fas fa-minus'></i></button></td>";
                                                 html_code += "</tr>";
                                                 $('#crud_table tbody:last-child').append(html_code);
+                                                $('#num_product').val(a)
                                             });
 
                                             $(document).on('click', '.remove', function() {
@@ -327,49 +334,75 @@ if (isset($_GET['logout'])) {
                                                 var stock_status = 'เบิกออกสินค้า'
                                                 var emp_id = $('#emp_id').val()
                                                 var u = 0
-                                                var rowCount = $('#crud_table tr').length -1
-                                                $('.data_product tr').each(function (a, b) {
+                                                var rowCount = $('#crud_table tr').length - 1
+                                                var check = 0
+                                                $('.data_product tr').each(function(a, b) {
 
-                                                    if($('.product_qty', b).val() == ""){
+                                                    if ($('.product_qty', b).val() == "") {
                                                         alert('กรุณาใส่จำนวน')
                                                         return false
-                                                    }else if($('.product_exp', b).val() == ""){
+                                                    } else if ($('.product_exp', b).val() == "") {
                                                         alert('กรุณาใส่วันหมดอายุ')
+                                                        return false
+                                                    }else if ($('.product_id', b).val() == "" || $('.product_id', b).val() == null) {
+                                                        alert('กรุณาเลือกสินค้า')
+                                                        check = 1
                                                         return false
                                                     }
 
                                                     data.push({
-                                                        product_id:$('.product_id', b).val(),
-                                                        product_qty:$('.product_qty', b).val(),
-                                                        emp_id:emp_id,
-                                                        stock_status:stock_status,
+                                                        product_id: $('.product_id', b).val(),
+                                                        product_qty: $('.product_qty', b).val(),
+                                                        // product_exp: $('.product_exp', b).val(),
+                                                        emp_id: emp_id,
+                                                        stock_status: stock_status,
                                                     })
                                                     u++
                                                 })
 
-                                                if(u == rowCount){
-                                                    $.ajax({
-                                                        url: "stock_out=insert.php",
-                                                        method: "POST",
-                                                        data: {
-                                                            data: data
-                                                        },
-                                                        success: function(data) {
-                                                            // console.log(data);
-                                                            if(data == 1){
-                                                            alert ('บันทึกสำเร็จ')
-                                                            window.location.replace('stock_out.php')
-                                                             }
-                                                            else{
-                                                                alert ('บันทึกไม่สำเร็จ')
+                                                if(check != 1){
+                                                    if (u == rowCount) {
+                                                        $.ajax({
+                                                            url: "stock_out=insert.php",
+                                                            method: "POST",
+                                                            data: {
+                                                                data: data
+                                                            },
+                                                            success: function(data) {
+                                                                alert('บันทึกลงฐานข้อมูลสำเร็จ ')
+                                                                window.location.replace('stock_out.php')
                                                             }
-                                                        }
-                                                    })
+                                                        })
+                                                    }
                                                 }
+                                                
+                                                
 
                                             })
+                                        });
 
 
+                                        $(document).on('change', '.product_id', function(e) {
+                                            var data = e.currentTarget.value
+                                            const test = [];
+                                            $('.data_product tr').each(function(a, b) {
+                                                if($('.product_id', b).val()){
+                                                    test.push($('.product_id', b).val());
+                                                }
+                                            })
+
+                                            $(test).each(function (a, b) { //2
+                                                for (let i = 0; i < test.length; i++) { //2
+                                                    if(a != i){ 
+                                                        if(b == test[i]){
+                                                            alert('ไม่สามารถเลือกสินค้านี้ได้')
+                                                            $('#'+e.currentTarget.id).val('')
+                                                            return false
+                                                        }
+
+                                                    }
+                                                }
+                                            }) 
                                         });
                                     </script>
 </body>
