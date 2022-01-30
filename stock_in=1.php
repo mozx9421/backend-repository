@@ -331,8 +331,11 @@ if (isset($_GET['logout'])) {
                                                 var check = 0
                                                 $('.data_product tr').each(function(a, b) {
 
-                                                    if ($('.product_qty', b).val() == "") {
+                                                    if ($('.product_qty', b).val() == "" || $('.product_qty', b).val() == 0) {
                                                         alert('กรุณาใส่จำนวน')
+                                                        return false
+                                                    }else if($('.product_qty', b).val() < 0) {
+                                                        alert('จำนวนสินค้าไม่สามารถติดลบได้')
                                                         return false
                                                     } else if ($('.product_exp', b).val() == "") {
                                                         alert('กรุณาใส่วันหมดอายุ')
