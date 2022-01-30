@@ -1,33 +1,34 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'],$_SESSION['emp_level'])){
-      echo "<script>
+if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username'],$_SESSION['emp_level']);
-      echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username'], $_SESSION['emp_level']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if($_SESSION['emp_level'] == "พนักงาน" ){
-      echo "<script>
+if ($_SESSION['emp_level'] == "พนักงาน") {
+  echo "<script>
       alert('คุณไม่มีสิทธิ์เข้าถึงเนื้อหานี้..');
       window.location.replace('index_employee.php');
       </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -52,18 +53,21 @@
 </head>
 
 <body class="bg-gradient-danger">
+
+  <!-- Scripts -->
+
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" <?php
-          if($_SESSION['emp_level'] == "พนักงาน" ){
-            ?> href="index_employee.php" <?php
-          }else{
-            ?> href="index_manager.php" <?php
-          } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                if ($_SESSION['emp_level'] == "พนักงาน") {
+                                ?> href="index_employee.php" <?php
+                                                            } else {
+                                                              ?> href="index_manager.php" <?php
+                                                                    } ?>>
+          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -97,7 +101,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active">
-                <i class="fas fa-paste text-orange" ></i>
+                <i class="fas fa-paste text-orange"></i>
                 <span class="nav-link-text">รายงาน</span>
               </a>
             </li>
@@ -105,14 +109,14 @@
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -126,7 +130,7 @@
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-gradient-danger border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
+
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center  ml-md-auto ">
             <li class="nav-item d-xl-none">
@@ -149,7 +153,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -174,34 +178,44 @@
 
     <!-- Page Content -->
     <div class="container-fluid mt--6 animate-right">
-      <div class="row"><div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
+      <div class="row">
+        <div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
         <div class="col-10">
           <div class="card">
             <div class="card-header">
               <div class="row align-items-center">
-              
-              <!-- POST -->
+
+                <!-- POST -->
+                ตัวเลือกวันที่ :
+                <select class="form-control stock_status" id="stock_status " placeholder="" onchange="window.location=this.value" required>
+                  <option value="report.php">เลือกระหว่างวัน</option>
+                  <option value="report1.php">เลือกวันที่เดียว</option>
+                </select>
                 <form action="TCPDF-master/examples/report_stock_out.php" method="POST">
                   <div class="card-body col-12 ml-4">
                     <div class="row">
                       <div class="col-md-5 ml-4 mt-4 mb-4">
                         <label>ตั้งแต่วันที่</label>
-                        <input type="date" name="from_date" value="<?php if(isset($_POST['from_date'])){ echo $_POST['from_date']; } ?>" class="form-control">
+                        <input type="date" name="from_date" value="<?php if (isset($_POST['from_date'])) {
+                                                                      echo $_POST['from_date'];
+                                                                    } ?>" class="form-control">
                       </div>
                       <div class="col-md-5 ml-5 mt-4 mb-4">
                         <label>ถึงวันที่</label>
-                        <input type="date" name="to_date" value="<?php if(isset($_POST['to_date'])){ echo $_POST['to_date']; } ?>" class="form-control">
+                        <input type="date" name="to_date" value="<?php if (isset($_POST['to_date'])) {
+                                                                    echo $_POST['to_date'];
+                                                                  } ?>" class="form-control">
                       </div>
                       <div class="col-md-5 ml-4 mt-1 mb-4">
                         <label>สินค้า</label>
                         <select id="product_select" name="product_select" placeholder="" onkeyup="keyuppername(<?php echo $i ?>)" class="form-control">
                           <option value="">--ว่าง--</option>
                           <?php
-                            $sqlpro = "SELECT * FROM product";
-                            $resultpro = $conn->query($sqlpro);
-                            while($row = $resultpro->fetch_assoc()):
-                              echo "<option value=$row[product_id]> $row[product_name] ($row[product_id]) </option>"; 
-                            endwhile
+                          $sqlpro = "SELECT * FROM product";
+                          $resultpro = $conn->query($sqlpro);
+                          while ($row = $resultpro->fetch_assoc()) :
+                            echo "<option value=$row[product_id]> $row[product_name] ($row[product_id]) </option>";
+                          endwhile
                           ?>
                         </select>
                       </div>
@@ -210,19 +224,19 @@
                         <select id="emp_select" name="emp_select" placeholder="" onkeyup="keyuppername(<?php echo $i ?>)" class="form-control">
                           <option value="">--ว่าง--</option>
                           <?php
-                            $sqlpro = "SELECT * FROM emp_data";
-                            $resultpro = $conn->query($sqlpro);
-                            while($row = $resultpro->fetch_assoc()):
-                              echo "<option value=$row[emp_id]> $row[emp_name] $row[emp_surname] </option>"; 
-                            endwhile
+                          $sqlpro = "SELECT * FROM emp_data";
+                          $resultpro = $conn->query($sqlpro);
+                          while ($row = $resultpro->fetch_assoc()) :
+                            echo "<option value=$row[emp_id]> $row[emp_name] $row[emp_surname] </option>";
+                          endwhile
                           ?>
                         </select>
-                        
+
                       </div>
-                      
+
                       <div class="col-md-5 ml-4 mt-1 mb-4">
                         <label>สถานะ</label>
-                        <select id="status_select" name="status_select" placeholder=""  class="form-control">
+                        <select id="status_select" name="status_select" placeholder="" class="form-control">
                           <option value="">--ว่าง--</option>
                           <option value="รับเข้าสินค้า">รับเข้า</option>
                           <option value="เบิกออกสินค้า">เบิกออก</option>
@@ -230,24 +244,24 @@
                           <option value="ปรับลดสินค้า">สินค้าเสียหาย</option>
                           <option value="ปรับเพิ่มสินค้า">สินค้าเกิน</option>
                         </select>
-                        
+
                       </div>
-                    
-                    <div class="col-md-4 ml-5 mt-4">
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary fas fa-file"> ออกรายงาน</button>
-                        <button type="reset" class="btn btn-outline-warning"><i class="fas fa-undo"></i> เคลียข้อมูล</button>
+
+                      <div class="col-md-4 ml-5 mt-4">
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-outline-primary fas fa-file"> ออกรายงาน</button>
+                          <button type="reset" class="btn btn-outline-warning"><i class="fas fa-undo"></i> เคลียข้อมูล</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
                 </form>
-</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
@@ -261,7 +275,7 @@
   <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.2.0"></script>
-  
+
 </body>
 
 </html>
