@@ -235,6 +235,8 @@
                       ORDER BY stock_datetime DESC") or die(mysqli_error());
                       include 'DT.php';
                       $x = 1;
+                      $n = 0;
+                      // while($n <= 49 &&$fetch = mysqli_fetch_array($query))
                       while($fetch = mysqli_fetch_array($query)){
                         $dateData = $fetch['stock_datetime'];
                     ?>
@@ -245,10 +247,10 @@
                         if($fetch['stock_status']=="ปรับเพิ่มสินค้า"){
                           echo "<td class=text-success>";
                         }else if($fetch['stock_status']=="ปรับลดสินค้า"){
-                          echo "<td class=text-success>";
+                          echo "<td class=text-danger>";
                         }
                         else{
-                          echo "<td class=text-danger>";
+                          echo "<td class=text-warning>";
                         }
                       ?>
                       <?php echo $fetch['stock_status']?></td>
@@ -263,7 +265,8 @@
                       </td>
                     </tr>
                     <?php
-                      }
+                    //  $n++; 
+                  }
                     ?>
                   </table>
                 </div>

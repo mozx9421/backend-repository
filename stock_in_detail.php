@@ -251,7 +251,6 @@ if (isset($_GET['logout'])) {
                     $x = 1;
                     while ($fetch = mysqli_fetch_array($resultmo)) {
                       $dateData1 = $fetch['stock_datetime'];
-                      $dateData2 = $fetch['product_exp'];
                     ?>
                       <tr align="center">
                         <td><?php echo $x;

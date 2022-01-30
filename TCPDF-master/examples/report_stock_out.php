@@ -1644,87 +1644,95 @@ if($from_date!="" &&  $to_date!="" &&  $product_select!="" && $status_text==""  
   EOD;
 }
 
-//empty 1 date
-else if($from_date==""&&$to_date!=""&&$product_select!=""&&$emp_select!=""){
+//1.1 from_date isset
+else if($from_date!=""&&$to_date==""&&$product_select==""&&$emp_select==""&& $status_text==""){
   // print_r($emp_select);
   // print_r($product_select);
   // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
+
+//  echo "<script>
+//   alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
+//   window.location.replace('../../report.php');
+//   </script>";
+
+$query = "SELECT * FROM stock JOIN product JOIN emp_data
+WHERE  stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id 
+AND stock_datetime LIKE '%".$from_date."%'  ORDER BY stock_datetime DESC";
+
+$cap = '';
+$query_run = mysqli_query($conn, $query);
+if(mysqli_num_rows($query_run) > 0)
+{
+  foreach($query_run as $row)
+  {
+  require_once 'DT2.php';
+  $stock_datetime= $row["stock_datetime"]; // convert date and time
+  $runid = $row['runid'];
+  $stock_id = $row['stock_id'];
+    $product_name = $row['product_name'];
+    $product_count = $row['product_count'];
+    $emp_name = $row['emp_name'];
+    $emp_surname = $row['emp_surname'];
+    $stock_status = $row['stock_status'];
+
+    $S_id = "SELECT stock_id FROM stock WHERE stock_id = '$stock_id'";
+    $query_S_id = mysqli_query($conn, $S_id);
+    $query_S_id_1 = mysqli_num_rows($query_S_id);
+
+    if($cap == ""){
+      $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="120">'.$product_name.'</td>
+    <td align="center" width="80">'.$product_count.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
+    
+    }else if($stock_id == $cap){
+      $txtxxx =$txtxxx.'<tr>
+      <td align="center" width="120">'.$product_name.'</td>
+      <td align="center" width="80">'.$product_count.'</td>
+      </tr>'; 
+    }else{
+      $i++;
+      $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="50" rowspan="'.$query_S_id_1.'">'.$i.'</td>
+    <td align="center" width="80" rowspan="'.$query_S_id_1.'">'.$stock_id.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.$stock_status.'</td>
+    <td align="center" width="100" rowspan="'.$query_S_id_1.'">'.DateThai($stock_datetime).'</td>
+    <td align="center" width="120">'.$product_name.'</td>
+    <td align="center" width="80">'.$product_count.'</td>
+    <td align="center" width="130" rowspan="'.$query_S_id_1.'">'.$emp_name." ".$emp_surname.'</td>
+    </tr>';
+    } 
+    
+    $cap = $stock_id;
+  }
 }
-//empty 1 date
-else if($from_date!=""&&$to_date==""&&$product_select!=""&&$emp_select!=""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
+else{
+
+  $not_found = "ไม่พบข้อมูล";
+    $txtxxx =$txtxxx.'<tr>
+    <td align="center" width="50">-</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="100">'.$not_found.'</td>
+    <td align="center" width="120">'.$not_found.'</td>
+    <td align="center" width="80">'.$not_found.'</td>
+    <td align="center" width="130">'.$not_found.'</td>
+    </tr>'; 
 }
-//empty 1 date
-else if($from_date!=""&&$to_date==""&&$product_select==""&&$emp_select!=""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
+  
+$tbl2 = <<<EOD
+$txtxxx
+EOD;
+$tbl3 = <<<EOD
+</table>
+EOD;
+ 
 }
-//empty 1 date
-else if($from_date!=""&&$to_date==""&&$product_select!=""&&$emp_select==""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
-}
-//empty 1 date
-else if($from_date==""&&$to_date!=""&&$product_select!=""&&$emp_select==""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
-}
-//empty 1 date
-else if($from_date==""&&$to_date!=""&&$product_select==""&&$emp_select!=""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
-}
-//empty 1 date
-else if($from_date!=""&&$to_date==""&&$product_select==""&&$emp_select==""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
-}
-//empty 1 date
-else if($from_date==""&&$to_date!=""&&$product_select==""&&$emp_select==""){
-  // print_r($emp_select);
-  // print_r($product_select);
-  // exit;
-  echo "<script>
-  alert('ผิดพลาด:กรุณาระบุวันที่ทั้งสองวัน');
-  window.location.replace('../../report.php');
-  </script>";
-}
-//status
 else if($from_date=="" &&  $to_date=="" &&  $product_select=="" && $status_text==""  && $emp_select=="" ){
 $query = "SELECT * FROM stock JOIN product JOIN emp_data
 WHERE stock_status LIKE '%".$status_text."%' AND stock.product_id=product.product_id AND stock.emp_id=emp_data.emp_id ORDER BY stock_id DESC";

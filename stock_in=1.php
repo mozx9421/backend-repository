@@ -251,7 +251,7 @@ if (isset($_GET['logout'])) {
                                                                 ?>
                                                             </select>
                                                         </td>
-                                                        <td contenteditable="true"><input  type="number" value="1" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
+                                                        <td contenteditable="false"><input type="number" min="1" class="form-control product_qty" id="product_qty" name="product_qty" required></td>
                                                         <td>
                                                             <div align="center">
                                                                 <button type="button" name="add" id="add" class="btn btn-outline-success btn-xs"><i class="fas fa-plus"></i></button>
@@ -298,17 +298,17 @@ if (isset($_GET['logout'])) {
                                                 var t = parseInt($('#num_product').val())
                                                 a = t + 1
                                                 var html_code = "<tr id='row" + count + "'>";
-                                                
+
                                                 html_code += "<td contenteditable='true' ><select class='form-control product_id' id='product_id_" + a + "' name='productID'><option disabled selected value>กรุณาเลือกสินค้า</option><?php
-                                                                                                                                                                    $sqlpro = "SELECT * FROM product";
-                                                                                                                                                                    $resultpro = $conn->query($sqlpro);
-                                                                                                                                                                    
-                                                                                                                                                                    while ($row = $resultpro->fetch_assoc()) :
-                                                                                                                                                                        
-                                                                                                                                                                        echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
-                                                                                                                                                                    endwhile
-                                                                                                                                                                    ?></select></td>";
-                                                html_code += "<td contenteditable='true'><input type='number' value='1' min='1' class='form-control product_qty' id='product_qty' name='product_qty' required></td>";
+                                                                                                                                                                                                                                        $sqlpro = "SELECT * FROM product";
+                                                                                                                                                                                                                                        $resultpro = $conn->query($sqlpro);
+
+                                                                                                                                                                                                                                        while ($row = $resultpro->fetch_assoc()) :
+
+                                                                                                                                                                                                                                            echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
+                                                                                                                                                                                                                                        endwhile
+                                                                                                                                                                                                                                        ?></select></td>";
+                                                html_code += "<td contenteditable='false'><input type='number' min='1' class='form-control product_qty' id='product_qty' name='product_qty' required></td>";
                                                 html_code += "<td align=center><button type='button' name='remove' data-row='row" + count + "' class='btn btn-outline-danger btn-xs remove'><i class='fas fa-minus'></i></button></td>";
                                                 html_code += "</tr>";
                                                 $('#crud_table tbody:last-child').append(html_code);
@@ -337,7 +337,7 @@ if (isset($_GET['logout'])) {
                                                     } else if ($('.product_exp', b).val() == "") {
                                                         alert('กรุณาใส่วันหมดอายุ')
                                                         return false
-                                                    }else if ($('.product_id', b).val() == "" || $('.product_id', b).val() == null) {
+                                                    } else if ($('.product_id', b).val() == "" || $('.product_id', b).val() == null) {
                                                         alert('กรุณาเลือกสินค้า')
                                                         check = 1
                                                         return false
@@ -353,7 +353,21 @@ if (isset($_GET['logout'])) {
                                                     u++
                                                 })
 
-                                                if(check != 1){
+
+                                                function checkMinPrice(idOfItem) {
+
+                                                    var enteredPrice = $("#product_qty").val();
+                                                    // use ajax here to fetch minimum price from server.
+                                                    // suppose we have fetched price and it is saved in "MinPrice" variable
+
+                                                    if (MinPrice >= enteredPrice) {
+                                                        //give alert or any other type of error here.
+                                                        alert("Entered price must be greater than minimum price");
+                                                        $("#product_qty").focus(); // move the curson to price field to ask him to enter higher price.
+                                                    }
+                                                }
+
+                                                if (check != 1) {
                                                     if (u == rowCount) {
                                                         $.ajax({
                                                             url: "stock_in=insert.php",
@@ -368,8 +382,8 @@ if (isset($_GET['logout'])) {
                                                         })
                                                     }
                                                 }
-                                                
-                                                
+
+
 
                                             })
                                         });
@@ -379,23 +393,23 @@ if (isset($_GET['logout'])) {
                                             var data = e.currentTarget.value
                                             const test = [];
                                             $('.data_product tr').each(function(a, b) {
-                                                if($('.product_id', b).val()){
+                                                if ($('.product_id', b).val()) {
                                                     test.push($('.product_id', b).val());
                                                 }
                                             })
 
-                                            $(test).each(function (a, b) { //2
+                                            $(test).each(function(a, b) { //2
                                                 for (let i = 0; i < test.length; i++) { //2
-                                                    if(a != i){ 
-                                                        if(b == test[i]){
+                                                    if (a != i) {
+                                                        if (b == test[i]) {
                                                             alert('ไม่สามารถเลือกสินค้านี้ได้')
-                                                            $('#'+e.currentTarget.id).val('')
+                                                            $('#' + e.currentTarget.id).val('')
                                                             return false
                                                         }
 
                                                     }
                                                 }
-                                            }) 
+                                            })
                                         });
                                     </script>
 </body>
