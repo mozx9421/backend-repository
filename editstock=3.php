@@ -344,7 +344,7 @@ if (isset($_GET['logout'])) {
 
                                                 var data = []
                                                 var emp_id = $('#emp_id').val()
-                                                var stock_status = 'เคลม'
+                                                var stock_status = 'ปรับเคลม'
                                                 var u = 0
                                                 var rowCount = $('#crud_table tr').length - 1
                                                 var check = 0
@@ -386,7 +386,7 @@ if (isset($_GET['logout'])) {
                                                             },
                                                             success: function(data) {
                                                                 if(data == 1){
-                                                            alert ('บันทึกการลดสินค้าสำเร็จ')
+                                                            alert ('บันทึกการเคลมสินค้าสำเร็จ')
                                                             window.location.replace('editstock.php')
                                                              }
                                                             else{
