@@ -188,13 +188,12 @@
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
                       <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6></th>
+                      <th><h6 class="text-gray text-ml mb-0">หมายเลขรายการ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">สถานะ</h6</th>
                       <th><h6 class="text-gray text-ml mb-0">วันเวลาที่รับเข้าสินค้า</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ผู้รับเข้าสินค้า</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">สินค้า</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">จำนวน</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">วันหมดอายุ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">หมายเหตุ</h6></th>
                     </tr>
                     <?php
@@ -212,7 +211,6 @@
                       $x = 1;
                       while($fetch = mysqli_fetch_array($resultmo)){
                         $dateData1 = $fetch['stock_datetime'];
-                        $dateData2 = $fetch['product_exp'];
                     ?>
                     <tr align="center">
                         <td><?php echo $x; $x++; ?></td>
@@ -234,16 +232,7 @@
                         <td><?php echo $fetch['product_count']?></td>
                         <td>
                             <?php
-                                if($fetch['stock_status'] == 'รับเข้าสินค้า'){
-                                    echo thai_date_and_time_short(strtotime($dateData2));
-                                }else{
-                                    echo "-";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                                if($fetch['stock_status'] == 'ปรับเพิ่มสินค้า' or $fetch['stock_status'] == 'ปรับลดสินค้า'){
+                                if($fetch['stock_status'] == 'ปรับเพิ่มสินค้า' or $fetch['stock_status'] == 'ปรับลดสินค้า' or $fetch['stock_status'] == 'ปรับเคลม'){
                                     echo $fetch['stock_comment'];
                                 }else{
                                     echo "-";
