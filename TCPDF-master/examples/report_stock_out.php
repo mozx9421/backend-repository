@@ -503,17 +503,10 @@ if($emp_select!="" && $to_date=="" && $from_date=="" &&$product_select==""&&$sta
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="70">-</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="150">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -572,15 +565,10 @@ if($emp_select!="" && $to_date=="" && $from_date=="" &&$product_select==""&&$sta
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -667,17 +655,10 @@ if(mysqli_num_rows($query_run) > 0)
   }
 }
 else{
-
-  $not_found = "ไม่พบข้อมูล";
-    $txtxxx =$txtxxx.'<tr>
-    <td align="center" width="70">-</td>
-    <td align="center" width="100">'.$not_found.'</td>
-    <td align="center" width="120">'.$not_found.'</td>
-    <td align="center" width="120">'.$not_found.'</td>
-    <td align="center" width="150">'.$not_found.'</td>
-    <td align="center" width="100">'.$not_found.'</td>
-    
-    </tr>'; 
+  echo "<script>
+  alert('ไม่พบข้อมูล..');
+  window.location.replace('../../report.php');
+  </script>";
 }
   
 $tbl2 = <<<EOD
@@ -735,14 +716,10 @@ else if($emp_select!=""  && $status_text!="" && $product_select!="" && $from_dat
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="150">'.$$not_found.'</td>
-        <td align="center" width="150">'.$$not_found.'</td>
-        <td align="center" width="250">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -806,15 +783,10 @@ if(mysqli_num_rows($query_run) > 0)
   }
 }
 else{
-
-  $not_found = "ไม่พบข้อมูล";
-    $txtxxx =$txtxxx.'<tr>
-    <td align="center" width="80">-</td>
-    <td align="center" width="120">'.$not_found.'</td>
-    <td align="center" width="140">'.$not_found.'</td>
-    <td align="center" width="130">'.$not_found.'</td>
-    <td align="center" width="180">'.$not_found.'</td>
-    </tr>'; 
+  echo "<script>
+  alert('ไม่พบข้อมูล..');
+  window.location.replace('../../report.php');
+  </script>";
 }
   
 $tbl2 = <<<EOD
@@ -874,15 +846,10 @@ else if($product_select!="" && $status_text!="" && $emp_select!="" && $from_date
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -970,17 +937,10 @@ else if($status_text!="" && $product_select=="" &&  $emp_select=="" && $from_dat
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -1041,15 +1001,10 @@ if($status_text!="" && $product_select!="" &&  $emp_select=="" && $from_date==""
         $i++;
       }
     }else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="80">-</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="140">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="200">'.$not_found.'</td>
-      </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
   }
     
   $tbl2 = <<<EOD
@@ -1108,15 +1063,10 @@ else if($product_select!=""&& $status_text!=""&& $from_date!="" && $to_date=="" 
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1203,16 +1153,10 @@ else if($status_text!="" && $from_date!=""&& $product_select=="" &&  $emp_select
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="140">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="160">'.$not_found.'</td>
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -1268,14 +1212,10 @@ else if($product_select!=""&& $status_text!=""&& $from_date!="" && $to_date!="" 
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="220">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1336,16 +1276,10 @@ else if($product_select!=""&& $status_text==""&& $from_date=="" && $to_date=="" 
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="50">'.$not_found.'</td>
-        <td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="160">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1404,15 +1338,10 @@ else if($product_select!=""&& $from_date!=""&& $status_text=="" && $to_date=="" 
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="200">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1501,17 +1430,10 @@ else if($from_date!=""&& $status_text!="" && $to_date!="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="140">'.$not_found.'</td>
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -1573,16 +1495,10 @@ else if($product_select!=""&& $from_date!=""&& $to_date!="" && $status_text=="" 
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="50">'.$not_found.'</td>
-        <td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1641,14 +1557,10 @@ else if($product_select!=""&& $from_date!=""&&$emp_select!=""&& $status_text==""
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1708,15 +1620,10 @@ else if($product_select!=""&& $from_date!=""&& $to_date!="" && $emp_select!="" &
       }
     }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="180">'.$not_found.'</td>
-        <td align="center" width="150">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1802,16 +1709,10 @@ else if($emp_select!=""&& $status_text!=""&& $from_date!="" && $to_date=="" &&$p
     }
   }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="50">'.$not_found.'</td>
-        <td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="140">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1900,17 +1801,10 @@ else if($emp_select!=""&& $status_text!=""&& $from_date!="" && $to_date!="" &&$p
     }
   }
     else{
-    
-      $not_found = "ไม่พบข้อมูล";
-        $txtxxx =$txtxxx.'<tr>
-        td align="center" width="80">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="120">'.$not_found.'</td>
-        <td align="center" width="100">'.$not_found.'</td>
-
-        </tr>'; 
+      echo "<script>
+      alert('ไม่พบข้อมูล..');
+      window.location.replace('../../report.php');
+      </script>";
     }
   
     
@@ -1995,17 +1889,10 @@ else if($from_date!="" && $to_date=="" && $emp_select=="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="150">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="180">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -2091,18 +1978,10 @@ else if($from_date!="" && $to_date!="" && $emp_select=="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="70">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="130">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -2189,18 +2068,10 @@ else if($from_date=="" && $to_date=="" && $emp_select=="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="70">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="120">'.$not_found.'</td>
-      <td align="center" width="80">'.$not_found.'</td>
-      <td align="center" width="130">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -2281,17 +2152,10 @@ else if($emp_select!="" && $from_date!="" && $to_date=="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="70">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="140">'.$not_found.'</td>
-      <td align="center" width="180">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
@@ -2375,17 +2239,10 @@ else if($emp_select!="" && $from_date!="" && $to_date!="" &&$product_select==""&
     }
   }
   else{
-  
-    $not_found = "ไม่พบข้อมูล";
-      $txtxxx =$txtxxx.'<tr>
-      <td align="center" width="50">-</td>
-      <td align="center" width="70">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      <td align="center" width="140">'.$not_found.'</td>
-      <td align="center" width="180">'.$not_found.'</td>
-      <td align="center" width="100">'.$not_found.'</td>
-      
-      </tr>'; 
+    echo "<script>
+    alert('ไม่พบข้อมูล..');
+    window.location.replace('../../report.php');
+    </script>";
   }
     
   $tbl2 = <<<EOD
