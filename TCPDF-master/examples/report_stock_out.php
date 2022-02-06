@@ -13,27 +13,36 @@ class MYPDF extends TCPDF {
         //
         //variable 
         //
-        if($_POST['from_date']!="" && $_POST['to_date']!=""){
-          $check_from_date = @$_POST['from_date']; 
-          $check_to_date = @$_POST['to_date'];
-          if($check_from_date >= $check_to_date){
-            echo "<script>
-            alert('วันที่ไม่ถูกต้องกรุณาใส่วันที่ใหม่..');
-            window.location.replace('../../report.php');
-            </script>";
-          }else{
-          $from_date = $check_from_date; 
-          $to_date = $check_to_date;
+
+        if($_POST['to_date']!="" && $_POST['from_date']=="" || $_POST['to_date']!="" && $_POST['from_date']==null){
+          echo "<script>
+          alert('วันที่ไม่ถูกต้องกรุณาระบุวันที่ใหม่..');
+          window.location.replace('../../report.php');
+          </script>";
+        }else{
+          if($_POST['from_date']!="" && $_POST['to_date']!=""){
+            $check_from_date = @$_POST['from_date']; 
+            $check_to_date = @$_POST['to_date'];
+            if($check_from_date >= $check_to_date){
+              echo "<script>
+              alert('วันที่ไม่ถูกต้องกรุณาระบุวันที่ใหม่..');
+              window.location.replace('../../report.php');
+              </script>";
+            }else{
+            $from_date = $check_from_date; 
+            $to_date = $check_to_date;
+            }
+            
+          }else if($_POST['from_date']!=""&& $_POST['to_date']==""){
+            $from_date = @$_POST['from_date']; 
+            $to_date ="";
           }
-          
-        }else if($_POST['from_date']!=""&& $_POST['to_date']==""){
-          $from_date = @$_POST['from_date']; 
-          $to_date ="";
+          else {
+            $from_date ="";
+            $to_date ="";
+          }
         }
-        else {
-          $from_date ="";
-          $to_date ="";
-        }
+        
         
         // $to_date = @$_POST['to_date'];
         $product_select =@$_POST['product_select'];
