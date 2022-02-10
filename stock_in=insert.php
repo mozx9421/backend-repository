@@ -1,7 +1,7 @@
 <?php
 //insert.php
 include('connect.php');
-include('connect2.php');
+// include('connect2.php');
 date_default_timezone_set('Asia/Bangkok');
 
 
@@ -12,9 +12,9 @@ $query2 = "SELECT * FROM stock WHERE stock_id LIKE 'R%' ORDER BY runid DESC LIMI
 $result2 = mysqli_query($conn, $query2);
 $rs = mysqli_fetch_array($result2);
 
-$query_front = "SELECT * FROM stock WHERE stock_id LIKE 'R%' ORDER BY runid DESC LIMIT 1";
-$result_front = mysqli_query($conn_test, $query_front);
-$rs_front = mysqli_fetch_array($result_front);
+// $query_front = "SELECT * FROM stock WHERE stock_id LIKE 'R%' ORDER BY runid DESC LIMIT 1";
+// $result_front = mysqli_query($conn_test, $query_front);
+// $rs_front = mysqli_fetch_array($result_front);
 
 $time = date("Y-m-d H:i");
 
@@ -34,20 +34,20 @@ if ($rs['stock_id'] != "") {
     $name = "R" . $date . "001";
 }
 ///////////////////////////////////////////////////////////////////////
-if ($rs_front['stock_id'] != "") {
-    $check_front = substr($rs_front['stock_id'], 1, 2);
-    $date_front =  date("y") + 43;
+// if ($rs_front['stock_id'] != "") {
+//     $check_front = substr($rs_front['stock_id'], 1, 2);
+//     $date_front =  date("y") + 43;
 
-    if ($check_front == $date_front) {
-        $sub_front = substr($rs_front['stock_id'], 3, 6) + 1;
-        $name_front = sprintf('R' . $date_front . sprintf("%'.003d\n", $sub_front));
-    } else {
-        $name_front = "R" . $date_front . "001";
-    }
-} else {
-    $date_front =  date("y") + 43;
-    $name_front = "R" . $date_front . "001";
-}
+//     if ($check_front == $date_front) {
+//         $sub_front = substr($rs_front['stock_id'], 3, 6) + 1;
+//         $name_front = sprintf('R' . $date_front . sprintf("%'.003d\n", $sub_front));
+//     } else {
+//         $name_front = "R" . $date_front . "001";
+//     }
+// } else {
+//     $date_front =  date("y") + 43;
+//     $name_front = "R" . $date_front . "001";
+// }
 
 
 foreach ($_POST["data"] as $item) {
