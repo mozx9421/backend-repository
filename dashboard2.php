@@ -180,10 +180,11 @@
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
-                        <h4 class="card-title text-uppercase mb-0">กราฟแสดงจำนวน รับเข้า/เบิกออก ของสินค้าแต่ละตัว(แพ็ค) ภายใน 30 วัน</h4>
+                        <h4 class="card-title text-uppercase mb-0">จำนวน รับเข้า/เบิกออก ของสินค้าแต่ละตัว(แพ็ค) ภายใน 30 วัน</h4>
                         <div class="" align="right">
                           <a href="dashboard.php"><i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า</a>
                           <i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> <u>เบิกออก</u>
+                          <a href="dashboard3.php"><i style="color:rgba(204, 0, 0)"><i class="fas fa-square"></i></i> เคลม</a>
                         </div>
                       </div>
                     </div>

@@ -38,6 +38,8 @@ foreach ($result as $row){
 	foreach ($result2 as $row2){
 		$spco .= "'".$row2['product_count']."',";
 	}
+
+	
 }
 // print_r($result);
 // exit;

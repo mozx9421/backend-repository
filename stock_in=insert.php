@@ -55,8 +55,8 @@ foreach ($_POST["data"] as $item) {
         VALUE ('$name','$item[stock_status]','$time','$item[emp_id]','$item[product_id]','$item[product_qty]')";
 
 
-    $sql_front = "INSERT INTO stock (stock_id, stock_status, stock_datetime, emp_id, product_id, product_count)
-        VALUE ('$name_front','$item[stock_status]','$time','$item[emp_id]','$item[product_id]','$item[product_qty]')";
+    // $sql_front = "INSERT INTO stock (stock_id, stock_status, stock_datetime, emp_id, product_id, product_count)
+    //     VALUE ('$name_front','$item[stock_status]','$time','$item[emp_id]','$item[product_id]','$item[product_qty]')";
 
 
     if (mysqli_query($conn, $sql)) {
@@ -70,16 +70,16 @@ foreach ($_POST["data"] as $item) {
         mysqli_query($conn, $sql3);
     }
 
-    if (mysqli_query($conn_test, $sql_front)) {
-        $sql_front_2 = "SELECT * FROM product WHERE product_id = '$item[product_id]'";
-        $result_front_sql2 = mysqli_query($conn_test, $sql_front_2);
-        $rs_front_2 = mysqli_fetch_array($result_front_sql2);
+    // if (mysqli_query($conn_test, $sql_front)) {
+    //     $sql_front_2 = "SELECT * FROM product WHERE product_id = '$item[product_id]'";
+    //     $result_front_sql2 = mysqli_query($conn_test, $sql_front_2);
+    //     $rs_front_2 = mysqli_fetch_array($result_front_sql2);
 
-        $qty_front = $rs_front_2['product_qty'] + $item['product_qty'];
-        //update qty
-        $sql_front_3 = "UPDATE product SET product_qty = '$qty_front' WHERE product_id ='$item[product_id]'";
-        mysqli_query($conn_test, $sql_front_3);
-    }
+    //     $qty_front = $rs_front_2['product_qty'] + $item['product_qty'];
+    //     //update qty
+    //     $sql_front_3 = "UPDATE product SET product_qty = '$qty_front' WHERE product_id ='$item[product_id]'";
+    //     mysqli_query($conn_test, $sql_front_3);
+    // }
     echo $rs['stock_status'];
-    echo $rs_front['stock_status'];
+    // echo $rs_front['stock_status'];
 }
