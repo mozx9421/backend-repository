@@ -250,7 +250,7 @@ if (isset($_GET['logout'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-xl-4 col-md-6">
+              <div class="mt-xl-6 col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
                   <div class="card-body">
@@ -260,7 +260,7 @@ if (isset($_GET['logout'])) {
                           <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเคลมสินค้าทั้งหมด</h5>
                           <?php
                             $result1 = mysqli_query($conn,"SELECT SUM(product_count) FROM stock
-                            WHERE `stock_id` LIKE 'R%'
+                            WHERE `stock_id` LIKE 'C%'
                             AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
                             $row1 = mysqli_fetch_array($result1);
                             $total1 = $row1[0];
@@ -269,7 +269,7 @@ if (isset($_GET['logout'])) {
                         </center>
                       </div>                          
                       <div class="col-auto">
-                        <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                           <i class="fas fa-box-open"></i>
                         </div>
                       </div>
