@@ -1,26 +1,27 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-  session_start();
+session_start();
 
-  if(!isset($_SESSION['username'])){
-    echo "<script>
+if (!isset($_SESSION['username'])) {
+  echo "<script>
     alert('กรุณาเข้าสู่ระบบก่อน..');
     window.location.replace('login_page.php');
     </script>";
-  }
+}
 
-  if (isset($_GET['logout'])){
-    session_destroy();
-    unset($_SESSION['username']);
-    echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username']);
+  echo "<script>
     alert('ออกจากระบบสำเร็จ');
     window.location.replace('login_page.php');
     </script>";
-  }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,6 +42,46 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <style>
+    .alert {
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+    .alert1 {
+      padding: 20px;
+      background-color: #FF8333;
+      color: white;
+    }
+    .closebtn1 {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn1:hover {
+      color: black;
+    }
+  </style>
 </head>
 
 <body>
@@ -50,12 +91,12 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" <?php
-          if($_SESSION['emp_level'] == "พนักงาน" ){
-            ?> href="index_employee.php" <?php
-          }else{
-            ?> href="index_manager.php" <?php
-          } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                if ($_SESSION['emp_level'] == "พนักงาน") {
+                                ?> href="index_employee.php" <?php
+                                        } else {
+                                          ?> href="index_manager.php" <?php
+                                        } ?>>
+          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -82,9 +123,9 @@
               </a>
             </li>
             <?php
-              if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                echo
-                "<li class='nav-item'>
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+              echo
+              "<li class='nav-item'>
                   <a class='nav-link' href='emp.php'>
                     <i class='ni ni-single-02 text-orange'></i>
                     <span class='nav-link-text'>พนักงาน</span>
@@ -96,20 +137,20 @@
                     <span class='nav-link-text'>รายงาน</span>
                   </a>
                 </li>";
-              }
+            }
             ?>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -120,13 +161,16 @@
 
   <!-- Main Content -->
   <div class="main-content" id="panel">
+
     <!-- Topnav -->
+
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-gradient-danger border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Navbar Links -->
           <ul class="navbar-nav align-items-center  ml-md-auto ">
             <li class="nav-item d-xl-none">
+
               <!-- Sidenav Toggler -->
               <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
                 <div class="sidenav-toggler-inner">
@@ -136,17 +180,19 @@
                 </div>
               </div>
             </li>
+
             <li class="nav-item d-sm-none">
               <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
                 <i class="ni ni-zoom-split-in"></i>
               </a>
             </li>
           </ul>
+
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0">
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -174,6 +220,7 @@
               <div class="row align-items-center">
 
                 <div class="table-responsive">
+
                   <!-- Tabs List -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -186,9 +233,9 @@
                       <a class="nav-link" href="stock_out.php"><i class="fas fa-file-export"></i> เบิกสินค้า</a>
                     </li>
                     <?php
-                      if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                        echo
-                        "<li class='nav-item'>
+                    if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+                      echo
+                      "<li class='nav-item'>
                           <a class='nav-link' href='editstock.php'><i class='fas fa-cubes'></i> ปรับสต็อก</a>
                         </li>
                         <li class='nav-item'>
@@ -200,7 +247,7 @@
                         <li class='nav-item'>
                           <a class='nav-link' href='unit.php'><i class='fas fa-ruler-vertical'></i> หน่วยนับ</a>
                         </li>";
-                      }
+                    }
                     ?>
                   </ul>
                   <table class="table-white col-xl-12 animate-left">
@@ -223,70 +270,105 @@
 
                 <!-- Projects table -->
                 <div class="table-responsive table-white table-striped animate-right">
+                  <!-- Notification for lower stock -->
+                  <?php 
+                  $sqlcheck ='SELECT product_qty FROM product';
+                  $resultcheck = mysqli_query($conn, $sqlcheck);
+                  while($rowcheck = $resultcheck->fetch_assoc())
+                  $rowcheckqty = $rowcheck['product_qty'];
+                  if($rowcheckqty <=10 && $rowcheckqty > 0){
+                  ?>
+                  <div class="alert1">
+                    <span class="closebtn1" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการเหลือน้อย
+                  </div>
+                  <?php }else if($rowcheckqty <=0){
+                  ?>
+                  <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการหมด
+                  </div>
+                <?php } ?>
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align="center">
-                      <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">รหัสสินค้า</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">ชื่อสินค้า</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">หน่วยนับ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">จำนวนคงเหลือ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">หมายเหตุ</h6></th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ลำดับ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">รหัสสินค้า</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ชื่อสินค้า</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">หน่วยนับ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">จำนวนคงเหลือ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">หมายเหตุ</h6>
+                      </th>
                     </tr>
                     <?php
-                      $sql = "SELECT * FROM product JOIN unit
+                    $sql = "SELECT * FROM product JOIN unit
                       WHERE product.unit_id = unit.unit_id
                       ORDER BY product_qty ASC";
-                      $result = $conn->query($sql);
+                    $result = $conn->query($sql);
 
-                      $x = 1;
-                      while($row = $result->fetch_assoc()):
-                        echo "<tr align='center'>";
-                        echo "<td> $x </td>"; $x++;
-                        $product_id = $row["product_id"];
-                        echo "<td> $row[product_id] </td>";
-                        echo "<td> $row[product_name] </td>";
-                        echo "<td> $row[unit_name] </td>";
+                    $x = 1;
+                    while ($row = $result->fetch_assoc()) :
+                      echo "<tr align='center'>";
+                      echo "<td> $x </td>";
+                      $x++;
+                      $product_id = $row["product_id"];
+                      echo "<td> $row[product_id] </td>";
+                      echo "<td> $row[product_name] </td>";
+                      echo "<td> $row[unit_name] </td>";
 
-                        if($row["product_qty"]<1){
-                          echo "<td class=text-danger> $row[product_qty] แพ็ค</td>";
-                        }else{
-                          echo "<td class=text-success> $row[product_qty] แพ็ค</td>";
-                        }
+                      if ($row["product_qty"] <= 10) {
+                        echo "<td class=text-danger> $row[product_qty] แพ็ค</td>";
+                      }
+                      else if ($row["product_qty"] <= 20) {
+                        echo "<td class=text-warning> $row[product_qty] แพ็ค</td>";
+                      }
+                      else {
+                        echo "<td class=text-success> $row[product_qty] แพ็ค</td>";
+                      }
 
-                        $product_qty = $row['product_qty']; //ลังหน่วยใหญ่
-                        $unit_pack = $row['unit_pack']; //เเพ็คหน่วยย่อย
+                      $product_qty = $row['product_qty']; //ลังหน่วยใหญ่
+                      $unit_pack = $row['unit_pack']; //เเพ็คหน่วยย่อย
 
-                        $box = $product_qty / $unit_pack; 
-                        $box = (integer)$box;
-                        $pack = $product_qty % $unit_pack;
+                      $box = $product_qty / $unit_pack;
+                      $box = (int)$box;
+                      $pack = $product_qty % $unit_pack;
 
-                        if($box > 0 && $pack > 0){
-                          echo "<td>
+                      if ($box > 0 && $pack > 0) {
+                        echo "<td>
                                   <h7 class=text-success> $box </h7> ลัง
                                   <h7 class=text-success> $pack </h7> แพ็ค
                                 </td>";
-                        }else{
-                          if($box > 0){
+                      } else {
+                        if ($box > 0) {
                           echo "<td>
                                   <h7 class=text-success> $box </h7> ลัง
                                   <h7 class=text-danger> $pack </h7> แพ็ค
                                 </td>";
-                          }else{
-                            if($pack > 0){
-                              echo "<td>
+                        } else {
+                          if ($pack > 0) {
+                            echo "<td>
                                       <h7 class=text-danger> $box </h7> ลัง
                                       <h7 class=text-success> $pack </h7> แพ็ค
                                     </td>";
-                            }else{
-                                echo "<td>
+                          } else {
+                            echo "<td>
                                   <h7 class=text-danger> $box </h7> ลัง
                                   <h7 class=text-danger> $pack </h7> แพ็ค
                                 </td>";
-                              
-                            }
                           }
                         }
-                      endwhile
+                      }
+                    endwhile
                     ?>
                   </table>
                 </div>
@@ -312,4 +394,5 @@
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
+
 </html>

@@ -205,7 +205,7 @@
 
                 <!-- Edit And Delete -->
                 <?php
-                    $query = mysqli_query($conn, "SELECT * FROM emp_data ORDER BY emp_id ASC") or die(mysqli_error());
+                    $query = mysqli_query($conn, "SELECT * FROM emp_data WHERE emp_level LIKE 'พนักงาน' ORDER BY emp_id ASC") or die(mysqli_error());
                   while($fetch = mysqli_fetch_array($query)){
                  ?>
                 <tr>
