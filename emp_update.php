@@ -23,15 +23,6 @@
                         <input type="text" name="emp_surname" value="<?php echo $fetch['emp_surname']?>" class="form-control col-xl-8" required/>
                     </div>
                     <div class="form-group">
-                        <label>ตำแหน่ง</label>
-                        <select name="emp_level" class="form-control col-xl-8" required>
-                            <option value="">เลือกตำแหน่ง</option>
-                            <option value="พนักงาน">พนักงาน</option>
-                            <option value="ผู้จัดการ">ผู้จัดการ</option>
-                        </select>
-                        
-                    </div>
-                    <div class="form-group">
                         <label>username</label>
                         <input type="text" name="emp_username" value="<?php echo $fetch['emp_username']?>" class="form-control col-xl-8" required/>
                     </div>

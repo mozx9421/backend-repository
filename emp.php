@@ -1,33 +1,34 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'])){
-      echo "<script>
+if (!isset($_SESSION['username'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username']);
-      echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if($_SESSION['emp_level'] == "พนักงาน" ){
-      echo "<script>
+if ($_SESSION['emp_level'] == "พนักงาน") {
+  echo "<script>
       alert('คุณไม่มีสิทธิ์เข้าถึงเนื้อหานี้..');
       window.location.replace('index_employee.php');
       </script>";
-    }
-?> 
+}
+?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,19 +59,19 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" <?php
-          if($_SESSION['emp_level'] == "พนักงาน" ){
-            ?> href="index_employee.php" <?php
-          }else{
-            ?> href="index_manager.php" <?php
-          } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                if ($_SESSION['emp_level'] == "พนักงาน") {
+                                ?> href="index_employee.php" <?php
+                                        } else {
+                                          ?> href="index_manager.php" <?php
+                                        } ?>>
+          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-         <!-- Nav items -->
-         <ul class="navbar-nav">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="dashboard.php">
                 <i class="ni ni-tv-2 text-orange"></i>
@@ -90,7 +91,7 @@
               </a>
             </li>
             <li class="nav-item">
-            <a class="nav-link active">
+              <a class="nav-link active">
                 <i class="ni ni-single-02 text-orange"></i>
                 <span class="nav-link-text">พนักงาน</span>
               </a>
@@ -105,14 +106,14 @@
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -120,7 +121,7 @@
       </div>
     </div>
   </nav>
-  
+
   <!-- Main content -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
@@ -144,7 +145,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -152,8 +153,8 @@
         </div>
       </div>
     </nav>
-   <!-- Header -->
-   <div class="header bg-gradient-danger pb-6">
+    <!-- Header -->
+    <div class="header bg-gradient-danger pb-6">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
@@ -193,50 +194,61 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th><h6 class="text-gray mb-0">รหัสพนักงาน</h6></th>
-                    <th><h6 class="text-gray mb-0">ชื่อ-นามสกุล</h6></th>
-                    <th><h6 class="text-gray mb-0">ตำเเหน่งงาน</h6></th>
-                    <th><h6 class="text-gray mb-0">username</h6></th>
-                    <th><h6 class="text-gray mb-0">เพศ</h6></th>
-                    <th><h6 class="text-gray mb-0">เบอร์โทรศัพท์มือถือ</h6></th>
-                    <th><h6 class="text-gray mb-0" align="center">ตัวเลือก</h6></th>
+                    <th>
+                      <h6 class="text-gray mb-0">รหัสพนักงาน</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0">ชื่อ-นามสกุล</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0">ตำเเหน่งงาน</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0">username</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0">เพศ</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0">เบอร์โทรศัพท์มือถือ</h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0"></h6>
+                    </th>
+                    <th>
+                      <h6 class="text-gray mb-0" align="center">ตัวเลือก</h6>
+                    </th>
                   </tr>
                 </thead>
 
                 <!-- Edit And Delete -->
                 <?php
-                    $query = mysqli_query($conn, "SELECT * FROM emp_data WHERE emp_level LIKE 'พนักงาน' ORDER BY emp_id ASC") or die(mysqli_error());
-                  while($fetch = mysqli_fetch_array($query)){
-                 ?>
-                <tr>
-                  <td><?php echo $fetch['emp_id']?></td>
-                  <td><?php echo $fetch['emp_name'],$fetch['emp_surname']?></td>
-                  <td><?php echo $fetch['emp_level']?></td>
-                  <td><?php echo $fetch['emp_username']?></td>
-                  <td><?php echo $fetch['emp_gender']?></td>
-                  <?php
-                    $tel= $fetch['emp_tel'];
-                    if($tel == 0){
-                      echo "<td> - </td>";
-                    }else{
-                      echo "<td> 0$fetch[emp_tel] </td>";
-                    }
-                  ?>
-                  <td align="center">
-                    <!-- Update Button -->
-                    <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#emp_update_modal<?php echo $fetch['emp_id']?>">
-                    <span><i class="far fa-edit"></i> แก้ไข
-                    </button>
-                    <!-- Delete Button -->
-                    <a href="emp_delete.php?emp_id=<?php echo $fetch['emp_id']?>"
-                      <?php
-                        echo "onclick=\"return confirm('คุณต้องการลบข้อมูลนี้ใช้หรือไม่')\" ";
-                      ?>
-                    >
-                      <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ลบ</button>
-                    </a>
-                  </td>
-                </tr>
+                $query = mysqli_query($conn, "SELECT * FROM emp_data WHERE emp_level LIKE 'พนักงาน' ORDER BY emp_id ASC") or die(mysqli_error());
+                while ($fetch = mysqli_fetch_array($query)) {
+                ?>
+                  <tr>
+                    <td><?php echo $fetch['emp_id'] ?></td>
+                    <td><?php echo $fetch['emp_name'], $fetch['emp_surname'] ?></td>
+                    <td><?php echo $fetch['emp_level'] ?></td>
+                    <td><?php echo $fetch['emp_username'] ?></td>
+                    <td><?php echo $fetch['emp_gender'] ?></td>
+                    <td><?php echo $fetch['emp_tel'] ?></td>
+                    <?php if ($fetch['emp_status'] == 'อยู่ในระบบ') { ?>
+                      <td class="text-success"><?php echo $fetch['emp_status'] ?></td>
+                    <?php } else { ?><td class="text-warning"><?php echo $fetch['emp_status'] ?></td> <?php } ?>
+                    <td align="center">
+                      <!-- Update Button -->
+                      <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#emp_update_modal<?php echo $fetch['emp_id'] ?>">
+                        <span><i class="far fa-edit"></i> แก้ไข
+                      </button>
+                      <!-- Delete Button -->
+                      <a href="emp_delete.php?emp_id=<?php echo $fetch['emp_id'] ?>" <?php
+                                                                                    echo "onclick=\"return confirm('คุณต้องการลบพนักงานคนนี้หรือไม่')\" ";
+                                                                                    ?>>
+                        <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> นำออกจากระบบ</button>
+                      </a>
+                    </td>
+                  </tr>
                 <?php
                   include 'emp_update.php';
                 }
@@ -247,16 +259,17 @@
         </div>
 
         <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-  <!-- Optional JS -->
-  <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
-  <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
+        <!-- Core -->
+        <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+        <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+        <!-- Optional JS -->
+        <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+        <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+        <!-- Argon JS -->
+        <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
+
 </html>

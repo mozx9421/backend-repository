@@ -19,25 +19,33 @@
 
                 $row = mysqli_fetch_array($result);
                 
+
                 $_SESSION['username'] = $username;
                 $_SESSION['success'] = "เข้าสู่ระบบสำเร็จ!";
                 $_SESSION['emp_level'] = $row['emp_level']; 
                 $_SESSION['emp_name'] = $row['emp_name'];
                 $_SESSION['emp_surname'] = $row['emp_surname'];
                 $_SESSION['emp_id'] = $row['emp_id'];
+                $_SESSION['emp_status'] = $row['emp_status']; 
 
-                if($_SESSION['emp_level'] == "ผู้จัดการ"){
+                if($_SESSION['emp_level'] == "ผู้จัดการ" && $_SESSION['emp_status'] == "อยู่ในระบบ"){
                     echo "<script>
                     alert('กำลังเข้าสู่ระบบ.. ');
                     window.location.replace('dashboard.php');
                     </script>";
                 
                 }
-                else{
+                else if($_SESSION['emp_level'] == "พนักงาน" && $_SESSION['emp_status'] == "อยู่ในระบบ"){
                     echo "<script>
                     alert('กำลังเข้าสู่ระบบ.. ');
                     window.location.replace('index_employee.php');
                     </script>";
+                }else{
+                    echo "<script>
+                    alert('username นี้ไม่สามารถเข้าใช้งาน');
+                    window.location.replace('login_page.php');
+                    </script>";
+                    session_destroy();
                 }
             } else {
                 echo "<script>

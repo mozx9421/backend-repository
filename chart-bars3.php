@@ -4,6 +4,7 @@ include('connect.php');
 $product_name = "";
 $spci = "";
 $spco = "";
+$spcc = "";
 
 
 $sqlQuery = "SELECT product.product_id, product.product_name, SUM(stock.product_count)
@@ -23,13 +24,26 @@ foreach ($result as $row){
 	$product_name .= "'".$row['product_name']."',";
 	}
 	
-	
+	//เข้า
+	$sqlQuery1 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
+	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'R%' AND product_id = '$product_id' ";
+	$result1 = mysqli_query($conn,$sqlQuery1);
+	foreach ($result1 as $row1){
+		$spci .= "'".$row1['product_count']."',";
+	}
 	//เคลม
 	$sqlQuery2 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
 	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'C%' AND product_id = '$product_id' ";
 	$result2 = mysqli_query($conn,$sqlQuery2);
 	foreach ($result2 as $row2){
 		$spco .= "'".$row2['product_count']."',";
+	}
+	//ออก
+	$sqlQuery3 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
+	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'T%' AND product_id = '$product_id' ";
+	$result3 = mysqli_query($conn,$sqlQuery3);
+	foreach ($result3 as $row3){
+		$spcc .= "'".$row3['product_count']."',";
 	}
 }
 // print_r($result);
@@ -73,6 +87,41 @@ var BarsChart = (function(){
 						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
 						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
 						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+					],
+					borderWidth: 1,
+					fill: false
+				},{
+					label: 'รับเข้า',
+					data: [<?php echo $spci ?>],//เข้า
+					showInLegend: true,
+					backgroundColor: [
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+					],
+					borderColor: [
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+						'rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)',
+					],
+					borderWidth: 1,
+					fill: false
+				},{
+					label: 'เบิกออก',
+					data: [<?php echo $spcc ?>],//ออก
+					backgroundColor: [
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+					],
+					borderColor: [
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
 					],
 					borderWidth: 1,
 					fill: false

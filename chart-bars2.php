@@ -10,7 +10,7 @@ $sqlQuery = "SELECT product.product_id, product.product_name, SUM(stock.product_
 AS product_count FROM stock JOIN product
 WHERE product.product_id = stock.product_id
 AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
-AND stock_id LIKE 'T%'
+AND stock_id LIKE 'R%'
 GROUP BY product_name
 ORDER BY product_count DESC";
 $result = mysqli_query($conn,$sqlQuery);

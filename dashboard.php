@@ -224,9 +224,9 @@
                         <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
                         <h4 class="card-title text-uppercase mb-0">จำนวน รับเข้า/เบิกออก ของสินค้าแต่ละตัว(แพ็ค) ภายใน 30 วัน</h4>
                         <div class="" align="right">
-                          <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> <u>รับเข้า</u>
-                          <a href="dashboard2.php"><i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> เบิกออก</a>
-                          <a href="dashboard3.php"><i style="color:rgba(204, 0, 0)"><i class="fas fa-square"></i></i> เคลม</a>
+                          <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า
+                          <i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> เบิกออก
+                          <i style="color:rgba(204, 0, 0)"><i class="fas fa-square"></i></i> เคลม
                         </div>
                       </div>
                     </div>
@@ -446,6 +446,85 @@
                         </tr>
                         <?php $n++;} ?>
                       </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <center>
+                          <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเคลมสินค้าทั้งหมด</h5>
+                          <?php
+                            $result1 = mysqli_query($conn,"SELECT SUM(product_count) FROM stock
+                            WHERE `stock_id` LIKE 'C%'
+                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
+                            $row1 = mysqli_fetch_array($result1);
+                            $total1 = $row1[0];
+                          ?>
+                          <span class="h3 font-weight-bold mb-0"><?php echo $total1; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
+                        </center>
+                      </div>                          
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                          <i class="fas fa-box-open"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- Card stats -->
+            <div class="row">
+              <div class="col-xl-4">
+                <div class="card">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center mb-2">
+                      <div class="col-auto">
+                        <h6 class="mb-0 mt-2">สินค้า"เคลม"มากสุด (แพ็ค)</h6>
+                      </div>
+                      <div class="col text-right">
+                        <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_claim">ดูทั้งหมด</button>
+                        <?php include 'see_all_claim.php'; ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>
+                            <h6 class="mb-0">ชื่อสินค้า</h6>
+                          </th>
+                          <th>
+                            <h6 class="mb-0" align="center">จำนวน</h6>
+                          </th>
+                        </tr>
+                      </thead>
+                      <?php
+                      $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
+                        WHERE product.product_id = stock.product_id
+                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
+                        AND stock_id LIKE 'C%'
+                        GROUP BY product_name
+                        ORDER BY product_count DESC";
+                      $result = mysqli_query($conn, $sql);
+                      $n = 1;
+                      while ($n <= 3 && $row = mysqli_fetch_array($result)) {
+                      ?>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $row['product_name'] ?></td>
+                            <td align="center"><?php echo $row['product_count']; ?></td>
+                          </tr>
+                        <?php $n++;
+                      } ?>
+                        </tbody>
                     </table>
                   </div>
                 </div>

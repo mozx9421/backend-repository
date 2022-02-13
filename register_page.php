@@ -119,7 +119,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="ni ni-badge"></i></span>
                             </div>
-                            <input type="text" name="cardnumber" minlength="13"  placeholder="ID card number" class="form-control"  >
+                            <input type="text" name="cardnumber" pattern=".{13}" title="กรุณากรอกเลขบัตรประจำตัวประชาชนให้ครบ 13 หลัก" placeholder="ID card number" class="form-control"  >
                         </div> 
                     </div>
                 </div>  
@@ -132,7 +132,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="ni ni-badge"></i></span>
                             </div>
-                            <input type="number" name="age"  placeholder="age" class="form-control">
+                            <input type="number" name="age"  min="10" max="80" placeholder="age" class="form-control"required>
                         </div> 
                     </div>
                 </div>    
@@ -176,7 +176,7 @@
                                 <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 </div>
-                                <input type="number" name="emp_tel" minlength="13" placeholder="Phone number" class="form-control" >
+                                <input type="text" name="emp_tel" pattern=".{10}" title="กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก" placeholder="Phone number" class="form-control" >
                             </div> 
                         </div>
                     </div>
@@ -233,6 +233,11 @@
         </div>    
     </form>
 
+
+<script>
+
+
+</script>
  <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
