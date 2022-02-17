@@ -1,26 +1,27 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'])){
-      echo "<script>
+if (!isset($_SESSION['username'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username']);
-      echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -74,12 +75,12 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" <?php
-          if($_SESSION['emp_level'] == "พนักงาน" ){
-            ?> href="index_employee.php" <?php
-          }else{
-            ?> href="index_manager.php" <?php
-          } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                if ($_SESSION['emp_level'] == "พนักงาน") {
+                                ?> href="index_employee.php" <?php
+                                                            } else {
+                                                              ?> href="index_manager.php" <?php
+                                                                                        } ?>>
+          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -106,9 +107,9 @@
               </a>
             </li>
             <?php
-              if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                echo
-                "<li class='nav-item'>
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+              echo
+              "<li class='nav-item'>
                   <a class='nav-link' href='emp.php'>
                     <i class='ni ni-single-02 text-orange'></i>
                     <span class='nav-link-text'>พนักงาน</span>
@@ -120,20 +121,20 @@
                     <span class='nav-link-text'>รายงาน</span>
                   </a>
                 </li>";
-              }
+            }
             ?>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -147,7 +148,7 @@
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-gradient-danger border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
+
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center  ml-md-auto ">
             <li class="nav-item d-xl-none">
@@ -170,7 +171,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -189,26 +190,26 @@
                   <div class="col-lg-6 col-7">
                     <h6 class="h2 text-white d-inline-block mb-0">ภาพรวม</h6>
                   </div>
-                  <?php 
-                  $sqlcheck ='SELECT product_qty FROM product';
+                  <?php
+                  $round = 0;
+                  $sqlcheck = 'SELECT product_qty FROM product';
                   $resultcheck = mysqli_query($conn, $sqlcheck);
-                  while($rowcheck = $resultcheck->fetch_assoc())
-                  $rowcheckqty = $rowcheck['product_qty'];
-                  if($rowcheckqty <=10 && $rowcheckqty > 0){
+                  while ($rowcheck = $resultcheck->fetch_assoc()) {
+                    $rowcheckqty = $rowcheck['product_qty'];
+
+                    if ($round == 0) {
+                      if ($rowcheckqty > 0 && $rowcheckqty < 20) { ?>
+                        <div class="alert col-md-4 ml-10 animate-left">
+                          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                          <strong>เเจ้งเตือน:</strong> ปริมาณสินค้าในคลังเหลือน้อย
+                        </div>
+                  <?php
+                        $round = 1;
+                      }
+                    }
+                  }
+                  // }
                   ?>
-                  <div class="alert col-lg-4 ml-10 animate-left">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการเหลือน้อย
-                  </div>
-                  <?php }
-                  else if($rowcheckqty <=0){
-                  ?>
-                  <div class="alert col-lg-4 ml-10 animate-left">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการหมด
-                  </div>
-                  </div>
-                <?php } ?>
                 </div>
               </div>
             </div>
@@ -251,15 +252,15 @@
                         <center>
                           <h5 class="card-title text-uppercase text-muted mb-0">จำนวนรับเข้าสินค้าทั้งหมด</h5>
                           <?php
-                            $result1 = mysqli_query($conn,"SELECT SUM(product_count) FROM stock
+                          $result1 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
                             WHERE `stock_id` LIKE 'R%'
                             AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
-                            $row1 = mysqli_fetch_array($result1);
-                            $total1 = $row1[0];
+                          $row1 = mysqli_fetch_array($result1);
+                          $total1 = $row1[0];
                           ?>
                           <span class="h3 font-weight-bold mb-0"><?php echo $total1; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
                         </center>
-                      </div>                          
+                      </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
                           <i class="fas fa-box-open"></i>
@@ -278,10 +279,10 @@
                         <center>
                           <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเบิกออกสินค้าทั้งหมด</h5>
                           <?php
-                            $result2 = mysqli_query($conn,"SELECT SUM(product_count) FROM stock WHERE `stock_id` LIKE 'T%'
+                          $result2 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock WHERE `stock_id` LIKE 'T%'
                             AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
-                            $row2 = mysqli_fetch_array($result2);
-                            $total2 = $row2[0];
+                          $row2 = mysqli_fetch_array($result2);
+                          $total2 = $row2[0];
                           ?>
                           <span class="h3 font-weight-bold mb-0"><?php echo $total2; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
                         </center>
@@ -327,7 +328,7 @@
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_in">ดูทั้งหมด</button>
-                        <?php include 'see_all_in.php';?>
+                        <?php include 'see_all_in.php'; ?>
                       </div>
                     </div>
                   </div>
@@ -336,28 +337,33 @@
                     <table class="table">
                       <thead class="thead-light">
                         <tr>
-                          <th><h6 class="mb-0">ชื่อสินค้า</h6></th>
-                          <th><h6 class="mb-0" align="center">จำนวน</h6></th>
+                          <th>
+                            <h6 class="mb-0">ชื่อสินค้า</h6>
+                          </th>
+                          <th>
+                            <h6 class="mb-0" align="center">จำนวน</h6>
+                          </th>
                         </tr>
                       </thead>
                       <?php
-                        $sql ="SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
+                      $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
                         AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
                         AND stock_id LIKE 'R%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
-                        $result = mysqli_query($conn,$sql);
-                        $n = 1;
-                        while($n <= 3 && $row = mysqli_fetch_array($result)){
+                      $result = mysqli_query($conn, $sql);
+                      $n = 1;
+                      while ($n <= 3 && $row = mysqli_fetch_array($result)) {
                       ?>
-                      <tbody>
-                        <tr>
-                          <td><?php echo $row['product_name']?></td>
-                          <td align="center"><?php echo $row['product_count'];?></td>
-                        </tr>
-                        <?php $n++;} ?>
-                      </tbody>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $row['product_name'] ?></td>
+                            <td align="center"><?php echo $row['product_count']; ?></td>
+                          </tr>
+                        <?php $n++;
+                      } ?>
+                        </tbody>
                     </table>
                   </div>
                 </div>
@@ -371,7 +377,7 @@
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_out">ดูทั้งหมด</button>
-                        <?php include 'see_all_out.php';?>
+                        <?php include 'see_all_out.php'; ?>
                       </div>
                     </div>
                   </div>
@@ -380,28 +386,33 @@
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
-                          <th><h6 class="mb-0">ชื่อสินค้า</h6></th>
-                          <th><h6 class="mb-0" align="center">จำนวน</h6></th>
+                          <th>
+                            <h6 class="mb-0">ชื่อสินค้า</h6>
+                          </th>
+                          <th>
+                            <h6 class="mb-0" align="center">จำนวน</h6>
+                          </th>
                         </tr>
                       </thead>
                       <?php
-                        $sql ="SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
+                      $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
                         AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
                         AND stock_id LIKE 'T%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
-                        $result = mysqli_query($conn,$sql);
-                        $n = 1;
-                        while($n <= 3 && $row = mysqli_fetch_array($result)){
+                      $result = mysqli_query($conn, $sql);
+                      $n = 1;
+                      while ($n <= 3 && $row = mysqli_fetch_array($result)) {
                       ?>
-                      <tbody>
-                        <tr>
-                          <td><?php echo $row['product_name']?></td>
-                          <td align="center"><?php echo $row['product_count'];?></td>
-                        </tr>
-                        <?php $n++;} ?>
-                      </tbody>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $row['product_name'] ?></td>
+                            <td align="center"><?php echo $row['product_count']; ?></td>
+                          </tr>
+                        <?php $n++;
+                      } ?>
+                        </tbody>
                     </table>
                   </div>
                 </div>
@@ -415,7 +426,7 @@
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_damage">ดูทั้งหมด</button>
-                        <?php include 'see_all_damage.php';?>
+                        <?php include 'see_all_damage.php'; ?>
                       </div>
                     </div>
                   </div>
@@ -424,60 +435,65 @@
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
-                          <th><h6 class="mb-0">ชื่อสินค้า</h6></th>
-                          <th><h6 class="mb-0" align="center">จำนวน</h6></th>
+                          <th>
+                            <h6 class="mb-0">ชื่อสินค้า</h6>
+                          </th>
+                          <th>
+                            <h6 class="mb-0" align="center">จำนวน</h6>
+                          </th>
                         </tr>
                       </thead>
                       <?php
-                        $sql ="SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
+                      $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
                         AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
                         AND stock_id LIKE 'D%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
-                        $result = mysqli_query($conn,$sql);
-                        $n = 1;
-                        while($n <= 3 && $row = mysqli_fetch_array($result)){
+                      $result = mysqli_query($conn, $sql);
+                      $n = 1;
+                      while ($n <= 3 && $row = mysqli_fetch_array($result)) {
                       ?>
-                      <tbody>
-                        <tr>
-                          <td><?php echo $row['product_name']?></td>
-                          <td align="center"><?php echo $row['product_count'];?></td>
-                        </tr>
-                        <?php $n++;} ?>
-                      </tbody>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $row['product_name'] ?></td>
+                            <td align="center"><?php echo $row['product_count']; ?></td>
+                          </tr>
+                        <?php $n++;
+                      } ?>
+                        </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-xl-4">
-                <div class="card">
-                  <!-- Card body -->
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <center>
-                          <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเคลมสินค้าทั้งหมด</h5>
-                          <?php
-                            $result1 = mysqli_query($conn,"SELECT SUM(product_count) FROM stock
+              <div class="card">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <center>
+                        <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเคลมสินค้าทั้งหมด</h5>
+                        <?php
+                        $result1 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
                             WHERE `stock_id` LIKE 'C%'
                             AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
-                            $row1 = mysqli_fetch_array($result1);
-                            $total1 = $row1[0];
-                          ?>
-                          <span class="h3 font-weight-bold mb-0"><?php echo $total1; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
-                        </center>
-                      </div>                          
-                      <div class="col-auto">
-                        <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                          <i class="fas fa-box-open"></i>
-                        </div>
+                        $row1 = mysqli_fetch_array($result1);
+                        $total1 = $row1[0];
+                        ?>
+                        <span class="h3 font-weight-bold mb-0"><?php echo $total1; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
+                      </center>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="fas fa-box-open"></i>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
             <!-- Card stats -->
             <div class="row">
               <div class="col-xl-4">
@@ -549,6 +565,7 @@
   <script src="assets/js/argon.js?v=1.2.0"></script>
   <script src="assets/js/components/charts/chart-line.js"></script>
   <!-- <script src="assets/js/components/charts/chart-bars.php"></script> -->
-  <?php  include('chart-bars.php')?> 
+  <?php include('chart-bars.php') ?>
 </body>
+
 </html>
