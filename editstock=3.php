@@ -385,13 +385,15 @@ if (isset($_GET['logout'])) {
                                                                 data: data
                                                             },
                                                             success: function(data) {
-                                                                if(data == 1){
+                                                                console.log(data)
+                                                                if(data==1){
                                                             alert ('บันทึกการเคลมสินค้าสำเร็จ')
                                                             window.location.replace('editstock.php')
                                                              }
                                                             else{
                                                                 alert ('สินค้าในคลังมีจำนวนน้อยกว่ารายการที่เลือก โปรดลองอีกครั้ง')
-                                                            }                                                            }
+                                                            }                                                          
+                                                          }
                                                         })
                                                     }
                                                 }

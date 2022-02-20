@@ -171,9 +171,9 @@ foreach ($_POST["data"] as $item) {
       VALUE ('$name','$item[stock_status]','$time','$item[emp_id]','$item[product_id]','$item[product_qty]','$item[stock_comment]')";     
       mysqli_query($conn, $sql);
       mysqli_query($conn, $sql5);
-      echo"1";
+      
     } 
     
   }
 
-}  echo "1";
+}  echo 1;

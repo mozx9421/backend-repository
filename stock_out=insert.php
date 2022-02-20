@@ -65,4 +65,4 @@ foreach ($_POST["data"] as $item) {
         mysqli_query($conn, $sql3);
     }
 }
-echo "1";
+echo 1;
