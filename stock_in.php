@@ -224,6 +224,9 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
+                    <th>
+                        <h6 class="text-gray text-ml mb-0">ลำดับที่</h6>
+                      </th>
                       <th>
                         <h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6>
                       </th>
@@ -240,6 +243,7 @@ if (isset($_GET['logout'])) {
                     <?php
 
                     $perpage = 10;
+                    $f = 1;
                     if (isset($_GET['page'])) {
                       $page = $_GET['page'];
                     } else {
@@ -260,6 +264,7 @@ if (isset($_GET['logout'])) {
                       $dateData = $fetch['stock_datetime'];
                     ?>
                       <tr align="center">
+                      <td><?php echo $f ?></td>
                         <td><?php echo $fetch['stock_id'] ?></td>
                         <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
                         <td><?php echo $fetch['emp_name'], " ", $fetch['emp_surname'] ?></td>
@@ -273,6 +278,7 @@ if (isset($_GET['logout'])) {
                       </tr>
                       </tr>
                     <?php
+                    $f++;
                     }
                     ?>
                   </table>
