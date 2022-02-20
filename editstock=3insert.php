@@ -71,5 +71,6 @@ foreach ($_POST["data"] as $item) {
       
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql4);
+        
     }
 }  echo 1;

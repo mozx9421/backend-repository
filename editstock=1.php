@@ -369,6 +369,9 @@ if (isset($_GET['logout'])) {
                                                         alert('กรุณาเลือกสินค้า')
                                                         check = 1
                                                         return false
+                                                    }else if($('.product_qty', b).val() > 99) {
+                                                        alert('ใส่จำนวนสินค้ามากที่สุดได้ 99 เเพ็ค')
+                                                        return false
                                                     }
 
                                                     data.push({

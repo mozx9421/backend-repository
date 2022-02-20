@@ -384,6 +384,7 @@ if (isset($_GET['logout'])) {
                                                                 data: data
                                                             },
                                                             success: function(data) {
+                                                                // console.log(data);
                                                                 if(data == 1){
                                                             alert ('บันทึกการลดสินค้าสำเร็จ')
                                                             window.location.replace('editstock.php')
