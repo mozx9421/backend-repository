@@ -247,13 +247,13 @@
                           <span><i class="far fa-edit"></i> แก้ไข</span>
                         </button>
                         <!-- Delete Button -->
-                        <a href="unit_delete.php?unit_id=<?php echo $fetch['unit_id']?>"
+                        <!-- <a href="unit_delete.php?unit_id=<?php echo $fetch['unit_id']?>"
                           <?php
                             echo "onclick=\"return confirm('คุณต้องการลบข้อมูลนี้ใช้หรือไม่')\" ";
                           ?>
                         >
                           <button class='btn btn-outline-danger btn-sm '><span><i class="far fa-trash-alt"></i> ลบ</span></button>
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                     <?php

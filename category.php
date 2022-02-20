@@ -240,14 +240,14 @@
                         <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#category_update_modal<?php echo $fetch['ctg_id']?>">
                           <span><i class="far fa-edit"></i> แก้ไข</span>
                         </button>
-                        <!-- Delete Button -->
+                        <!-- Delete Button
                         <a href="category_delete.php?ctg_id=<?php echo $fetch['ctg_id']?>"
                           <?php
                             echo "onclick=\"return confirm('คุณต้องการลบข้อมูลนี้ใช้หรือไม่')\" ";
                           ?>
                         >
                           <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ลบ</span></button>
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                     <?php

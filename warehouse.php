@@ -48,6 +48,7 @@ if (isset($_GET['logout'])) {
       background-color: #f44336;
       color: white;
     }
+
     .closebtn {
       margin-left: 15px;
       color: white;
@@ -62,11 +63,13 @@ if (isset($_GET['logout'])) {
     .closebtn:hover {
       color: black;
     }
+
     .alert1 {
       padding: 20px;
       background-color: #FF8333;
       color: white;
     }
+
     .closebtn1 {
       margin-left: 15px;
       color: white;
@@ -93,9 +96,9 @@ if (isset($_GET['logout'])) {
         <a class="navbar-brand" <?php
                                 if ($_SESSION['emp_level'] == "พนักงาน") {
                                 ?> href="index_employee.php" <?php
-                                        } else {
-                                          ?> href="index_manager.php" <?php
-                                        } ?>>
+                                                            } else {
+                                                              ?> href="index_manager.php" <?php
+                                                                                        } ?>>
           <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
@@ -271,24 +274,25 @@ if (isset($_GET['logout'])) {
                 <!-- Projects table -->
                 <div class="table-responsive table-white table-striped animate-right">
                   <!-- Notification for lower stock -->
-                  <?php 
-                  $sqlcheck ='SELECT product_qty FROM product';
+                  <?php
+                  $round = 0;
+                  $sqlcheck = 'SELECT product_qty FROM product';
                   $resultcheck = mysqli_query($conn, $sqlcheck);
-                  while($rowcheck = $resultcheck->fetch_assoc())
-                  $rowcheckqty = $rowcheck['product_qty'];
-                  if($rowcheckqty <=10 && $rowcheckqty > 0){
+                  while ($rowcheck = $resultcheck->fetch_assoc()) {
+                    $rowcheckqty = $rowcheck['product_qty'];
+                    if ($round == 0) {
+                      if ($rowcheckqty <= 10) { ?>
+                        <div class="alert">
+                          <span class="closebtn1" onclick="this.parentElement.style.display='none';">&times;</span>
+                          <strong>เเจ้งเตือน:</strong> สินค้าบางรายการเหลือน้อย
+                        </div>
+                  <?php
+                  $round = 1;
+                      }
+                    }
+                  }
+
                   ?>
-                  <div class="alert1">
-                    <span class="closebtn1" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการเหลือน้อย
-                  </div>
-                  <?php }else if($rowcheckqty <=0){
-                  ?>
-                  <div class="alert">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>เเจ้งเตือน:</strong> สินค้าบางรายการหมด
-                  </div>
-                <?php } ?>
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align="center">
                       <th>
@@ -328,11 +332,9 @@ if (isset($_GET['logout'])) {
 
                       if ($row["product_qty"] <= 10) {
                         echo "<td class=text-danger> $row[product_qty] แพ็ค</td>";
-                      }
-                      else if ($row["product_qty"] <= 20) {
+                      } else if ($row["product_qty"] <= 20) {
                         echo "<td class=text-warning> $row[product_qty] แพ็ค</td>";
-                      }
-                      else {
+                      } else {
                         echo "<td class=text-success> $row[product_qty] แพ็ค</td>";
                       }
 

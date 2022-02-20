@@ -18,7 +18,7 @@ if (isset($_POST['regist'])) {
 
 
 
-
+if($level !="" || $level != null){
     if (!is_numeric($realname) && !is_numeric($surname) && is_numeric($idcard) && is_numeric($age) &&  is_numeric($emp_tel))
 {
 //check password
@@ -42,6 +42,7 @@ if ($password_1 === $password_2) {
             </script>";
         }
     } else {
+
         $emp_status = 'อยู่ในระบบ';
         $password = md5($password_1);
         $sql = "INSERT INTO emp_data (emp_id,emp_name,emp_surname,emp_level,emp_username,emp_password,emp_idcardnum,emp_age,emp_gender,emp_tel,emp_status) 
@@ -55,11 +56,13 @@ if ($password_1 === $password_2) {
                 $_SESSION['emp_level'] = $realname;
                 $_SESSION['success'] = "สมัครสมาชิกสำเร็จ!";
                 if ($level == "ผู้จัดการ") {
-                    echo "<script> alert('บันทึกข้อมูลสำเร็จ ดำเนินการเข้าสู่ระบบ');
-                    window.location.replace('index_manager.php'); </script>";
+                    session_destroy();
+                    echo "<script> alert('บันทึกข้อมูลสำเร็จ กรุณาเข้าสู่ระบบอีกครั้ง');
+                    window.location.replace('login_page.php'); </script>";
                 } else {
-                    echo "<script> alert('บันทึกข้อมูลสำเร็จ ดำเนินการเข้าสู่ระบบ');
-                window.location.replace('index_employee.php'); </script>";
+                    session_destroy();
+                    echo "<script> alert('บันทึกข้อมูลสำเร็จ กรุณาเข้าสู่ระบบอีกครั้ง');
+                window.location.replace('login_page.php'); </script>";
                 }
             }
         } else {
@@ -78,4 +81,9 @@ if ($password_1 === $password_2) {
     </script>";
 }
     
+}else{
+    echo "<script> alert('ข้อมูลไม่ถูกต้องหรือไม่ครบถ้วน..');
+    window.location.replace('register_page.php'); 
+    </script>";
+}
 }

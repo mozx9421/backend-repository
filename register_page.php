@@ -163,8 +163,11 @@
         <div class="form-group">
                 <div class="form-group mb-3">
                 <label class="input-group text-default"> ตำเเหน่งงาน </label>
-                    <input type="text" value="พนักงาน" class="form-control col-xl-7" disabled="disabled">
-                    <input type="hidden" name="level1" value="พนักงาน">
+                    <select class="form-control" name="level1">
+                        <option value="">--- โปรดเลือกตำเเหน่ง ---</option>
+                        <option value="พนักงาน" >พนักงาน</option>
+                        <option value="ผู้จัดการ" >ผู้จัดการ</option>
+                    </select>
                 </div>
             </div>
 

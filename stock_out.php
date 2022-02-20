@@ -220,26 +220,32 @@
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
-                    <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
+  
                       <th><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ตัวเลือก</h6></th>
                     </tr>
                     <?php
+                    $perpage = 10;
+                    if (isset($_GET['page'])) {
+                      $page = $_GET['page'];
+                    } else {
+                      $page = 1;
+                    }
+                    $start = ($page - 1) * $perpage;
+
                       $query = mysqli_query($conn, "SELECT * FROM product JOIN stock JOIN emp_data
                       WHERE stock.emp_id = emp_data.emp_id
                       AND stock.product_id = product.product_id
                       AND stock.stock_id LIKE 'T%'
                       GROUP BY stock_id
-                      ORDER BY stock_id DESC") or die(mysqli_error());
+                      ORDER BY stock_id DESC limit {$start} , {$perpage}");
                       include 'DT.php';
-                      $x = 1;
                       while($fetch = mysqli_fetch_array($query)){
                         $dateData = $fetch['stock_datetime'];
                     ?>
                     <tr align="center">
-                      <td><?php echo $x; $x++; ?></td>
                       <td><?php echo $fetch['stock_id']?></td>
                       <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
                       <td><?php echo $fetch['emp_name'],"&nbsp&nbsp",$fetch['emp_surname']?></td>
@@ -255,10 +261,41 @@
                       }
                     ?>
                   </table>
+                  <?php
+                  $sql2 = "SELECT * FROM product JOIN stock JOIN emp_data
+                  WHERE stock.emp_id = emp_data.emp_id
+                  AND stock.product_id = product.product_id
+                  AND stock.stock_id LIKE 'T%'
+                  GROUP BY stock_id
+                  ORDER BY stock_id DESC ";
+                  $query2 = mysqli_query($conn, $sql2);
+                  $total_record = mysqli_num_rows($query2);
+                  $total_page = ceil($total_record / $perpage);
+                  ?>
                 </div>
               </div>
             </div>
           </div>
+          <nav aria-label="Page navigation example mb-4">
+                <div class="container-fluid mt--2">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="stock_out.php?page=1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <?php for ($it = 1; $it <= $total_page; $it++) { ?>
+                      <li class="page-item"><a class="page-link" href="stock_out.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
+                    <?php } ?>
+                    <li class="page-item">
+                      <a class="page-link" href="stock_out.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
         </div>
       </div>
     </div><!-- Page Content -->

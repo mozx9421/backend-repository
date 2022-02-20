@@ -201,19 +201,13 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
                       <h6 class="text-gray mb-0">ชื่อ-นามสกุล</h6>
                     </th>
                     <th>
-                      <h6 class="text-gray mb-0">ตำเเหน่งงาน</h6>
-                    </th>
-                    <th>
                       <h6 class="text-gray mb-0">username</h6>
-                    </th>
-                    <th>
-                      <h6 class="text-gray mb-0">เพศ</h6>
                     </th>
                     <th>
                       <h6 class="text-gray mb-0">เบอร์โทรศัพท์มือถือ</h6>
                     </th>
                     <th>
-                      <h6 class="text-gray mb-0"></h6>
+                      <h6 class="text-gray mb-0">สถานะ</h6>
                     </th>
                     <th>
                       <h6 class="text-gray mb-0" align="center">ตัวเลือก</h6>
@@ -228,26 +222,40 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
                 ?>
                   <tr>
                     <td><?php echo $fetch['emp_id'] ?></td>
-                    <td><?php echo $fetch['emp_name'], $fetch['emp_surname'] ?></td>
-                    <td><?php echo $fetch['emp_level'] ?></td>
+                    <td><?php echo $fetch['emp_name'],'  ', $fetch['emp_surname'] ?></td>
                     <td><?php echo $fetch['emp_username'] ?></td>
-                    <td><?php echo $fetch['emp_gender'] ?></td>
                     <td><?php echo $fetch['emp_tel'] ?></td>
-                    <?php if ($fetch['emp_status'] == 'อยู่ในระบบ') { ?>
-                      <td class="text-success"><?php echo $fetch['emp_status'] ?></td>
-                    <?php } else { ?><td class="text-warning"><?php echo $fetch['emp_status'] ?></td> <?php } ?>
-                    <td align="center">
+                    <?php if ($fetch['emp_status'] == 'ลาออก') { ?>
+                      <td class="text-warning"><?php echo $fetch['emp_status'] ?></td>
+                      <td align="center">
+                      <!-- Update Button -->
+                      <!-- <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#emp_update_modal<?php echo $fetch['emp_id'] ?>">
+                        <span><i class="far fa-edit"></i> 
+                      </button> -->
+                      <!-- Delete Button -->
+                      <a href="emp_clearstatus.php?emp_id=<?php echo $fetch['emp_id'] ?>" <?php
+                                                                                    echo "onclick=\"return confirm('คุณต้องการเปิดการเข้าถึงพนักงานคนนี้หรือไม่')\" ";
+                                                                                    ?>>
+                        <button class='btn btn-outline-primary btn-sm'><span><i class="far fa-trash-alt"></i> เปิดการใช้งาน</button>
+                      </a>
+                    </td>
+                    <?php } else { ?>
+                      <td class="text-success"><?php echo $fetch['emp_status'] ?></td> 
+                      <td align="center">
                       <!-- Update Button -->
                       <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#emp_update_modal<?php echo $fetch['emp_id'] ?>">
                         <span><i class="far fa-edit"></i> แก้ไข
                       </button>
                       <!-- Delete Button -->
                       <a href="emp_delete.php?emp_id=<?php echo $fetch['emp_id'] ?>" <?php
-                                                                                    echo "onclick=\"return confirm('คุณต้องการลบพนักงานคนนี้หรือไม่')\" ";
+                                                                                    echo "onclick=\"return confirm('คุณต้องการปิดการเข้าถึงพนักงานคนนี้หรือไม่')\" ";
                                                                                     ?>>
-                        <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> นำออกจากระบบ</button>
+                        <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ปิดการใช้งาน</button>
                       </a>
-                    </td>
+                    </td><?php } 
+                    
+                    ?>
+                   
                   </tr>
                 <?php
                   include 'emp_update.php';

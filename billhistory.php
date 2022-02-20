@@ -1,26 +1,27 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'],$_SESSION['emp_level'])){
-      echo "<script>
+if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username'],$_SESSION['emp_level']);
-      echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username'], $_SESSION['emp_level']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,12 +52,12 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" <?php
-          if($_SESSION['emp_level'] == "พนักงาน" ){
-            ?> href="index_employee.php" <?php
-          }else{
-            ?> href="index_manager.php" <?php
-          } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                if ($_SESSION['emp_level'] == "พนักงาน") {
+                                ?> href="index_employee.php" <?php
+                                                            } else {
+                                                              ?> href="index_manager.php" <?php
+                                                                    } ?>>
+          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -83,9 +84,9 @@
               </a>
             </li>
             <?php
-              if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                echo
-                "<li class='nav-item'>
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+              echo
+              "<li class='nav-item'>
                   <a class='nav-link' href='emp.php'>
                     <i class='ni ni-single-02 text-orange'></i>
                     <span class='nav-link-text'>พนักงาน</span>
@@ -97,20 +98,20 @@
                     <span class='nav-link-text'>รายงาน</span>
                   </a>
                 </li>";
-              }
+            }
             ?>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -147,7 +148,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -166,6 +167,24 @@
         </div>
       </div>
     </div>
+
+    <?php
+    //  $perpage = 5;
+    //  if (isset($_GET['page'])) {
+    //  $page = $_GET['page'];
+    //  } else {
+    //  $page = 1;
+    //  }
+
+    //  $start = ($page - 1) * $perpage;
+
+    //  $sql = "SELECT * FROM product 
+    //  JOIN stock ON  product.product_id = stock.product_id
+    //  JOIN emp_data ON emp_data.emp_id = stock.emp_id
+    //  GROUP BY stock_id
+    //  ORDER BY stock_datetime DESC limit {$start} , {$perpage} ";
+    //  $query = mysqli_query($con, $sql);
+    ?>
     <!-- Content -->
     <div class="container-fluid mt--6 animate-bottom">
       <div class="fetch">
@@ -179,130 +198,173 @@
               </div>
             </div>
             <div class="table-responsive">
-              <form  action="billhistory.php" method="post">
+              <form action="billhistory.php" method="post">
                 <!-- SearchText -->
                 <form class="navbar-search navbar-search-light form-inline mr-sm-5" id="navbar-search-main">
                   <div class="form-group mb-0">
                     <div class="input-group input-group-alternative input-group-merge">
-                      <div class="input-group-prepend">
+                      <!-- <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="&nbsp&nbsp ค้นหารายการ" type="text" id="txtKeyword" name="txtKeyword">
+                      </div> -->
+                      <!-- <input class="form-control" placeholder="&nbsp&nbsp ค้นหารายการ" type="text" id="txtKeyword" name="txtKeyword"> -->
                     </div>
                   </div>
                   <button name="search" class="close" type="submit"></button>
                 </form><br>
-                <div class="table-responsive" >
-                  <table class="table bg-light table table-bordered">          
+                <div class="table-responsive">
+                  <table class="table bg-light table table-bordered">
                     <tr>
-                      <th>ลำดับที่</th>
                       <th>หมายเลขรายการ</th>
                       <th>สถานะรายการ</th>
                       <th>วันที่</th>
                       <th>ผู้ทำรายการ</th>
                       <th>ตัวเลือก</th>
                     </tr>
-                    <?php if (isset($_POST['search'])){
+                    <?php if (isset($_POST['search'])) {
                       $txtKeyword = $_POST['txtKeyword'];
-                      if($txtKeyword != ""){
+                      if ($txtKeyword != "") {
                     ?>
-                    <?php
-                      //error_reporting(E_ALL ^ E_NOTICE);
-                      $query = "SELECT * FROM stock
+                        <?php
+                        //error_reporting(E_ALL ^ E_NOTICE);
+                        $query = "SELECT * FROM stock
                       JOIN product ON product.product_id = stock.product_id
                       JOIN emp_data ON emp_data.emp_id = stock.emp_id
-                      WHERE (stock_id LIKE '%".$_POST["txtKeyword"]."%'
-                      or stock_status LIKE '%".$_POST["txtKeyword"]."%'
-                      or stock_datetime LIKE '%".$_POST["txtKeyword"]."%'
-                      or emp_name LIKE '%".$_POST["txtKeyword"]."%'
-                      or emp_surname LIKE '%".$_POST["txtKeyword"]."%' ) 
+                      WHERE (stock_id LIKE '%" . $_POST["txtKeyword"] . "%'
+                      or stock_status LIKE '%" . $_POST["txtKeyword"] . "%'
+                      or stock_datetime LIKE '%" . $_POST["txtKeyword"] . "%'
+                      or emp_name LIKE '%" . $_POST["txtKeyword"] . "%'
+                      or emp_surname LIKE '%" . $_POST["txtKeyword"] . "%' ) 
                       GROUP BY stock_id";
 
-                      include 'DT.php';
-                      $result = mysqli_query($conn, $query);
-                      @$i++; while ($fetch = mysqli_fetch_array($result)){
-                      $dateData = $fetch['stock_datetime'];
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $fetch['stock_id']; ?></td>
-                      <td><?php echo $fetch['stock_status']; ?></td>
-                      <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
-                      <td><?php echo $fetch['emp_name'],"&nbsp&nbsp&nbsp",$fetch['emp_surname']; ?></td>
-                      <td>
-                        <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id']?>">
-                          <button type="button" class="btn btn-outline-warning btn-sm text-black">
-                            <span><i class="fas fa-list"></i> รายละเอียด</span>
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
-                    <?php $i++;
-                        } 
-                      }else{
+                        include 'DT.php';
+                        $result = mysqli_query($conn, $query);
+                        @$i++;
+                        while ($fetch = mysqli_fetch_array($result)) {
+                          $dateData = $fetch['stock_datetime'];
+                        ?>
+                          <tr>
+                            <td><?php echo $i; ?></td>
+                            <td><?php echo $fetch['stock_id']; ?></td>
+                            <td><?php echo $fetch['stock_status']; ?></td>
+                            <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
+                            <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
+                            <td>
+                              <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
+                                <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                                  <span><i class="fas fa-list"></i> รายละเอียด</span>
+                                </button>
+                              </a>
+                            </td>
+                          </tr>
+                        <?php $i++;
+                        }
+                      } else {
                         $query = "SELECT stock_id,stock_status,stock_datetime,emp_id FROM stock
                         JOIN product ON product.product_id = stock.product_id
                         JOIN emp_data ON emp_data.emp_id = stock.emp_id GROUP BY stock_id";
 
                         $result = mysqli_query($conn, $query);
-                        @$i=1; while ($fetch = mysqli_fetch_array($result)){
-                        $dateData = $fetch['stock_datetime'];
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $fetch['stock_id']; ?></td>
-                      <td><?php echo $fetch['stock_status']; ?></td>
-                      <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
-                      <td><?php echo $fetch['emp_name'],"&nbsp&nbsp&nbsp",$fetch['emp_surname']; ?></td>
-                      <td>
-                        <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id']?>">
-                          <button type="button" class="btn btn-outline-warning btn-sm text-black">
-                            <span><i class="fas fa-list"></i> รายละเอียด</span>
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
-                    <?php $i++;
-                          }
+                        @$i = 1;
+                        while ($fetch = mysqli_fetch_array($result)) {
+                          $dateData = $fetch['stock_datetime'];
+                        ?>
+                          <tr>
+                            <td><?php echo $i; ?></td>
+                            <td><?php echo $fetch['stock_id']; ?></td>
+                            <td><?php echo $fetch['stock_status']; ?></td>
+                            <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
+                            <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
+                            <td>
+                              <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
+                                <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                                  <span><i class="fas fa-list"></i> รายละเอียด</span>
+                                </button>
+                              </a>
+                            </td>
+                          </tr>
+                        <?php $i++;
                         }
-                      }else{
-                        $query = "SELECT * FROM product 
+                      }
+                    } else {
+                      $perpage = 10;
+                      if (isset($_GET['page'])) {
+                        $page = $_GET['page'];
+                      } else {
+                        $page = 1;
+                      }
+                      $start = ($page - 1) * $perpage;
+
+
+
+                      $query = "SELECT * FROM product 
                         JOIN stock ON  product.product_id = stock.product_id
                         JOIN emp_data ON emp_data.emp_id = stock.emp_id
                         GROUP BY stock_id
-                        ORDER BY stock_datetime DESC";
-                        include 'DT.php';
-                        $result = mysqli_query($conn, $query);
-                        @$i=1; while ($fetch = mysqli_fetch_array($result)) {
+                        ORDER BY stock_datetime DESC limit {$start} , {$perpage} ";
+                      include 'DT.php';
+                      $result = mysqli_query($conn, $query);
+                      @$i = 1;
+                      while ($fetch = mysqli_fetch_array($result)) {
                         $dateData = $fetch['stock_datetime'];
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $fetch['stock_id']; ?></td>
-                      <td><?php echo $fetch['stock_status']; ?></td>
-                      <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
-                      <td><?php echo $fetch['emp_name'],"&nbsp&nbsp&nbsp",$fetch['emp_surname']; ?></td>
-                      <td>
-                        <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id']?>">
-                          <button type="button" class="btn btn-outline-warning btn-sm text-black">
-                            <span><i class="fas fa-list"></i> รายละเอียด</span>
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
+                        ?>
+                        <tr>
+                          <td><?php echo $fetch['stock_id']; ?></td>
+                          <td><?php echo $fetch['stock_status']; ?></td>
+                          <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
+                          <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
+                          <td>
+                            <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
+                              <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                                <span><i class="fas fa-list"></i> รายละเอียด</span>
+                              </button>
+                            </a>
+                          </td>
+                        </tr>
                     <?php $i++;
-                        }
                       }
-                    ?> 
+                    }
+                    ?>
                     <!-- <div id="result"></div> -->
                   </table>
+                  <?php
+                  $sql2 = "SELECT * FROM product 
+                  JOIN stock ON  product.product_id = stock.product_id
+                  JOIN emp_data ON emp_data.emp_id = stock.emp_id
+                  GROUP BY stock_id
+                  ORDER BY stock_datetime DESC";
+                  $query2 = mysqli_query($conn, $sql2);
+                  $total_record = mysqli_num_rows($query2);
+                  $total_page = ceil($total_record / $perpage);
+                  ?>
                 </div>
-              </form>
             </div>
+            
+            </form>
           </div>
+          <nav aria-label="Page navigation example mb-4">
+                <div class="container-fluid mt--2">
+                  <ul class="nav nav-pills nav-pills-circle">
+                    <li class="page-item">
+                      <a class="page-link" href="billhistory.php?page=1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <?php for ($it = 1; $it <= $total_page; $it++) { ?>
+                      <li class="page-item"><a class="page-link" href="billhistory.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
+                    <?php } ?>
+                    <li class="page-item">
+                      <a class="page-link" href="billhistory.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
@@ -317,4 +379,5 @@
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.2.0"></script>
 </body>
+
 </html>

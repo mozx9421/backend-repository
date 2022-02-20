@@ -5,13 +5,13 @@ $product_name = "";
 $spci = "";
 $spco = "";
 $spcc = "";
-
+$pack = "เเพ็ค";
 
 $sqlQuery = "SELECT product.product_id, product.product_name, SUM(stock.product_count)
 AS product_count FROM stock JOIN product
 WHERE product.product_id = stock.product_id
-AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
-AND stock_id LIKE 'C%'
+AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 365 day)
+AND stock_id LIKE 'R%'
 GROUP BY product_name
 ORDER BY product_count DESC";
 $result = mysqli_query($conn,$sqlQuery);
@@ -26,21 +26,23 @@ foreach ($result as $row){
 	
 	//เข้า
 	$sqlQuery1 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
-	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'R%' AND product_id = '$product_id' ";
+	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 365 day) AND stock_id LIKE 'R%' AND product_id = '$product_id' ";
 	$result1 = mysqli_query($conn,$sqlQuery1);
 	foreach ($result1 as $row1){
 		$spci .= "'".$row1['product_count']."',";
 	}
-	//เคลม
+	
+	//ออก
 	$sqlQuery2 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
-	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'C%' AND product_id = '$product_id' ";
+	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 365 day) AND stock_id LIKE 'T%' AND product_id = '$product_id' ";
 	$result2 = mysqli_query($conn,$sqlQuery2);
 	foreach ($result2 as $row2){
 		$spco .= "'".$row2['product_count']."',";
 	}
-	//ออก
+	
+	//claim
 	$sqlQuery3 = "SELECT product_id, SUM(product_count) AS product_count FROM stock
-	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day) AND stock_id LIKE 'T%' AND product_id = '$product_id' ";
+	WHERE `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 365 day) AND stock_id LIKE 'C%' AND product_id = '$product_id' ";
 	$result3 = mysqli_query($conn,$sqlQuery3);
 	foreach ($result3 as $row3){
 		$spcc .= "'".$row3['product_count']."',";
@@ -57,7 +59,7 @@ var BarsChart = (function(){
 	//
 	// Variables
 	//
-	var $chart = $('#chart-bars4');
+	var $chart = $('#chart-bars365');
 	//
 	// Methods
 	//
@@ -73,24 +75,6 @@ var BarsChart = (function(){
 			data: {
 				labels: [<?php echo $product_name ?>],//ชื่อ
 				datasets: [{
-					label: 'สินค้าเคลม',
-					data: [<?php echo $spco ?>],//เข้า
-					showInLegend: true,
-					backgroundColor: [
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-					],
-					borderColor: [
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
-					],
-					borderWidth: 1,
-					fill: false
-				},{
 					label: 'รับเข้า',
 					data: [<?php echo $spci ?>],//เข้า
 					showInLegend: true,
@@ -110,7 +94,7 @@ var BarsChart = (function(){
 					fill: false
 				},{
 					label: 'เบิกออก',
-					data: [<?php echo $spcc ?>],//ออก
+					data: [<?php echo $spco ?>],//ออก
 					backgroundColor: [
 						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
 						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
@@ -122,6 +106,24 @@ var BarsChart = (function(){
 						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
 						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
 						'rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)','rgba(255, 128, 0, 1)',
+					],
+					borderWidth: 1,
+					fill: false
+				},{
+					label: 'สินค้าเคลม',
+					data: [<?php echo $spcc ?>],//เข้า
+					showInLegend: true,
+					backgroundColor: [
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+					],
+					borderColor: [
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
+						'rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)','rgb(204, 0, 0)',
 					],
 					borderWidth: 1,
 					fill: false

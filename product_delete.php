@@ -1,11 +1,12 @@
 <?php
 include('connect.php');
 $product_id = $_REQUEST["product_id"];
-$sqlpro = "DELETE FROM product WHERE product_id ='$product_id'";
-$resultpro = mysqli_query($conn, $sqlpro) or die ("Error in query: $sqlpro " . mysqli_error());
+$upstatus = 'ปิดการขาย';
+$sqlpro = "UPDATE product SET product_status='$upstatus' WHERE product_id ='$product_id'";
+$resultpro = mysqli_query($conn, $sqlpro) ;
 	if($resultpro){
 	echo "<script type='text/javascript'>";
-	echo "alert('ลบข้อมูลสำเร็จ"." $product_id ');";
+	echo "alert('ปิดการใช้งาน $product_id สำเร็จ');";
 	echo "window.location = 'product.php'; ";
 	echo "</script>";
 	}

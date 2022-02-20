@@ -211,6 +211,11 @@ if (isset($_GET['logout'])) {
                   // }
                   ?>
                 </div>
+                <!-- <div class="" align="right">
+                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >7 วัน</button>
+                <a href="dashboard2.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >30 วัน</button></a>
+                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >1 ปี </button></a>
+                </div> -->
               </div>
             </div>
           </div>
@@ -223,7 +228,7 @@ if (isset($_GET['logout'])) {
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
-                        <h4 class="card-title text-uppercase mb-0">จำนวน รับเข้า/เบิกออก ของสินค้าแต่ละตัว(แพ็ค) ภายใน 30 วัน</h4>
+                        <h4 class="card-title text-uppercase mb-0">จำนวนสินค้า(แพ็ค)ใน 7 วันที่ผ่านมา</h4>
                         <div class="" align="right">
                           <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า
                           <i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> เบิกออก
@@ -476,13 +481,20 @@ if (isset($_GET['logout'])) {
                       <center>
                         <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเคลมสินค้าทั้งหมด</h5>
                         <?php
-                        $result1 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
+                        $result3 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
                             WHERE `stock_id` LIKE 'C%'
                             AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
-                        $row1 = mysqli_fetch_array($result1);
-                        $total1 = $row1[0];
+                        $row3 = mysqli_fetch_array($result3);
+                        $total3 = $row3[0];
+                        if($total3 == "" || $total3 == null){ ?>
+                        <span class="h3 font-weight-bold mb-0"><?php echo "-" ?></span> 
+                        <?php
+                        }else{
                         ?>
-                        <span class="h3 font-weight-bold mb-0"><?php echo $total1; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
+                        <span class="h3 font-weight-bold mb-0"><?php echo $total3; ?></span> <span class="h5 text-muted mb-0">แพ็ค</span>
+                        <?php
+                      }
+                      ?>
                       </center>
                     </div>
                     <div class="col-auto">

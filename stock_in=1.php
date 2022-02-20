@@ -242,7 +242,7 @@ if (isset($_GET['logout'])) {
                                                             <input id="num_product" type="hidden" value="0">
                                                             <select class="form-control product_id" id="product_id_0" name="product_id" placeholder="" required>
                                                                 <?php
-                                                                $sqlpro = "SELECT * FROM product";
+                                                                $sqlpro = "SELECT * FROM product WHERE product_status ='เปิดการขาย'";
                                                                 $resultpro = $conn->query($sqlpro);
                                                                 echo "<option value='' disabled selected>กรุณาเลือกสินค้า</option>";
                                                                 while ($row = $resultpro->fetch_assoc()) :
@@ -343,6 +343,9 @@ if (isset($_GET['logout'])) {
                                                     } else if ($('.product_id', b).val() == "" || $('.product_id', b).val() == null) {
                                                         alert('กรุณาเลือกสินค้า')
                                                         check = 1
+                                                        return false
+                                                    }else if($('.product_qty', b).val() > 99) {
+                                                        alert('สามารถใส่จำนวนได้มากที่สุด 99')
                                                         return false
                                                     }
 
