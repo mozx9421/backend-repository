@@ -238,7 +238,7 @@ if (isset($_GET['logout'])) {
                                                 <tbody class="data_product">
                                                     <input type="hidden" value="<?php echo $_SESSION['emp_id'] ?>" id="emp_id">
                                                     <tr>
-                                                        <td contenteditable="true">
+                                                        <td contenteditable="flase">
                                                             <input id="num_product" type="hidden" value="0">
                                                             <select class="form-control product_id" id="product_id_0" name="product_id" placeholder="" required>
                                                                 <?php
@@ -300,7 +300,7 @@ if (isset($_GET['logout'])) {
                                                 var html_code = "<tr id='row" + count + "'>";
 
                                                 html_code += "<td contenteditable='true' ><select class='form-control product_id' id='product_id_" + a + "' name='productID'><option disabled selected value>กรุณาเลือกสินค้า</option><?php
-                                                                                                                                                                                                                                        $sqlpro = "SELECT * FROM product";
+                                                                                                                                                                                                                                        $sqlpro = "SELECT * FROM product  WHERE product_status ='เปิดการขาย'";
                                                                                                                                                                                                                                         $resultpro = $conn->query($sqlpro);
 
                                                                                                                                                                                                                                         while ($row = $resultpro->fetch_assoc()) :

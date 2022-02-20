@@ -319,7 +319,7 @@ if (isset($_GET['logout'])) {
                                                 a = t + 1
                                                 var html_code = "<tr id='row" + count + "'>";
                                                 html_code += "<td contenteditable='true' ><select class='form-control product_id' id='product_id_" + a + "' name='productID'><option disabled selected value>กรุณาเลือกสินค้า</option><?php
-                                                                                                                                                                    $sqlpro = "SELECT * FROM product";
+                                                                                                                                                                    $sqlpro = "SELECT * FROM product WHERE product_qty != 0";
                                                                                                                                                                     $resultpro = $conn->query($sqlpro);
                                                                                                                                                                     while ($row = $resultpro->fetch_assoc()) :
                                                                                                                                                                         echo "<option value=$row[product_id]> $row[product_id] $row[product_name] </option>";
