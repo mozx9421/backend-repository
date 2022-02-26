@@ -9,6 +9,20 @@ if (!isset($_SESSION['username'])) {
     </script>";
 }
 
+
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+  if ($rowotp['otp'] == "no") {
+    echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+  }
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username']);
@@ -17,6 +31,8 @@ if (isset($_GET['logout'])) {
     window.location.replace('login_page.php');
     </script>";
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -106,13 +122,17 @@ if (isset($_GET['logout'])) {
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav Items -->
+
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.php">
-                <i class="ni ni-tv-2 text-orange"></i>
-                <span class="nav-link-text">ภาพรวม</span>
-              </a>
-            </li>
+            <?php
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php">
+                  <i class="ni ni-tv-2 text-orange"></i>
+                  <span class="nav-link-text">ภาพรวม</span>
+                </a>
+              </li>
+            <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="billhistory.php">
                 <i class="fas fa-history text-orange"></i>
@@ -287,7 +307,7 @@ if (isset($_GET['logout'])) {
                           <strong>เเจ้งเตือน:</strong> สินค้าบางรายการเหลือน้อย
                         </div>
                   <?php
-                  $round = 1;
+                        $round = 1;
                       }
                     }
                   }
@@ -316,7 +336,7 @@ if (isset($_GET['logout'])) {
                     </tr>
                     <?php
                     $sql = "SELECT * FROM product JOIN unit
-                      WHERE product.unit_id = unit.unit_id
+                      WHERE product.unit_id = unit.unit_id 
                       ORDER BY product_qty ASC";
                     $result = $conn->query($sql);
 
@@ -329,6 +349,7 @@ if (isset($_GET['logout'])) {
                       echo "<td> $row[product_id] </td>";
                       echo "<td> $row[product_name] </td>";
                       echo "<td> $row[unit_name] </td>";
+
 
                       if ($row["product_qty"] <= 10) {
                         echo "<td class=text-danger> $row[product_qty] แพ็ค</td>";
