@@ -1,25 +1,36 @@
-<?php 
+<?php
 include('connect.php');
 include('errors.php');
-    session_start();
+session_start();
 
-    if(isset($_SESSION['username'],$_SESSION['emp_level'])){
-      if($_SESSION['emp_level'] == "พนักงาน" ){
+if (isset($_SESSION['username'], $_SESSION['emp_level'])) {
+  $otpcheck = $_SESSION['username'];
+  $sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+  $resultotp = mysqli_query($conn, $sqlotp);
+  if ($resultotp = 1) {
+    echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน..');
+  window.location.replace('firsttime_login.php');
+  </script>";
+  } else {
+    if ($_SESSION['emp_level'] == "พนักงาน") {
       echo "<script>
       alert('กรุณาออกจากระบบก่อน..');
       window.location.replace('index_employee.php');
       </script>";
-      }else{
-        echo "<script>
+    } else {
+      echo "<script>
       alert('กรุณาออกจากระบบก่อน..');
       window.location.replace('index_manager.php');
       </script>";
-      }
     }
+  }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,39 +79,40 @@ include('errors.php');
                   <div class="text-center text-muted mb-4">
                     <h2>เข้าสู่ระบบ</h2>
                     <p>กรอก username เเละ password <br> เพื่อเข้าสู่ระบบ </p>
-                    
-                  <div class="content">
-                </div>
-              </div>
-            </div>
-            <!-- section 1 -->
-            <div class="form-group mb-3">
-              <label class="input-group text-default">ชื่อผู้ใช้</label>
-              <div class="input-group input-group-merge input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-badge"></i></span>
-                </div>
-                <input type="text" name="login_username" class="form-control"  placeholder="username">
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label class="input-group text-default">รหัสผ่าน</label>
-              <div class="input-group input-group-merge input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    <div class="content">
+                    </div>
+                  </div>
                 </div>
-                <input type="password" name="login_password" class="form-control" placeholder="password">
+                <!-- section 1 -->
+                <div class="form-group mb-3">
+                  <label class="input-group text-default">ชื่อผู้ใช้</label>
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-badge"></i></span>
+                    </div>
+                    <input type="text" name="login_username" class="form-control" placeholder="username">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="input-group text-default">รหัสผ่าน</label>
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input type="password" name="login_password" class="form-control" placeholder="password">
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" name="login_btn" class="btn btn-danger my-4">Login</button>
+                </div>
+                <p class="text-center">กด<a href="forgot_password.php">ที่นี่</a>หากลืมรหัส</p>
+                <h6 class="text-center text-muted">เข้าสู่ระบบครั้งเเรกใช้ 4 หลักสุดท้ายของรหัสบัตรประชาชน <br>ต่อด้วย 4 หลักสุดท้ายของเบอร์โทรศัพท์</h6>
               </div>
             </div>
-
-            <div class="text-center">
-              <button type="submit" name ="login_btn" class="btn btn-danger my-4" >Login</button>
-            </div>
-            <p class="text-center">กด<a href="forgot_password.php">ที่นี่</a>หากลืมรหัส</p>
           </div>
-        </div>
-      </div>
     </form>
   </div>
 
@@ -117,5 +129,5 @@ include('errors.php');
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
-</html>
 
+</html>

@@ -9,6 +9,19 @@
     </script>";
   }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+  
   if (isset($_GET['logout'])){
     session_destroy();
     unset($_SESSION['username']);
@@ -54,12 +67,6 @@
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
          <!-- Nav items -->
          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.php">
-                <i class="ni ni-tv-2 text-orange"></i>
-                <span class="nav-link-text">ภาพรวม</span>
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="billhistory.php">
                 <i class="fas fa-history text-orange"></i>

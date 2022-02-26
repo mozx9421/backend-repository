@@ -14,6 +14,7 @@ class MYPDF extends TCPDF {
         //variable 
         //
 
+        
         if($_POST['to_date']!="" && $_POST['from_date']=="" || $_POST['to_date']!="" && $_POST['from_date']==null){
           echo "<script>
           alert('วันที่ไม่ถูกต้องกรุณาระบุวันที่ใหม่..');
@@ -23,6 +24,7 @@ class MYPDF extends TCPDF {
           if($_POST['from_date']!="" && $_POST['to_date']!=""){
             $check_from_date = @$_POST['from_date']; 
             $check_to_date = @$_POST['to_date'];
+            
             if($check_from_date >= $check_to_date){
               echo "<script>
               alert('วันที่ไม่ถูกต้องกรุณาระบุวันที่ใหม่..');
@@ -31,6 +33,7 @@ class MYPDF extends TCPDF {
             }else{
             $from_date = $check_from_date; 
             $to_date = $check_to_date;
+            
             }
             
           }else if($_POST['from_date']!=""&& $_POST['to_date']==""){
@@ -45,6 +48,7 @@ class MYPDF extends TCPDF {
         
         
         // $to_date = @$_POST['to_date'];
+        $showname = @$_POST['showname'];
         $product_select =@$_POST['product_select'];
         $emp_select =@$_POST['emp_select'];
         $status_select = @$_POST['status_select'];
@@ -62,6 +66,7 @@ class MYPDF extends TCPDF {
           // $from_date_con = DateThai($from_date);
           // $to_date_con = DateThai($to_date);
            $txt2 = <<<EOD
+           
          EOD;
        }
 //2.product
@@ -381,7 +386,7 @@ class MYPDF extends TCPDF {
     
 $this->Write(0, " ", '', 0, 'C', true, 0, false, false, 0);
 $this->Write(0, $txt1, '', 0, 'C', true, 0, false, false, 0);
-$this->SetFont('thsarabun', 'l', 15);
+$this->SetFont('thsarabun', 'l', 14);
 $this->Write(0, $txt2, '', 0, 'R', true, 0, false, true, 0);
 
   }
@@ -394,14 +399,15 @@ $this->Write(0, $txt2, '', 0, 'R', true, 0, false, true, 0);
         }
   public function Footer()
     {
+      $showname = @$_POST['showname'];
         $this->SetFont('thsarabun', '', 14);
         parent::Footer();
-        $this->Cell(0, 5, "", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 4, "", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
         date_default_timezone_set('Asia/Bangkok');
         $current_time = date('j-n-Y');
         require_once('DT2.php');
         $current_time_convert =  DateThai($current_time);
-        $this->Cell(0, 8, "พิมพ์วันที่ " . $current_time_convert . "", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 8,"พิมพ์วันที่ " . $current_time_convert ."     "."โดย: ". $showname. "", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
     }
 }
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -417,14 +423,15 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
  $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP+8, PDF_MARGIN_RIGHT);
  $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
  $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
- $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+ $pdf->SetAutoPageBreak(TRUE,PDF_MARGIN_BOTTOM);
  $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
  if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
   require_once(dirname(__FILE__).'/lang/eng.php');
   $pdf->setLanguageArray($l);
  }
-$pdf->SetFont('thsarabun', 'l', 16);
+$pdf->SetFont('thsarabun', 'l', 16.28);
 $pdf->AddPage();
+
 // ---------------------------------------------------------
 $status_text=@$_POST['status_select'];
 $to_date;

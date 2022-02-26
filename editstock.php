@@ -9,6 +9,19 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
       </script>";
 }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username'], $_SESSION['emp_level']);
@@ -220,8 +233,11 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
+                    <th>
+                        <h6 class="text-gray text-ml mb-0">ลำดับที่</h6>
+                      </th>
                       <th>
-                        <h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6>
+                        <h6 class="text-gray text-ml mb-0">รหัสรายการสินค้า</h6>
                       </th>
                       <th>
                         <h6 class="text-gray text-ml mb-0">สถานะ</h6< /th>
@@ -258,7 +274,7 @@ if (isset($_GET['logout'])) {
                       $dateData = $fetch['stock_datetime'];
                     ?>
                       <tr align="center">
-                        <td><?php echo $f ?></td>
+                        <td><?php $start++; echo $start ?></td>
                         <td><?php echo $fetch['stock_id'] ?></td>
                         <?php
                         if ($fetch['stock_status'] == "ปรับเพิ่มสินค้า") {
@@ -281,7 +297,7 @@ if (isset($_GET['logout'])) {
                         </td>
                       </tr>
                     <?php
-                      $f++;
+                      
                     }
                     ?>
                   </table>

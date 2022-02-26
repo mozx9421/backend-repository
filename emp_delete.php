@@ -1,7 +1,7 @@
 <?php
 include('connect.php');
 $emp_id = $_REQUEST["emp_id"];
-$upstatus = 'ลาออก';
+$upstatus = 'ยกเลิกการใช้งาน';
 $sqlemp = "UPDATE emp_data SET emp_status='$upstatus' WHERE emp_id='$emp_id'";
 $resultemp = mysqli_query($conn, $sqlemp) or die ("Error in query: $sqlemp " . mysqli_error());
 	if($resultemp){

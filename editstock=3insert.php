@@ -18,14 +18,14 @@ if ($rs1['stock_id'] != "") {
     $date =  date("y") + 43;
 
     if ($check == $date) {
-      $sub = substr($rs1['stock_id'], 3, 6) + 1;
-      $name = sprintf('C' . $date . sprintf("%'.003d\n", $sub));
+      $sub = substr($rs1['stock_id'], 3, 8) + 1;
+      $name = sprintf('C' . $date . sprintf("%'.005d\n", $sub));
     } else {
-      $name = "C" . $date . "001";
+      $name = "C" . $date . "00001";
     }
   } else {
     $date =  date("y") + 43;
-    $name = "C" . $date . "001";
+    $name = "C" . $date . "00001";
   }
 
 // insert data

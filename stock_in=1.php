@@ -9,6 +9,20 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
         </script>";
 }
 
+
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['username'], $_SESSION['emp_level']);
@@ -62,12 +76,15 @@ if (isset($_GET['logout'])) {
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav Items -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
-                                <i class="ni ni-tv-2 text-orange"></i>
-                                <span class="nav-link-text">ภาพรวม</span>
-                            </a>
-                        </li>
+                        <?php
+                        if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.php">
+                                    <i class="ni ni-tv-2 text-orange"></i>
+                                    <span class="nav-link-text">ภาพรวม</span>
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a class="nav-link" href="billhistory.php">
                                 <i class="fas fa-history text-orange"></i>
@@ -334,7 +351,7 @@ if (isset($_GET['logout'])) {
                                                     if ($('.product_qty', b).val() == "" || $('.product_qty', b).val() == 0) {
                                                         alert('กรุณาใส่จำนวน')
                                                         return false
-                                                    }else if($('.product_qty', b).val() < 0) {
+                                                    } else if ($('.product_qty', b).val() < 0) {
                                                         alert('จำนวนสินค้าไม่สามารถติดลบได้')
                                                         return false
                                                     } else if ($('.product_exp', b).val() == "") {
@@ -344,7 +361,7 @@ if (isset($_GET['logout'])) {
                                                         alert('กรุณาเลือกสินค้า')
                                                         check = 1
                                                         return false
-                                                    }else if($('.product_qty', b).val() > 99) {
+                                                    } else if ($('.product_qty', b).val() > 99) {
                                                         alert('สามารถใส่จำนวนได้มากที่สุด 99')
                                                         return false
                                                     }

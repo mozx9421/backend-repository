@@ -9,6 +9,21 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
       </script>";
 }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
+
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username'], $_SESSION['emp_level']);
@@ -65,12 +80,15 @@ if (isset($_GET['logout'])) {
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav items -->
           <ul class="navbar-nav">
+          <?php
+          if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
             <li class="nav-item">
               <a class="nav-link" href="dashboard.php">
                 <i class="ni ni-tv-2 text-orange"></i>
                 <span class="nav-link-text">ภาพรวม</span>
               </a>
             </li>
+            <?php } ?>
             <li class="nav-item">
               <a class="nav-link active">
                 <i class="fas fa-history text-orange"></i>
@@ -214,7 +232,8 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive">
                   <table class="table bg-light table table-bordered">
                     <tr>
-                      <th>หมายเลขรายการ</th>
+                    <th>ลำดับที่</th>
+                      <th>รหัสรายการสินค้า</th>
                       <th>สถานะรายการ</th>
                       <th>วันที่</th>
                       <th>ผู้ทำรายการ</th>
@@ -305,9 +324,11 @@ if (isset($_GET['logout'])) {
                       $result = mysqli_query($conn, $query);
                       @$i = 1;
                       while ($fetch = mysqli_fetch_array($result)) {
+                        
                         $dateData = $fetch['stock_datetime'];
                         ?>
                         <tr>
+                        <td><?php $start++;  echo $start; ?></td>
                           <td><?php echo $fetch['stock_id']; ?></td>
                           <td><?php echo $fetch['stock_status']; ?></td>
                           <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
@@ -320,7 +341,7 @@ if (isset($_GET['logout'])) {
                             </a>
                           </td>
                         </tr>
-                    <?php $i++;
+                    <?php 
                       }
                     }
                     ?>

@@ -26,14 +26,14 @@ foreach ($_POST["data"] as $item) {
       $date =  date("y") + 43;
 
       if ($check == $date) {
-        $sub = substr($rs['stock_id'], 3, 6) + 1;
-        $name = sprintf('I' . $date . sprintf("%'.003d\n", $sub));
+        $sub = substr($rs['stock_id'], 3, 8) + 1;
+        $name = sprintf('I' . $date . sprintf("%'.005d\n", $sub));
       } else {
-        $name = "I" . $date . "001";
+        $name = "I" . $date . "00001";
       }
     } else {
       $date =  date("y") + 43;
-      $name = "I" . $date . "001";
+      $name = "I" . $date . "00001";
     }
 
     $sql = "INSERT INTO stock (stock_id, stock_status, stock_datetime, emp_id, product_id, product_count,stock_comment)

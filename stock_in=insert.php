@@ -24,14 +24,14 @@ if ($rs['stock_id'] != "") {
     $date =  date("y") + 43;
 
     if ($check == $date) {
-        $sub = substr($rs['stock_id'], 3, 6) + 1;
-        $name = sprintf('R' . $date . sprintf("%'.003d\n", $sub));
+        $sub = substr($rs['stock_id'], 3, 8) + 1;
+        $name = sprintf('R' . $date . sprintf("%'.005d\n", $sub));
     } else {
-        $name = "R" . $date . "001";
+        $name = "R" . $date . "00001";
     }
 } else {
     $date =  date("y") + 43;
-    $name = "R" . $date . "001";
+    $name = "R" . $date . "00001";
 }
 ///////////////////////////////////////////////////////////////////////
 // if ($rs_front['stock_id'] != "") {

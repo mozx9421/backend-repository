@@ -9,6 +9,19 @@
       </script>";
     }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
     if (isset($_GET['logout'])){
       session_destroy();
       unset($_SESSION['username']);
@@ -198,7 +211,7 @@
                     </div>
 
         <!--Password-->
-        <div class="form-group">
+        <!-- <div class="form-group">
                     <div class="form-group mb-3">
                     <label class="input-group text-default">รหัสผ่าน</label>
                         <div class="input-group input-group-merge input-group-alternative">
@@ -220,7 +233,7 @@
                             <input type="password" name="password2"  placeholder="confirm password" class="form-control" minlength="8">
                         </div> 
                     </div>
-                </div>  
+                </div>   -->
           
 
 

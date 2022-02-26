@@ -27,8 +27,15 @@
                 $_SESSION['emp_surname'] = $row['emp_surname'];
                 $_SESSION['emp_id'] = $row['emp_id'];
                 $_SESSION['emp_status'] = $row['emp_status']; 
+                $otp=$row['otp'];
 
-                if($_SESSION['emp_level'] == "ผู้จัดการ" && $_SESSION['emp_status'] == "อยู่ในระบบ"){
+                if($row['otp'] =='no'){
+                    echo "<script>
+                    alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน.. ');
+                    window.location.replace('firsttime_login.php');
+                    </script>";
+                }
+                else if($_SESSION['emp_level'] == "ผู้จัดการ" && $_SESSION['emp_status'] == "อยู่ในระบบ"){
                     echo "<script>
                     alert('กำลังเข้าสู่ระบบ.. ');
                     window.location.replace('dashboard.php');

@@ -9,6 +9,19 @@
       </script>";
     }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
     if (isset($_GET['logout'])){
       session_destroy();
       unset($_SESSION['username'],$_SESSION['emp_level']);
@@ -149,6 +162,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
+                  <?php $showname = $_SESSION['emp_name']; ?>
                   <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
@@ -182,6 +196,7 @@
               
               <!-- POST -->
                 <form action="TCPDF-master/examples/report_stock_out.php" method="POST">
+               <!-- <input type="hidden" name="showname121" place="<?php echo $showname ?>"> -->
                   <div class="card-body col-12 ml-4">
                     <div class="row">
                       <div class="col-md-5 ml-4 mt-4 mb-4">
@@ -235,7 +250,7 @@
                     
                     <div class="col-md-4 ml-5 mt-4">
                       <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary fas fa-file"> ออกรายงาน</button>
+                        <button type="submit" class="btn btn-outline-primary fas fa-file" name="showname" value="<?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?> "> ออกรายงาน</button>
                         <button type="reset" class="btn btn-outline-warning"><i class="fas fa-undo"></i> เคลียข้อมูล</button>
                       </div>
                     </div>

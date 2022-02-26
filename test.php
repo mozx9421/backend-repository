@@ -1,21 +1,25 @@
 <?php
-  $i=1;
-  while (your_condition) {
-?>
-    <input type='text' name='qqty[]' value='<?php echo $avail; ?>' id="avail<?= $i ?>" class='form-control1' readonly = 'readonly'>
+$idcard = "1100801348789";
+$tel = "0956016501";
 
-    <select class="form-control1" name="qty[]" id="sType"  onChange="check('<?= $i ?>');">
-            <option value="<?php echo $avail;?>"><?php echo $Uconv;?></option>
-            <option value="<?php echo $qty;?>"><?php echo $uom;?></option>
-    </select>
+$newidcard =substr($idcard, -4);
+$newtel =substr($tel, -4);
+echo $newidcard;
+echo " , ";
+echo $newtel;
+echo " , ";
+$newpassword = $newidcard.$newtel;
+echo $newpassword;
+$hashmd5 = md5($newpassword);
+echo " , ";
+echo $hashmd5;
 
-    //my javascript code
-    <script>
-    function check(i) {
-       document.getElementById("avail"+i).value = document.getElementById("sType").value;
-    }
-    </script>
-<?php
-$i++;
-} // end while
+include('connect.php');
+$otpcheck = 'harvest100';
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($row = mysqli_fetch_array($resultotp)){
+echo " , ";
+echo $row['otp'];
+}
 ?>

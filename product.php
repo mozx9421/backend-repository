@@ -9,6 +9,19 @@ if (!isset($_SESSION['username'])) {
       </script>";
 }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username']);
@@ -17,6 +30,8 @@ if (isset($_GET['logout'])) {
       window.location.replace('login_page.php');
       </script>";
 }
+
+
 
 if ($_SESSION['emp_level'] == "พนักงาน") {
   echo "<script>

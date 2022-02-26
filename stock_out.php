@@ -1,26 +1,40 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'],$_SESSION['emp_level'])){
-      echo "<script>
+if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username'],$_SESSION['emp_level']);
-      echo "<script>
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+  if ($rowotp['otp'] == "no") {
+    echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+  }
+}
+
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username'], $_SESSION['emp_level']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,12 +72,15 @@
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav Items -->
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.php">
-                <i class="ni ni-tv-2 text-orange"></i>
-                <span class="nav-link-text">ภาพรวม</span>
-              </a>
-            </li>
+            <?php
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php">
+                  <i class="ni ni-tv-2 text-orange"></i>
+                  <span class="nav-link-text">ภาพรวม</span>
+                </a>
+              </li>
+            <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="billhistory.php">
                 <i class="fas fa-history text-orange"></i>
@@ -77,9 +94,9 @@
               </a>
             </li>
             <?php
-              if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                echo
-                "<li class='nav-item'>
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+              echo
+              "<li class='nav-item'>
                   <a class='nav-link' href='emp.php'>
                     <i class='ni ni-single-02 text-orange'></i>
                     <span class='nav-link-text'>พนักงาน</span>
@@ -91,20 +108,20 @@
                     <span class='nav-link-text'>รายงาน</span>
                   </a>
                 </li>";
-              }
+            }
             ?>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
             <br>
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -140,7 +157,7 @@
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -161,7 +178,8 @@
 
     <!-- Page Content -->
     <div class="container-fluid mt--6">
-      <div class="row"><div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
+      <div class="row">
+        <div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
         <div class="col-xl-10">
           <div class="card">
             <div class="card-header">
@@ -180,9 +198,9 @@
                       <a class="nav-link active"><i class="fas fa-file-export"></i> เบิกสินค้า</a>
                     </li>
                     <?php
-                      if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                        echo
-                        "<li class='nav-item'>
+                    if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+                      echo
+                      "<li class='nav-item'>
                           <a class='nav-link' href='editstock.php'><i class='fas fa-cubes'></i> ปรับสต็อก</a>
                         </li>
                         <li class='nav-item'>
@@ -194,7 +212,7 @@
                         <li class='nav-item'>
                           <a class='nav-link' href='unit.php'><i class='fas fa-ruler-vertical'></i> หน่วยนับ</a>
                         </li>";
-                      }
+                    }
                     ?>
                   </ul>
                   <!-- Modal Button -->
@@ -220,12 +238,22 @@
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
-  
-                    <th><h6 class="text-gray text-ml mb-0">ลำดับที่</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">ตัวเลือก</h6></th>
+
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ลำดับที่</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">รหัสรายการสินค้า</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ตัวเลือก</h6>
+                      </th>
                     </tr>
                     <?php
                     $perpage = 10;
@@ -235,33 +263,34 @@
                       $page = 1;
                     }
                     $start = ($page - 1) * $perpage;
-                    $f =1;
-                      $query = mysqli_query($conn, "SELECT * FROM product JOIN stock JOIN emp_data
+                    $f = 1;
+                    $query = mysqli_query($conn, "SELECT * FROM product JOIN stock JOIN emp_data
                       WHERE stock.emp_id = emp_data.emp_id
                       AND stock.product_id = product.product_id
                       AND stock.stock_id LIKE 'T%'
                       GROUP BY stock_id
                       ORDER BY stock_id DESC limit {$start} , {$perpage}");
-                      include 'DT.php';
-                      while($fetch = mysqli_fetch_array($query)){
-                        $dateData = $fetch['stock_datetime'];
+                    include 'DT.php';
+                    while ($fetch = mysqli_fetch_array($query)) {
+                      $dateData = $fetch['stock_datetime'];
                     ?>
-                    <tr align="center">
-                    <td><?php echo $f ?></td>
-                      <td><?php echo $fetch['stock_id']?></td>
-                      <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
-                      <td><?php echo $fetch['emp_name'],"&nbsp&nbsp",$fetch['emp_surname']?></td>
-                      <td>
-                        <a href="stock_out_detail.php?stock_id=<?php echo $fetch['stock_id']?>">
-                          <button type="button" class="btn btn-outline-warning btn-sm text-black">
-                            <span><i class="fas fa-list"></i> รายละเอียด</span>
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
+                      <tr align="center">
+                        <td><?php $start++;
+                            echo $start ?></td>
+                        <td><?php echo $fetch['stock_id'] ?></td>
+                        <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
+                        <td><?php echo $fetch['emp_name'], "&nbsp&nbsp", $fetch['emp_surname'] ?></td>
+                        <td>
+                          <a href="stock_out_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
+                            <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                              <span><i class="fas fa-list"></i> รายละเอียด</span>
+                            </button>
+                          </a>
+                        </td>
+                      </tr>
                     <?php
-                    $f++;
-                      }
+                      $f++;
+                    }
                     ?>
                   </table>
                   <?php
@@ -280,30 +309,30 @@
             </div>
           </div>
           <nav aria-label="Page navigation example mb-4">
-                <div class="container-fluid mt--2">
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="stock_out.php?page=1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <?php for ($it = 1; $it <= $total_page; $it++) { ?>
-                      <li class="page-item"><a class="page-link" href="stock_out.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
-                    <?php } ?>
-                    <li class="page-item">
-                      <a class="page-link" href="stock_out.php?page=<?php echo $total_page; ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+            <div class="container-fluid mt--2">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="stock_out.php?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <?php for ($it = 1; $it <= $total_page; $it++) { ?>
+                  <li class="page-item"><a class="page-link" href="stock_out.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                  <a class="page-link" href="stock_out.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+          </nav>
         </div>
       </div>
     </div><!-- Page Content -->
   </div><!-- Main Content -->
-    
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -318,17 +347,7 @@
   <script src="../assets/js/argon.js?v=1.2.0"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-

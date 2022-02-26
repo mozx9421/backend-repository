@@ -9,6 +9,19 @@ if (!isset($_SESSION['username'])) {
       </script>";
 }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username']);
@@ -201,6 +214,9 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
                       <h6 class="text-gray mb-0">ชื่อ-นามสกุล</h6>
                     </th>
                     <th>
+                      <h6 class="text-gray mb-0">ตำเเหน่ง</h6>
+                    </th>
+                    <th>
                       <h6 class="text-gray mb-0">username</h6>
                     </th>
                     <th>
@@ -217,15 +233,16 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
 
                 <!-- Edit And Delete -->
                 <?php
-                $query = mysqli_query($conn, "SELECT * FROM emp_data WHERE emp_level LIKE 'พนักงาน' ORDER BY emp_id ASC") or die(mysqli_error());
+                $query = mysqli_query($conn, "SELECT * FROM emp_data  ORDER BY emp_id ASC") or die(mysqli_error());
                 while ($fetch = mysqli_fetch_array($query)) {
                 ?>
                   <tr>
                     <td><?php echo $fetch['emp_id'] ?></td>
                     <td><?php echo $fetch['emp_name'],'  ', $fetch['emp_surname'] ?></td>
+                    <td><?php echo $fetch['emp_level'] ?></td>
                     <td><?php echo $fetch['emp_username'] ?></td>
                     <td><?php echo $fetch['emp_tel'] ?></td>
-                    <?php if ($fetch['emp_status'] == 'ลาออก') { ?>
+                    <?php if ($fetch['emp_status'] == 'ยกเลิกการใช้งาน') { ?>
                       <td class="text-warning"><?php echo $fetch['emp_status'] ?></td>
                       <td align="center">
                       <!-- Update Button -->

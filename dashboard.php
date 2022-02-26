@@ -9,6 +9,20 @@ if (!isset($_SESSION['username'])) {
       </script>";
 }
 
+
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username']);
@@ -211,11 +225,12 @@ if (isset($_GET['logout'])) {
                   // }
                   ?>
                 </div>
-                <!-- <div class="" align="right">
-                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >7 วัน</button>
-                <a href="dashboard2.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >30 วัน</button></a>
-                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >1 ปี </button></a>
-                </div> -->
+                <div class="" align="right">
+                <!-- <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >7 วัน</button> -->
+                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >30 วัน</button>
+                <a href="dashboard2.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >3 เดือน </button></a>
+                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >1 ปี </button></a>
+                </div>
               </div>
             </div>
           </div>

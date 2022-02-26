@@ -9,6 +9,19 @@ if (!isset($_SESSION['username'])) {
       </script>";
 }
 
+//Change default password for first time login.
+$otpcheck = $_SESSION['username'];
+$sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
+$resultotp = mysqli_query($conn, $sqlotp);
+while($rowotp = mysqli_fetch_array($resultotp)){
+if ($rowotp['otp'] == "no") {
+  echo "<script>
+  alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
+  window.location.replace('firsttime_login.php');
+</script>";
+}
+}
+
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['username']);
@@ -212,9 +225,9 @@ if (isset($_GET['logout'])) {
                   ?>
                 </div>
                 <div class="" align="right">
-                <a href="dashboard.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >7 วัน</button></a>
-                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >30 วัน</button>
-                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-primary btn-sm" >1 ปี </button></a>
+                <a href="dashboard.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >30 วัน</button></a>
+                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >3 เดือน</button>
+                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >1 ปี </button></a>
                 </div>
               </div>
             </div>
@@ -241,7 +254,7 @@ if (isset($_GET['logout'])) {
                   <div class="card-body">
                     <!-- Chart -->
                     <div class="chart">
-                      <canvas id="chart-bars2"></canvas>
+                      <canvas id="chart-bars90"></canvas>
                     </div>
                   </div>
                 </div>
@@ -260,7 +273,7 @@ if (isset($_GET['logout'])) {
                           <?php
                           $result1 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
                             WHERE `stock_id` LIKE 'R%'
-                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
+                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)");
                           $row1 = mysqli_fetch_array($result1);
                           $total1 = $row1[0];
                           ?>
@@ -286,7 +299,7 @@ if (isset($_GET['logout'])) {
                           <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเบิกออกสินค้าทั้งหมด</h5>
                           <?php
                           $result2 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock WHERE `stock_id` LIKE 'T%'
-                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
+                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)");
                           $row2 = mysqli_fetch_array($result2);
                           $total2 = $row2[0];
                           ?>
@@ -354,7 +367,7 @@ if (isset($_GET['logout'])) {
                       <?php
                       $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
-                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
+                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)
                         AND stock_id LIKE 'R%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
@@ -403,7 +416,7 @@ if (isset($_GET['logout'])) {
                       <?php
                       $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
-                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
+                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)
                         AND stock_id LIKE 'T%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
@@ -452,7 +465,7 @@ if (isset($_GET['logout'])) {
                       <?php
                       $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
-                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
+                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)
                         AND stock_id LIKE 'D%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
@@ -484,7 +497,7 @@ if (isset($_GET['logout'])) {
                         <?php
                         $result1 = mysqli_query($conn, "SELECT SUM(product_count) FROM stock
                             WHERE `stock_id` LIKE 'C%'
-                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)");
+                            AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)");
                         $row1 = mysqli_fetch_array($result1);
                         $total1 = $row1[0];
                         ?>
@@ -531,7 +544,7 @@ if (isset($_GET['logout'])) {
                       <?php
                       $sql = "SELECT product.product_id, product.product_name, SUM(stock.product_count) AS product_count FROM stock JOIN product
                         WHERE product.product_id = stock.product_id
-                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 30 day)
+                        AND `stock_datetime` >= DATE_SUB(CURDATE(), INTERVAL 90 day)
                         AND stock_id LIKE 'C%'
                         GROUP BY product_name
                         ORDER BY product_count DESC";
@@ -571,7 +584,7 @@ if (isset($_GET['logout'])) {
   <script src="assets/js/argon.js?v=1.2.0"></script>
   <script src="assets/js/components/charts/chart-line.js"></script>
   <!-- <script src="assets/js/components/charts/chart-bars.php"></script> -->
-  <?php include('chart-bars.php') ?>
+  <?php include('chart-bars2.php') ?>
 </body>
 
 </html>
