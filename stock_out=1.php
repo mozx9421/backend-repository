@@ -265,7 +265,7 @@ if (isset($_GET['logout'])) {
                                                             <input id="num_product" type="hidden" value="0">
                                                             <select class="form-control product_id" id="product_id_0" name="product_id" placeholder="" required>
                                                                 <?php
-                                                                $sqlpro = "SELECT * FROM product WHERE product_status ='เปิดการขาย' AND product_qty != 0";
+                                                                $sqlpro = "SELECT * FROM product WHERE  product_qty != 0";
                                                                 $resultpro = $conn->query($sqlpro);
                                                                 echo "<option value='' disabled selected>กรุณาเลือกสินค้า</option>";
                                                                 while ($row = $resultpro->fetch_assoc()) :
@@ -394,9 +394,10 @@ if (isset($_GET['logout'])) {
                                                             },
                                                             success: function(data) {
                                                                 if (data == 1) {
+                                                                    console.log(data)
                                                                     alert('เบิกสินค้าสำเร็จ')
                                                                     window.location.replace('stock_out.php')
-                                                                } else {
+                                                                } else if(data == 0) {
                                                                     alert('สินค้าในคลังมีจำนวนน้อยกว่าจำนวนที่เลือก โปรดลองอีกครั้ง')
                                                                 }
                                                             }
