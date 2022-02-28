@@ -407,7 +407,7 @@ if (isset($_GET['logout'])) {
                                                                 data: data
                                                             },
                                                             success: function(data) {
-                                                                // console.log(data)
+                                                                console.log(data)
                                                                 if (data == 1) {
                                                                     alert('บันทึกสำเร็จ')
                                                                     window.location.replace('editstock.php')
