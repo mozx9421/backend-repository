@@ -9,7 +9,8 @@ $rs1 = mysqli_fetch_array($result3);
 $time = date("Y-m-d H:i:s");
 
 //runid
-if ($rs1['stock_id'] != "") {
+if(isset($rs1['stock_id'])){
+  if ($rs1['stock_id'] != "") {
     $check = substr($rs1['stock_id'], 1, 2);
     $date =  date("y") + 43;
 
@@ -19,7 +20,9 @@ if ($rs1['stock_id'] != "") {
     } else {
       $name = "C" . $date . "00001";
     }
-  } else {
+  } 
+}
+else {
     $date =  date("y") + 43;
     $name = "C" . $date . "00001";
   }
@@ -70,3 +73,4 @@ foreach ($_POST["data"] as $item) {
         
     }
 }  echo 1;
+

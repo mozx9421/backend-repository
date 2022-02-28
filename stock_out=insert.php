@@ -9,15 +9,17 @@ $rs = mysqli_fetch_array($result2);
 $time = date("Y-m-d H:i");
 
 //runid
-if ($rs['stock_id'] != "") {
-    $check = substr($rs['stock_id'], 1, 2);
-    $date =  date("y") + 43;
+if (isset($rs1['stock_id'])) {
+    if ($rs['stock_id'] != "") {
+        $check = substr($rs['stock_id'], 1, 2);
+        $date =  date("y") + 43;
 
-    if ($check == $date) {
-        $sub = substr($rs['stock_id'], 3, 8) + 1;
-        $name = sprintf('T' . $date . sprintf("%'.005d\n", $sub));
-    } else {
-        $name = "T" . $date . "00001";
+        if ($check == $date) {
+            $sub = substr($rs['stock_id'], 3, 8) + 1;
+            $name = sprintf('T' . $date . sprintf("%'.005d\n", $sub));
+        } else {
+            $name = "T" . $date . "00001";
+        }
     }
 } else {
     $date =  date("y") + 43;
@@ -36,8 +38,8 @@ foreach ($_POST["data"] as $item) {
     } else {
         $word .= "0";
     }
-   
-    if (strpos($word,"0") == ""){
+
+    if (strpos($word, "0") == "") {
         $para = "1";
     } else {
         echo "0";
@@ -51,10 +53,9 @@ foreach ($_POST["data"] as $item) {
     $rs_2 = mysqli_fetch_array($result_sql2);
     $qty = $rs_2['product_qty'] - $item['product_qty'];
     if ($item['product_qty'] <= $rs_2['product_qty']) {
-        
+
 
         $sql3 = "UPDATE product SET product_qty = '$qty' WHERE product_id ='$item[product_id]'";
-       
     } else {
         //none
     }
