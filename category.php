@@ -237,6 +237,7 @@ if ($rowotp['otp'] == "no") {
                       <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">รหัสหมวดหมู่</h6></th>
                       <th><h6 class="text-gray text-ml mb-0">ชื่อหมวดหมู่</h6></th>
+                      <th></th>
                       <th><h6 class="text-gray text-ml mb-0">ตัวเลือก</h6></th>
                     </tr>
                     <?php
@@ -249,20 +250,32 @@ if ($rowotp['otp'] == "no") {
                       <td><?php echo $x; $x++; ?></td>
                       <td><?php echo $fetch['ctg_id']?></td>
                       <td><?php echo $fetch['ctg_name']?></td>
+                      <?php if ($fetch['ctg_status'] == 'ปิดการใช้งาน') { ?>
+                          <td class="text-warning"><?php echo $fetch['ctg_status'] ?></td>
+                          <td align="center">
+                             <!-- Delete Button -->
+                             <a href="category_clearstatus.php?ctg_id=<?php echo $fetch['ctg_id'] ?>" <?php
+                                                                                                echo "onclick=\"return confirm('คุณต้องการเปิดการใช้งานรายการหรือไม่')\" ";
+                                                                                                ?>>
+                              <button class='btn btn-outline-primary btn-sm'><span><i class="far fa-trash-alt"></i> เปิดการใช้งาน</button>
+                            </a>
+                          </td>
                       <td>
-                        <!-- Update Button -->
-                        <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#category_update_modal<?php echo $fetch['ctg_id']?>">
-                          <span><i class="far fa-edit"></i> แก้ไข</span>
-                        </button>
-                        <!-- Delete Button
-                        <a href="category_delete.php?ctg_id=<?php echo $fetch['ctg_id']?>"
-                          <?php
-                            echo "onclick=\"return confirm('คุณต้องการลบข้อมูลนี้ใช้หรือไม่')\" ";
-                          ?>
-                        >
-                          <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ลบ</span></button>
-                        </a> -->
-                      </td>
+                      <?php } else { ?>
+                          <td class="text-success"><?php echo $fetch['ctg_status'] ?></td>
+                          <td align="center">
+                            <!-- Update Button -->
+                            <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#category_update_modal<?php echo $fetch['ctg_id'] ?>">
+                              <span><i class="far fa-edit"></i> แก้ไข
+                            </button>
+                            <!-- Delete Button -->
+                            <a href="category_delete.php?ctg_id=<?php echo $fetch['ctg_id'] ?>" <?php
+                                                                                            echo "onclick=\"return confirm('คุณต้องการปิดการใช้งานรายการหรือไม่')\" ";
+                                                                                            ?>>
+                              <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ปิดการใช้งาน</button>
+                            </a>
+                          </td><?php }
+                                ?>
                     </tr>
                     <?php
                       include 'category_update.php';

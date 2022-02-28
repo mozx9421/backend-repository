@@ -1,11 +1,12 @@
 <?php
 include('connect.php');
-$ctg_id  = $_REQUEST["ctg_id"];
-$sqlcat = "DELETE FROM category WHERE ctg_id ='$ctg_id'";
-$resultcat = mysqli_query($conn, $sqlcat) or die ("Error in query: $sqlcat " . mysqli_error());
-	if($resultcat){
+$ctg_id = $_REQUEST["ctg_id"];
+$upstatus = 'ปิดการใช้งาน';
+$sqlpro = "UPDATE category SET ctg_status='$upstatus' WHERE ctg_id ='$ctg_id'";
+$resultpro = mysqli_query($conn, $sqlpro) ;
+	if($resultpro){
 	echo "<script type='text/javascript'>";
-	echo "alert('ลบข้อมูลสำเร็จ"." $ctg_id ');";
+	echo "alert('ปิดการใช้งาน $ctg_id สำเร็จ');";
 	echo "window.location = 'category.php'; ";
 	echo "</script>";
 	}

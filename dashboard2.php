@@ -240,7 +240,7 @@ if (isset($_GET['logout'])) {
                   <div class="card-header bg-transparent ">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-uppercase text-muted ls-1 mb-1">PingAn</h6>
+                        <h6 class="text-uppercase text-muted ls-1 mb-1">Ping An</h6>
                         <h4 class="card-title text-uppercase mb-0">จำนวนสินค้า(แพ็ค)ใน 30 วันที่ผ่านมา</h4>
                         <div class="" align="right">
                           <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า

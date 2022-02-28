@@ -276,10 +276,7 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
                         <?php if ($fetch['product_status'] == 'ปิดการขาย') { ?>
                           <td class="text-warning"><?php echo $fetch['product_status'] ?></td>
                           <td align="center">
-                            <!-- Update Button -->
-                            <!-- <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#emp_update_modal<?php echo $fetch['product_id'] ?>">
-                        <span><i class="far fa-edit"></i> 
-                      </button> -->
+                            
                             <!-- Delete Button -->
                             <a href="product_clearstatus.php?product_id=<?php echo $fetch['product_id'] ?>" <?php
                                                                                                 echo "onclick=\"return confirm('คุณต้องการเปิดการใช้งานรายการหรือไม่')\" ";
@@ -331,9 +328,9 @@ if ($_SESSION['emp_level'] == "พนักงาน") {
                   // if ($connect->connect_error){
                   //   die("Something wrong.: " . $connect->connect_error);
                   // }
-                  $sqlcat = "SELECT * FROM category";
+                  $sqlcat = "SELECT * FROM category WHERE ctg_status='กำลังใช้งาน'";
                   $resultcat = $conn->query($sqlcat);
-                  $sqlunit = "SELECT * FROM unit";
+                  $sqlunit = "SELECT * FROM unit WHERE unit_status='กำลังใช้งาน'";
                   $resultunit = $conn->query($sqlunit);
                   ?>
                   <?php require('runid.php'); ?>

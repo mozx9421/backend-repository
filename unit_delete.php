@@ -1,11 +1,12 @@
 <?php
 include('connect.php');
 $unit_id = $_REQUEST["unit_id"];
-$sqlunit = "DELETE FROM unit WHERE unit_id ='$unit_id'";
-$resultunit = mysqli_query($conn, $sqlunit) or die ("Error in query: $sqlunit " . mysqli_error());
-	if($resultunit){
+$upstatus = 'ปิดการใช้งาน';
+$sqlpro = "UPDATE unit SET unit_status='$upstatus' WHERE unit_id ='$unit_id'";
+$resultpro = mysqli_query($conn, $sqlpro) ;
+	if($resultpro){
 	echo "<script type='text/javascript'>";
-	echo "alert('ลบข้อมูลสำเร็จ"." $unit_id ');";
+	echo "alert('ปิดการใช้งาน $unit_id สำเร็จ');";
 	echo "window.location = 'unit.php'; ";
 	echo "</script>";
 	}

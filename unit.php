@@ -255,23 +255,35 @@ if ($rowotp['otp'] == "no") {
                       <td><?php echo $fetch['unit_pack'], " แพ็ค";?></td>
                       <td><?php echo $fetch['unit_piece'], " ชิ้น";?></td>
                       <td><?php echo $fetch['unit_name']?></td>
+                      <?php if ($fetch['unit_status'] == 'ปิดการใช้งาน') { ?>
+                          <td class="text-warning"><?php echo $fetch['unit_status'] ?></td>
+                          <td align="center">
+                             <!-- Delete Button -->
+                             <a href="unit_clearstatus.php?unit_id=<?php echo $fetch['unit_id'] ?>" <?php
+                                                                                                echo "onclick=\"return confirm('คุณต้องการเปิดการใช้งานรายการหรือไม่')\" ";
+                                                                                                ?>>
+                              <button class='btn btn-outline-primary btn-sm'><span><i class="far fa-trash-alt"></i> เปิดการใช้งาน</button>
+                            </a>
+                          </td>
                       <td>
-                        <!-- Update Button -->
-                        <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#unit_update_modal<?php echo $fetch['unit_id']?>">
-                          <span><i class="far fa-edit"></i> แก้ไข</span>
-                        </button>
-                        <!-- Delete Button -->
-                        <!-- <a href="unit_delete.php?unit_id=<?php echo $fetch['unit_id']?>"
-                          <?php
-                            echo "onclick=\"return confirm('คุณต้องการลบข้อมูลนี้ใช้หรือไม่')\" ";
-                          ?>
-                        >
-                          <button class='btn btn-outline-danger btn-sm '><span><i class="far fa-trash-alt"></i> ลบ</span></button>
-                        </a> -->
-                      </td>
+                      <?php } else { ?>
+                          <td class="text-success"><?php echo $fetch['unit_status'] ?></td>
+                          <td align="center">
+                            <!-- Update Button -->
+                            <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#unit_update_modal<?php echo $fetch['unit_id'] ?>">
+                              <span><i class="far fa-edit"></i> แก้ไข
+                            </button>
+                            <!-- Delete Button -->
+                            <a href="unit_delete.php?unit_id=<?php echo $fetch['unit_id'] ?>" <?php
+                                                                                            echo "onclick=\"return confirm('คุณต้องการปิดการใช้งานรายการหรือไม่')\" ";
+                                                                                            ?>>
+                              <button class='btn btn-outline-danger btn-sm'><span><i class="far fa-trash-alt"></i> ปิดการใช้งาน</button>
+                            </a>
+                          </td><?php }
+                                ?>
                     </tr>
                     <?php
-                        include 'unit_update.php';
+                      include 'unit_update.php';
                       }
                     ?>
                   </table>

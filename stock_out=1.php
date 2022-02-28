@@ -393,12 +393,10 @@ if (isset($_GET['logout'])) {
                                                                 data: data
                                                             },
                                                             success: function(data) {
+                                                                console.log(data)
                                                                 if (data == 1) {
-                                                                    console.log(data)
                                                                     alert('เบิกสินค้าสำเร็จ')
                                                                     window.location.replace('stock_out.php')
-                                                                } else if(data == 0) {
-                                                                    alert('สินค้าในคลังมีจำนวนน้อยกว่าจำนวนที่เลือก โปรดลองอีกครั้ง')
                                                                 }
                                                             }
                                                         })

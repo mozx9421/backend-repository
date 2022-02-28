@@ -28,6 +28,7 @@
                 $_SESSION['emp_id'] = $row['emp_id'];
                 $_SESSION['emp_status'] = $row['emp_status']; 
                 $otp=$row['otp'];
+                $statust = $row['emp_status']; 
 
                 if($row['otp'] =='no'){
                     echo "<script>
@@ -40,16 +41,15 @@
                     alert('กำลังเข้าสู่ระบบ.. ');
                     window.location.replace('dashboard.php');
                     </script>";
-                
                 }
                 else if($_SESSION['emp_level'] == "พนักงาน" && $_SESSION['emp_status'] == "อยู่ในระบบ"){
                     echo "<script>
                     alert('กำลังเข้าสู่ระบบ.. ');
                     window.location.replace('index_employee.php');
                     </script>";
-                }else{
+                }else {
                     echo "<script>
-                    alert('username นี้ไม่สามารถเข้าใช้งาน');
+                    alert('username $username $statust นี้ไม่สามารถเข้าใช้งาน ');
                     window.location.replace('login_page.php');
                     </script>";
                     session_destroy();

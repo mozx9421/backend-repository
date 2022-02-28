@@ -401,7 +401,7 @@ if (isset($_GET['logout'])) {
                                                             alert ('บันทึกการลดสินค้าสำเร็จ')
                                                             window.location.replace('editstock.php')
                                                              }
-                                                            else{
+                                                            else {
                                                                 alert ('สินค้าในคลังมีจำนวนน้อยกว่ารายการที่เลือก โปรดลองอีกครั้ง')
                                                             }
                                                             }

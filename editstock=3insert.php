@@ -3,16 +3,12 @@
 include('connect.php');
 date_default_timezone_set('Asia/Bangkok');
 
-// $query2 = "SELECT * FROM stock WHERE stock_id LIKE 'I%' ORDER BY runid DESC LIMIT 1";
-// $result2 = mysqli_query($conn, $query2);
-// $rs = mysqli_fetch_array($result2);
-
-
 $query3 = "SELECT * FROM stock WHERE stock_id LIKE 'C%' ORDER BY runid DESC LIMIT 1";
 $result3 = mysqli_query($conn, $query3);
 $rs1 = mysqli_fetch_array($result3);
 $time = date("Y-m-d H:i:s");
 
+//runid
 if ($rs1['stock_id'] != "") {
     $check = substr($rs1['stock_id'], 1, 2);
     $date =  date("y") + 43;

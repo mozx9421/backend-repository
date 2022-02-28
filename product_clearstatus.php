@@ -8,7 +8,7 @@ $resultname = mysqli_query($conn,$sqlname);
 $resultpro = mysqli_query($conn, $sqlpro);
 	if($resultpro){
 	echo "<script type='text/javascript'>";
-	echo "alert('เปิดการ $product_id ใช้งานเเล้ว');";
+	echo "alert('เปิดการใช้งาน $product_id เเล้ว');";
 	echo "window.location = 'product.php'; ";
 	echo "</script>";
 	}
