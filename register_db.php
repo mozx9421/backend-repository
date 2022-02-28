@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('connect.php');
-$error = array();
 
 if (isset($_POST['regist'])) {
     $realname = mysqli_real_escape_string($conn, $_POST['realname']);
@@ -53,11 +52,6 @@ if (isset($_POST['regist'])) {
                 if (mysqli_query($conn, $sql)) {
                     $complete = true;
                     if ($complete === true) {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['emp_surname'] = $surname;
-                        $_SESSION['emp_name'] = $realname;
-                        $_SESSION['emp_level'] = $realname;
-                        $_SESSION['success'] = "สมัครสมาชิกสำเร็จ!";
                         if ($level == "ผู้จัดการ") {
                             session_destroy();
                             echo "<script> alert('บันทึกข้อมูลสำเร็จ กรุณาเข้าสู่ระบบอีกครั้ง');
