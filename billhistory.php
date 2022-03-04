@@ -374,7 +374,6 @@ if (isset($_GET['logout'])) {
                   ?>
                 </div>
             </div>
-
             </form>
           </div>
           <nav aria-label="Page navigation example mb-4">

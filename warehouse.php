@@ -298,7 +298,7 @@ if (isset($_GET['logout'])) {
                   <!-- Notification for lower stock -->
                   <?php
                   $round = 0;
-                  $sqlcheck = 'SELECT product_qty FROM product';
+                  $sqlcheck = 'SELECT product_qty FROM product WHERE product_status = "เปิดการขาย"';
                   $resultcheck = mysqli_query($conn, $sqlcheck);
                   while ($rowcheck = $resultcheck->fetch_assoc()) {
                     $rowcheckqty = $rowcheck['product_qty'];
@@ -327,6 +327,9 @@ if (isset($_GET['logout'])) {
                         <h6 class="text-gray text-ml mb-0">ชื่อสินค้า</h6>
                       </th>
                       <th>
+                        <h6 class="text-gray text-ml mb-0">สถานะ</h6>
+                      </th>
+                      <th>
                         <h6 class="text-gray text-ml mb-0">หน่วยนับ</h6>
                       </th>
                       <th>
@@ -350,6 +353,9 @@ if (isset($_GET['logout'])) {
                       $product_id = $row["product_id"];
                       echo "<td> $row[product_id] </td>";
                       echo "<td> $row[product_name] </td>";
+                      if($row['product_status'] == 'ปิดการขาย'){
+                        echo "<td class=text-secondary> $row[product_status] </td>";
+                      }else{echo "<td class=text-primary> $row[product_status] </td>";}
                       echo "<td> $row[unit_name] </td>";
 
 

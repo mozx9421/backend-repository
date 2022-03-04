@@ -206,17 +206,19 @@ if (isset($_GET['logout'])) {
                   </div>
                   <?php
                   $round = 0;
-                  $sqlcheck = 'SELECT product_qty FROM product';
+                  $sqlcheck = 'SELECT product_qty FROM product WHERE product_status = "เปิดการขาย"';
                   $resultcheck = mysqli_query($conn, $sqlcheck);
                   while ($rowcheck = $resultcheck->fetch_assoc()) {
                     $rowcheckqty = $rowcheck['product_qty'];
 
                     if ($round == 0) {
-                      if ($rowcheckqty > 0 && $rowcheckqty < 20) { ?>
+                      if ($rowcheckqty <= 10) { ?>
+                      <a href="warehouse.php">
                         <div class="alert col-md-4 ml-10 animate-left">
                           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                           <strong>เเจ้งเตือน:</strong> ปริมาณสินค้าในคลังเหลือน้อย
                         </div>
+                      </a>
                   <?php
                         $round = 1;
                       }
