@@ -30,12 +30,11 @@
                     <div class="form-group">
                         <label>password</label>
                         <input type="text" name="emp_password" value="<?php //echo $fetch['emp_password']?>" class="form-control col-xl-8" required/>
-                    </div>
+                    </div>-->
                     <div class="form-group">
-                        <label>เลขบัตรประชาชน</label>
-                        <input type="number" name="emp_idcardnum" value="<?php echo $fetch['emp_idcardnum']?>" class="form-control col-xl-8" required/>
+                        <input type="hidden" name="emp_idcardnum" value="<?php echo $fetch['emp_idcardnum']?>" class="form-control col-xl-8" required/>
                     </div>
-                    -->
+                    
                     <div class="form-group">
                         <label>อายุ</label>
                         <input type="number" name="emp_age" value="<?php echo $fetch['emp_age']?>" class="form-control col-xl-8" required/>

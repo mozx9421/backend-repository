@@ -10,7 +10,7 @@ $rs = mysqli_fetch_array($result2);
 $time = date("Y-m-d H:i");
 
 //runid
-if (isset($rs1['stock_id'])) {
+if (isset($rs['stock_id'])) {
     if ($rs['stock_id'] != "") {
         $check = substr($rs['stock_id'], 1, 2);
         $date =  date("y") + 43;

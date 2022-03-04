@@ -13,13 +13,13 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
 $otpcheck = $_SESSION['username'];
 $sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
 $resultotp = mysqli_query($conn, $sqlotp);
-while($rowotp = mysqli_fetch_array($resultotp)){
-if ($rowotp['otp'] == "no") {
-  echo "<script>
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+  if ($rowotp['otp'] == "no") {
+    echo "<script>
   alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
   window.location.replace('firsttime_login.php');
 </script>";
-}
+  }
 }
 
 
@@ -66,13 +66,13 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
-                                if ($_SESSION['emp_level'] == "พนักงาน") {
-                                ?> href="index_employee.php" <?php
+        <a class="mr-4" <?php
+                        if ($_SESSION['emp_level'] == "พนักงาน") {
+                        ?> href="index_employee.php" <?php
                                                             } else {
                                                               ?> href="index_manager.php" <?php
-                                                                    } ?>>
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                                                                                        } ?>>
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -80,14 +80,14 @@ if (isset($_GET['logout'])) {
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav items -->
           <ul class="navbar-nav">
-          <?php
-          if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.php">
-                <i class="ni ni-tv-2 text-orange"></i>
-                <span class="nav-link-text">ภาพรวม</span>
-              </a>
-            </li>
+            <?php
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php">
+                  <i class="ni ni-tv-2 text-orange"></i>
+                  <span class="nav-link-text">ภาพรวม</span>
+                </a>
+              </li>
             <?php } ?>
             <li class="nav-item">
               <a class="nav-link active">
@@ -118,14 +118,14 @@ if (isset($_GET['logout'])) {
                 </li>";
             }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
                 <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -232,7 +232,7 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive">
                   <table class="table bg-light table table-bordered">
                     <tr>
-                    <th>ลำดับที่</th>
+                      <th>ลำดับที่</th>
                       <th>รหัสรายการสินค้า</th>
                       <th>สถานะรายการ</th>
                       <th>วันที่</th>
@@ -269,7 +269,7 @@ if (isset($_GET['logout'])) {
                             <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
                             <td>
                               <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
-                                <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                                <button type="button" class="btn btn-outline-primary btn-sm text-black">
                                   <span><i class="fas fa-list"></i> รายละเอียด</span>
                                 </button>
                               </a>
@@ -295,7 +295,7 @@ if (isset($_GET['logout'])) {
                             <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
                             <td>
                               <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
-                                <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                                <button type="button" class="btn btn-outline-primary btn-sm text-black">
                                   <span><i class="fas fa-list"></i> รายละเอียด</span>
                                 </button>
                               </a>
@@ -306,12 +306,16 @@ if (isset($_GET['logout'])) {
                       }
                     } else {
                       $perpage = 10;
+                      
                       if (isset($_GET['page'])) {
                         $page = $_GET['page'];
+                        
                       } else {
                         $page = 1;
+                        
                       }
                       $start = ($page - 1) * $perpage;
+
 
 
 
@@ -324,24 +328,25 @@ if (isset($_GET['logout'])) {
                       $result = mysqli_query($conn, $query);
                       @$i = 1;
                       while ($fetch = mysqli_fetch_array($result)) {
-                        
+
                         $dateData = $fetch['stock_datetime'];
                         ?>
                         <tr>
-                        <td><?php $start++;  echo $start; ?></td>
+                          <td><?php $start++;
+                              echo $start; ?></td>
                           <td><?php echo $fetch['stock_id']; ?></td>
                           <td><?php echo $fetch['stock_status']; ?></td>
                           <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
                           <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname']; ?></td>
                           <td>
                             <a href="billhistory_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
-                              <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                              <button type="button" class="btn btn-outline-primary btn-sm text-black">
                                 <span><i class="fas fa-list"></i> รายละเอียด</span>
                               </button>
                             </a>
                           </td>
                         </tr>
-                    <?php 
+                    <?php
                       }
                     }
                     ?>
@@ -356,32 +361,54 @@ if (isset($_GET['logout'])) {
                   $query2 = mysqli_query($conn, $sql2);
                   $total_record = mysqli_num_rows($query2);
                   $total_page = ceil($total_record / $perpage);
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  if($previous_page === 0){
+                    $previous_page = 1;
+                  } else if($next_page > $total_page){
+                    $next_page = $total_page;
+                  }else{
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  }
                   ?>
                 </div>
             </div>
-            
+
             </form>
           </div>
           <nav aria-label="Page navigation example mb-4">
-                <div class="container-fluid mt--2">
-                  <ul class="nav nav-pills nav-pills-circle">
-                    <li class="page-item">
-                      <a class="page-link" href="billhistory.php?page=1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <?php for ($it = 1; $it <= $total_page; $it++) { ?>
-                      <li class="page-item"><a class="page-link" href="billhistory.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
-                    <?php } ?>
-                    <li class="page-item">
-                      <a class="page-link" href="billhistory.php?page=<?php echo $total_page; ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+            <div class="container-fluid mt--2">
+              <ul class="nav nav-pills nav-pills-circle">
+              <li class="page-item">
+                  <a class="page-link" href="billhistory.php?page=1" aria-label="Frist">
+                    <span class="fas fa-angle-double-left"></span>
+                    <span class="sr-only">Frist</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="billhistory.php?page=<?= $previous_page; ?>" aria-label="Previous">
+                    <span class="fas fa-angle-left"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <?php for ($it = 1; $it <= $total_page; $it++) { ?>
+                  <li class="page-item"><a class="page-link" href="billhistory.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                  <a class="page-link" href="billhistory.php?page=<?= $next_page; ?>" aria-label="Next">
+                    <span class="fas fa-angle-right"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="billhistory.php?page=<?php echo $total_page; ?>" aria-label="Last">
+                    <span class="fas fa-angle-double-right"></span>
+                    <span class="sr-only">Last</span>
+                  </a>
+                </li>
+              </ul>
+          </nav>
         </div>
       </div>
     </div>

@@ -13,13 +13,13 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
 $otpcheck = $_SESSION['username'];
 $sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
 $resultotp = mysqli_query($conn, $sqlotp);
-while($rowotp = mysqli_fetch_array($resultotp)){
-if ($rowotp['otp'] == "no") {
-  echo "<script>
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+  if ($rowotp['otp'] == "no") {
+    echo "<script>
   alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
   window.location.replace('firsttime_login.php');
 </script>";
-}
+  }
 }
 
 if (isset($_GET['logout'])) {
@@ -63,8 +63,8 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+        <a class="mr-4" href="javascript:void(0)">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -107,14 +107,14 @@ if (isset($_GET['logout'])) {
                 </li>";
             }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
                 <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -233,7 +233,7 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
-                    <th>
+                      <th>
                         <h6 class="text-gray text-ml mb-0">ลำดับที่</h6>
                       </th>
                       <th>
@@ -274,15 +274,16 @@ if (isset($_GET['logout'])) {
                       $dateData = $fetch['stock_datetime'];
                     ?>
                       <tr align="center">
-                        <td><?php $start++; echo $start ?></td>
+                        <td><?php $start++;
+                            echo $start ?></td>
                         <td><?php echo $fetch['stock_id'] ?></td>
                         <?php
                         if ($fetch['stock_status'] == "ปรับเพิ่มสินค้า") {
-                          echo "<td class=text-success>";
+                          echo "<td class=text-primary>";
                         } else if ($fetch['stock_status'] == "ปรับลดสินค้า") {
-                          echo "<td class=text-danger>";
+                          echo "<td class=text-primary>";
                         } else {
-                          echo "<td class=text-warning>";
+                          echo "<td class=text-primary>";
                         }
                         ?>
                         <?php echo $fetch['stock_status'] ?></td>
@@ -290,14 +291,14 @@ if (isset($_GET['logout'])) {
                         <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname'] ?></td>
                         <td>
                           <a href="editstock_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
-                            <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                            <button type="button" class="btn btn-outline-primary btn-sm text-black">
                               <span><i class="fas fa-list"></i> รายละเอียด</span>
                             </button>
                           </a>
                         </td>
                       </tr>
                     <?php
-                      
+
                     }
                     ?>
                   </table>
@@ -311,6 +312,16 @@ if (isset($_GET['logout'])) {
                   $query2 = mysqli_query($conn, $sql2);
                   $total_record = mysqli_num_rows($query2);
                   $total_page = ceil($total_record / $perpage);
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  if($previous_page === 0){
+                    $previous_page = 1;
+                  } else if($next_page > $total_page){
+                    $next_page = $total_page;
+                  }else{
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  }
                   ?>
                 </div>
               </div>
@@ -319,9 +330,15 @@ if (isset($_GET['logout'])) {
           <nav aria-label="Page navigation example mb-4">
             <div class="container-fluid mt--2">
               <ul class="pagination">
+              <li class="page-item">
+                  <a class="page-link" href="editstock.php?page=1" aria-label="Frist">
+                  <span class="fas fa-angle-double-left"></span>
+                    <span class="sr-only">Frist</span>
+                  </a>
+                </li>
                 <li class="page-item">
-                  <a class="page-link" href="editstock.php?page=1" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                  <a class="page-link" href="editstock.php?page=<?= $previous_page; ?>" aria-label="Previous">
+                  <span class="fas fa-angle-left"></span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
@@ -329,9 +346,15 @@ if (isset($_GET['logout'])) {
                   <li class="page-item"><a class="page-link" href="editstock.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
                 <?php } ?>
                 <li class="page-item">
-                  <a class="page-link" href="editstock.php?page=<?php echo $total_page; ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                  <a class="page-link" href="editstock.php?page=<?= $next_page; ?>" aria-label="Next">
+                  <span class="fas fa-angle-right"></span>
                     <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="editstock.php?page=<?php echo $total_page; ?>" aria-label="Last">
+                  <span class="fas fa-angle-double-right"></span>
+                    <span class="sr-only">Last</span>
                   </a>
                 </li>
               </ul>

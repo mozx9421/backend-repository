@@ -70,13 +70,13 @@ if ($rowotp['otp'] == "no") {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
+        <a class="mr-4" <?php
           if($_SESSION['emp_level'] == "พนักงาน" ){
             ?> href="index_employee.php" <?php
           }else{
             ?> href="index_manager.php" <?php
           } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+            <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -114,14 +114,14 @@ if ($rowotp['otp'] == "no") {
                 <span class="nav-link-text">รายงาน</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>

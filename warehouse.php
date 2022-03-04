@@ -109,13 +109,13 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
+        <a class="mr-4" <?php
                                 if ($_SESSION['emp_level'] == "พนักงาน") {
                                 ?> href="index_employee.php" <?php
                                                             } else {
                                                               ?> href="index_manager.php" <?php
                                                                                         } ?>>
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -162,14 +162,14 @@ if (isset($_GET['logout'])) {
                 </li>";
             }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
                 <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -282,9 +282,11 @@ if (isset($_GET['logout'])) {
                       </td>
                       <td align="right">
                         <div class="col-xl-12">
-                          <a href="TCPDF-master/examples/report_stock.php">
-                            <button type="button" class="btn btn-outline-primary fas fa-file"> ออกรายงานสินค้าคงคลัง</button>
-                          </a>
+                        <form action="TCPDF-master/examples/report_stock.php" method="POST">
+                          <!-- <a href="TCPDF-master/examples/report_stock.php"> -->
+                            <button type="submit" class="btn btn-outline-primary fas fa-file" name="showname" value="<?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?> "> ออกรายงานสินค้าคงคลัง</button>
+                          <!-- </a> -->
+                        </form>
                         </div>
                       </td>
                     </tr>

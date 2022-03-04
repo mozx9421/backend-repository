@@ -88,13 +88,13 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
+        <a class="mr-4" <?php
                                 if ($_SESSION['emp_level'] == "พนักงาน") {
                                 ?> href="index_employee.php" <?php
                                                             } else {
                                                               ?> href="index_manager.php" <?php
                                                                                         } ?>>
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -137,14 +137,14 @@ if (isset($_GET['logout'])) {
                 </li>";
             }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
                 <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -227,9 +227,9 @@ if (isset($_GET['logout'])) {
                 </div>
                 <div class="" align="right">
                 <!-- <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >7 วัน</button> -->
-                <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >30 วัน</button>
+                <!-- <button type="button" class="mb-2 mr-2 btn btn-secondary btn-sm" >30 วัน</button>
                 <a href="dashboard2.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >3 เดือน </button></a>
-                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >1 ปี </button></a>
+                <a href="dashboard3.php"><button type="button" class="mb-2 mr-2 btn btn-success btn-sm" >1 ปี </button></a> -->
                 </div>
               </div>
             </div>
@@ -245,9 +245,9 @@ if (isset($_GET['logout'])) {
                         <h6 class="text-uppercase text-muted ls-1 mb-1">Ping An</h6>
                         <h4 class="card-title text-uppercase mb-0">จำนวนสินค้า(แพ็ค)ใน 30 วันที่ผ่านมา</h4>
                         <div class="" align="right">
-                          <i style="color:rgba(75, 192, 192)"><i class="fas fa-square"></i></i> รับเข้า
-                          <i style="color:rgba(255, 128, 0)"><i class="fas fa-square"></i></i> เบิกออก
-                          <i style="color:rgba(204, 0, 0)"><i class="fas fa-square"></i></i> เคลม
+                          <i style="color:rgba(76, 129, 241 )"><i class="fas fa-square"></i></i> รับเข้า
+                          <i style="color:rgba(84, 187, 101 )"><i class="fas fa-square"></i></i> เบิกออก
+                          <i style="color:rgba(241, 76, 76)"><i class="fas fa-square"></i></i> เคลม
                         </div>
                       </div>
                     </div>
@@ -262,11 +262,11 @@ if (isset($_GET['logout'])) {
               </div>
             </div>
             <!-- Card stats -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <!-- <div class="card-body">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -289,11 +289,11 @@ if (isset($_GET['logout'])) {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xl-4 col-md-6">
+              </div> --> 
+              <!-- <div class="col-xl-4 col-md-6">
                 <div class="card card-stats">
                   <!-- Card body -->
-                  <div class="card-body">
+                  <!-- <div class="card-body">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -315,11 +315,11 @@ if (isset($_GET['logout'])) {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xl-4 col-md-6">
-                <div class="card card-stats">
+              </div> -->
+              <!-- <div class="col-xl-4 col-md-6">
+                <div class="card card-stats"> -->
                   <!-- Card body -->
-                  <div class="card-body">
+                  <!-- <div class="card-body">
                     <div class="row">
                       <div class="col">
                         <center>
@@ -337,14 +337,16 @@ if (isset($_GET['logout'])) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <div class="col-xl-4">
                 <div class="card">
                   <div class="card-header border-0">
                     <div class="row align-items-center mb-2">
                       <div class="col-auto">
-                        <h6 class="mb-0 mt-2">สินค้า"รับเข้า"มากสุด(แพ็ค)</h6>
+                        <h6 class="mb-0 mt-2"><div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow mr-4">
+                          <i class="fas fa-boxes"></i>
+                        </div>สินค้า"รับเข้า"มากสุด(แพ็ค)</h6>
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_in">ดูทั้งหมด</button>
@@ -393,7 +395,9 @@ if (isset($_GET['logout'])) {
                   <div class="card-header border-0">
                     <div class="row align-items-center mb-2">
                       <div class="col-auto">
-                        <h6 class="mb-0 mt-2">สินค้า"เบิกออก"มากสุด(แพ็ค)</h6>
+                        <h6 class="mb-0 mt-2"><div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow mr-4">
+                          <i class="fas fa-tags"></i>
+                        </div>สินค้า"เบิกออก"มากสุด(แพ็ค)</h6>
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_out">ดูทั้งหมด</button>
@@ -442,7 +446,9 @@ if (isset($_GET['logout'])) {
                   <div class="card-header border-0">
                     <div class="row align-items-center mb-2">
                       <div class="col-auto">
-                        <h6 class="mb-0 mt-2">สินค้า"เสียหาย"มากสุด(แพ็ค)</h6>
+                        <h6 class="mb-0 mt-2"><div class="icon icon-shape bg-gradient-gray text-white rounded-circle shadow mr-4">
+                          <i class="fas fa-fire-alt"></i>
+                        </div>สินค้า"เสียหาย"มากสุด(แพ็ค)</h6>
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_damage">ดูทั้งหมด</button>
@@ -487,10 +493,10 @@ if (isset($_GET['logout'])) {
                 </div>
               </div>
             </div>
-            <div class="col-xl-4">
-              <div class="card">
+            <!-- <div class="col-xl-4">
+              <div class="card"> -->
                 <!-- Card body -->
-                <div class="card-body">
+                <!-- <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <center>
@@ -520,7 +526,7 @@ if (isset($_GET['logout'])) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Card stats -->
             <div class="row">
               <div class="col-xl-4">
@@ -528,7 +534,9 @@ if (isset($_GET['logout'])) {
                   <div class="card-header border-0">
                     <div class="row align-items-center mb-2">
                       <div class="col-auto">
-                        <h6 class="mb-0 mt-2">สินค้า"เคลม"มากสุด (แพ็ค)</h6>
+                        <h6 class="mb-0 mt-2"><div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow mr-4">
+                          <i class="	fas fa-archive"></i>
+                        </div>สินค้า"เคลม"มากสุด (แพ็ค)</h6>
                       </div>
                       <div class="col text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm text-black mt-1" data-toggle="modal" data-target="#see_all_claim">ดูทั้งหมด</button>

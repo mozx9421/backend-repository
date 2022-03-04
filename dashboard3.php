@@ -87,13 +87,13 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
+        <a class="mr-4" <?php
                                 if ($_SESSION['emp_level'] == "พนักงาน") {
                                 ?> href="index_employee.php" <?php
                                                             } else {
                                                               ?> href="index_manager.php" <?php
                                                                                         } ?>>
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">

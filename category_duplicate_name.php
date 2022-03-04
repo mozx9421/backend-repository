@@ -1,6 +1,7 @@
 <?php
     include('connect.php');
     $error = array();
+    $status = "กำลังใช้งาน";
 
     if(isset($_POST['save'])){
         $ctg_name = mysqli_real_escape_string($conn,$_POST['ctg_name']);
@@ -22,7 +23,7 @@
         }   
             else
         {     
-            $sql = "INSERT INTO category (ctg_id,ctg_name) VALUE ('$ctg_id','$ctg_name')";
+            $sql = "INSERT INTO category (ctg_id,ctg_name,ctg_status) VALUE ('$ctg_id','$ctg_name','$status')";
 
             if(mysqli_query($conn,$sql)){ 
                 echo "<script> alert ('บันทึกลงฐานข้อมูลสำเร็จ');

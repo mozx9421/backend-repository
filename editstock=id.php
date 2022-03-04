@@ -1,39 +1,40 @@
-<?php include('connect.php')?>
+<?php include('connect.php') ?>
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['username'],$_SESSION['emp_level'])){
-      echo "<script>
+if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
+  echo "<script>
       alert('กรุณาเข้าสู่ระบบก่อน..');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 
 //Change default password for first time login.
 $otpcheck = $_SESSION['username'];
 $sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
 $resultotp = mysqli_query($conn, $sqlotp);
-while($rowotp = mysqli_fetch_array($resultotp)){
-if ($rowotp['otp'] == "no") {
-  echo "<script>
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+  if ($rowotp['otp'] == "no") {
+    echo "<script>
   alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
   window.location.replace('firsttime_login.php');
 </script>";
-}
+  }
 }
 
-    if (isset($_GET['logout'])){
-      session_destroy();
-      unset($_SESSION['username'],$_SESSION['emp_level']);
-      echo "<script>
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['username'], $_SESSION['emp_level']);
+  echo "<script>
       alert('ออกจากระบบสำเร็จ');
       window.location.replace('login_page.php');
       </script>";
-    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -62,8 +63,8 @@ if ($rowotp['otp'] == "no") {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+        <a class="mr-4" href="javascript:void(0)">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -90,9 +91,9 @@ if ($rowotp['otp'] == "no") {
               </a>
             </li>
             <?php
-              if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                echo
-                "<li class='nav-item'>
+            if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+              echo
+              "<li class='nav-item'>
                   <a class='nav-link' href='emp.php'>
                     <i class='ni ni-single-02 text-orange'></i>
                     <span class='nav-link-text'>พนักงาน</span>
@@ -104,20 +105,20 @@ if ($rowotp['otp'] == "no") {
                     <span class='nav-link-text'>รายงาน</span>
                   </a>
                 </li>";
-              }
+            }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
-                <span class="nav-link-text" >คู่มือ</span>
+                <span class="nav-link-text">คู่มือ</span>
               </a>
             </li>
           </ul>
@@ -153,7 +154,7 @@ if ($rowotp['otp'] == "no") {
             <li class="nav-item dropdown">
               <div class="media align-items-center">
                 <div class="media-body  ml-2 mt-1 mb-1 d-none d-lg-block">
-                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name']," ",$_SESSION['emp_surname'] ?></span>
+                  <span class="mb-0 text-sm text-light">ชื่อผู้ใช้ : <?php echo $_SESSION['emp_name'], " ", $_SESSION['emp_surname'] ?></span>
                 </div>
               </div>
             </li>
@@ -174,7 +175,8 @@ if ($rowotp['otp'] == "no") {
 
     <!-- Page Content -->
     <div class="container-fluid mt--6">
-      <div class="row"><div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
+      <div class="row">
+        <div class="col-xl-1"></div><!-- แทน col-xl-10 center เพราะทับกับ Modal -->
         <div class="col-xl-10">
           <div class="card">
             <div class="card-header">
@@ -190,12 +192,12 @@ if ($rowotp['otp'] == "no") {
                       <a class="nav-link" href="stock_in.php"><i class="fas fa-file-import"></i> รับเข้าสินค้า</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  href="stock_out.php"><i class="fas fa-file-export"></i> เบิกสินค้า</a>
+                      <a class="nav-link" href="stock_out.php"><i class="fas fa-file-export"></i> เบิกสินค้า</a>
                     </li>
                     <?php
-                      if($_SESSION['emp_level'] == "ผู้จัดการ" ){
-                        echo
-                        "<li class='nav-item'>
+                    if ($_SESSION['emp_level'] == "ผู้จัดการ") {
+                      echo
+                      "<li class='nav-item'>
                           <a class='nav-link active'><i class='fas fa-cubes'></i> ปรับสต็อก</a>
                         </li>
                         <li class='nav-item'>
@@ -207,7 +209,7 @@ if ($rowotp['otp'] == "no") {
                         <li class='nav-item'>
                           <a class='nav-link' href='unit.php'><i class='fas fa-ruler-vertical'></i> หน่วยนับ</a>
                         </li>";
-                      }
+                    }
                     ?>
                   </ul>
                   <!-- Modal Button -->
@@ -220,7 +222,7 @@ if ($rowotp['otp'] == "no") {
                       </td>
                       <td align="right">
                         <div class="col-xl-12">
-                        <a href="editstock=1.php"><button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> เพิ่มรายการ</button></a>
+                          <a href="editstock=1.php"><button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> เพิ่มรายการ</button></a>
                         </div>
                       </td>
                     </tr>
@@ -231,52 +233,62 @@ if ($rowotp['otp'] == "no") {
                 <div class="table-responsive table-white table-striped animate-right">
                   <table class="table align-items-center table-flush">
                     <tr class="thead-light" align=center>
-                    <th><h6 class="text-gray text-ml mb-0">ลำดับ</h6></th>
-                      <th><a href="editstock.php"><h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6><a></th>
-                      <th><h6 class="text-gray text-ml mb-0">สถานะ</h6</th>
-                      <th><h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6></th>
-                      <th><h6 class="text-gray text-ml mb-0">ตัวเลือก</h6></th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ลำดับ</h6>
+                      </th>
+                      <th><a href="editstock.php">
+                          <h6 class="text-gray text-ml mb-0">รหัสคลังสินค้า</h6><a></th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">สถานะ</h6< /th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">วันที่ทำรายการ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ผู้ทำรายการ</h6>
+                      </th>
+                      <th>
+                        <h6 class="text-gray text-ml mb-0">ตัวเลือก</h6>
+                      </th>
                     </tr>
                     <?php
-                      require 'connect.php';
-                      $query = mysqli_query($conn, "SELECT * FROM stock JOIN emp_data JOIN product
+                    require 'connect.php';
+                    $query = mysqli_query($conn, "SELECT * FROM stock JOIN emp_data JOIN product
                       WHERE stock.emp_id = emp_data.emp_id
                       AND stock.product_id = product.product_id
                       AND stock_status LIKE 'ปรับ%'
                       GROUP BY stock_id
                       ORDER BY stock_status  DESC") or die(mysqli_error());
-                      include 'DT.php';
-                      $x = 1;
-                      while($fetch = mysqli_fetch_array($query)){
-                        $dateData = $fetch['stock_datetime'];
+                    include 'DT.php';
+                    $x = 1;
+                    while ($fetch = mysqli_fetch_array($query)) {
+                      $dateData = $fetch['stock_datetime'];
                     ?>
-                    <tr align="center">
-                      <td><?php echo $x; $x++; ?></td>
-                      <td><?php echo $fetch['stock_id']?></td>
-                      <?php
-                        if($fetch['stock_status']=="ปรับเพิ่มสินค้า"){
+                      <tr align="center">
+                        <td><?php echo $x;
+                            $x++; ?></td>
+                        <td><?php echo $fetch['stock_id'] ?></td>
+                        <?php
+                        if ($fetch['stock_status'] == "ปรับเพิ่มสินค้า") {
                           echo "<td class=text-success>";
-                        }else if($fetch['stock_status']=="ปรับลดสินค้า"){
+                        } else if ($fetch['stock_status'] == "ปรับลดสินค้า") {
                           echo "<td class=text-danger>";
-                        }
-                        else{
+                        } else {
                           echo "<td class=text-warning>";
                         }
-                      ?>
-                      <?php echo $fetch['stock_status']?></td>
-                      <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
-                      <td><?php echo $fetch['emp_name'],"&nbsp&nbsp&nbsp",$fetch['emp_surname']?></td>
-                      <td>
-                        <a href="editstock_detail.php?stock_id=<?php echo $fetch['stock_id']?>">
-                          <button type="button" class="btn btn-outline-warning btn-sm text-black">
-                            <span><i class="fas fa-list"></i> รายละเอียด</span>
-                          </button>
-                        </a>
-                      </td>
-                    </tr>
+                        ?>
+                        <?php echo $fetch['stock_status'] ?></td>
+                        <td><?php echo thai_date_and_time_short(strtotime($dateData)); ?></td>
+                        <td><?php echo $fetch['emp_name'], "&nbsp&nbsp&nbsp", $fetch['emp_surname'] ?></td>
+                        <td>
+                          <a href="editstock_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
+                            <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                              <span><i class="fas fa-list"></i> รายละเอียด</span>
+                            </button>
+                          </a>
+                        </td>
+                      </tr>
                     <?php
-                      }
+                    }
                     ?>
                   </table>
                 </div>
@@ -287,7 +299,7 @@ if ($rowotp['otp'] == "no") {
       </div>
     </div><!-- Page Content -->
   </div><!-- Main Content -->
-    
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -302,6 +314,7 @@ if ($rowotp['otp'] == "no") {
   <script src="../assets/js/argon.js?v=1.2.0"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
+
 </body>
+
 </html>

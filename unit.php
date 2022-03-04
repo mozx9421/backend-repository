@@ -73,13 +73,13 @@ if ($rowotp['otp'] == "no") {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" <?php
+        <a class="mr-4" <?php
           if($_SESSION['emp_level'] == "พนักงาน" ){
             ?> href="index_employee.php" <?php
           }else{
             ?> href="index_manager.php" <?php
           } ?> >
-            <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+            <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -117,14 +117,14 @@ if ($rowotp['otp'] == "no") {
                 <span class="nav-link-text">รายงาน</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
-                <span class="nav-link-text" >ออกจากระบบ</span>
+                <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -262,7 +262,7 @@ if ($rowotp['otp'] == "no") {
                              <a href="unit_clearstatus.php?unit_id=<?php echo $fetch['unit_id'] ?>" <?php
                                                                                                 echo "onclick=\"return confirm('คุณต้องการเปิดการใช้งานรายการหรือไม่')\" ";
                                                                                                 ?>>
-                              <button class='btn btn-outline-primary btn-sm'><span><i class="far fa-trash-alt"></i> เปิดการใช้งาน</button>
+                              <button class='btn btn-outline-primary btn-sm'><span><i class="fas fa-redo-alt"></i> เปิดการใช้งาน</button>
                             </a>
                           </td>
                       <td>
@@ -270,7 +270,7 @@ if ($rowotp['otp'] == "no") {
                           <td class="text-success"><?php echo $fetch['unit_status'] ?></td>
                           <td align="center">
                             <!-- Update Button -->
-                            <button type="button" class="btn btn-outline-warning btn-sm text-black" data-toggle="modal" data-target="#unit_update_modal<?php echo $fetch['unit_id'] ?>">
+                            <button type="button" class="btn btn-outline-primary btn-sm text-black" data-toggle="modal" data-target="#unit_update_modal<?php echo $fetch['unit_id'] ?>">
                               <span><i class="far fa-edit"></i> แก้ไข
                             </button>
                             <!-- Delete Button -->

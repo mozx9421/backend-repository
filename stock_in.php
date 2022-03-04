@@ -63,8 +63,8 @@ if (isset($_GET['logout'])) {
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+        <a class="mr-4" href="javascript:void(0)">
+          <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -110,14 +110,14 @@ if (isset($_GET['logout'])) {
                 </li>";
             }
             ?>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="index_manager.php?logout='1'">
                 <i class="fas fa-sign-out-alt text-orange"></i>
                 <span class="nav-link-text">ออกจากระบบ</span>
               </a>
             </li>
-            <br>
+            <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
             <li class="nav-item">
               <a class="nav-link" a href="tutorial.pdf">
                 <i class="fas fa-book text-orange"></i>
@@ -286,7 +286,7 @@ if (isset($_GET['logout'])) {
                         <td><?php echo $fetch['emp_name'], " ", $fetch['emp_surname'] ?></td>
                         <td>
                           <a href="stock_in_detail.php?stock_id=<?php echo $fetch['stock_id'] ?>">
-                            <button type="button" class="btn btn-outline-warning btn-sm text-black">
+                            <button type="button" class="btn btn-outline-primary btn-sm text-black">
                               <span><i class="fas fa-list"></i> รายละเอียด</span>
                             </button>
                           </a>
@@ -308,6 +308,16 @@ if (isset($_GET['logout'])) {
                   $query2 = mysqli_query($conn, $sql2);
                   $total_record = mysqli_num_rows($query2);
                   $total_page = ceil($total_record / $perpage);
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  if($previous_page === 0){
+                    $previous_page = 1;
+                  } else if($next_page > $total_page){
+                    $next_page = $total_page;
+                  }else{
+                  $previous_page = $page - 1;
+                  $next_page = $page + 1;
+                  }
                   ?>
                 </div>
               </div>
@@ -316,9 +326,15 @@ if (isset($_GET['logout'])) {
           <nav aria-label="Page navigation example mb-4">
                 <div class="container-fluid mt--2">
                   <ul class="pagination">
+                  <li class="page-item">
+                  <a class="page-link" href="stock_in.php?page=1" aria-label="Frist">
+                  <span class="fas fa-angle-double-left"></span>
+                    <span class="sr-only">Frist</span>
+                  </a>
+                </li>
                     <li class="page-item">
-                      <a class="page-link" href="stock_in.php?page=1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                      <a class="page-link" href="stock_in.php?page=<?= $previous_page; ?>" aria-label="Previous">
+                      <span class="fas fa-angle-left"></span>
                         <span class="sr-only">Previous</span>
                       </a>
                     </li>
@@ -326,11 +342,17 @@ if (isset($_GET['logout'])) {
                       <li class="page-item"><a class="page-link" href="stock_in.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
                     <?php } ?>
                     <li class="page-item">
-                      <a class="page-link" href="stock_in.php?page=<?php echo $total_page; ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                      <a class="page-link" href="stock_in.php?page=<?= $next_page; ?>" aria-label="Next">
+                      <span class="fas fa-angle-right"></span>
                         <span class="sr-only">Next</span>
                       </a>
                     </li>
+                    <li class="page-item">
+                  <a class="page-link" href="stock_in.php?page=<?php echo $total_page; ?>" aria-label="Last">
+                  <span class="fas fa-angle-double-right"></span>
+                    <span class="sr-only">Last</span>
+                  </a>
+                </li>
                   </ul>
                 </nav>
         </div>

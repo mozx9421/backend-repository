@@ -66,8 +66,8 @@ if (isset($_GET['logout'])) {
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" href="javascript:void(0)">
-                    <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                <a class="mr-4" href="javascript:void(0)">
+                    <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
                 </a>
             </div>
             <div class="navbar-inner">
@@ -110,14 +110,14 @@ if (isset($_GET['logout'])) {
                 </li>";
                         }
                         ?>
-                        <br>
+                        <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
                         <li class="nav-item">
                             <a class="nav-link" a href="index_manager.php?logout='1'">
                                 <i class="fas fa-sign-out-alt text-orange"></i>
                                 <span class="nav-link-text">ออกจากระบบ</span>
                             </a>
                         </li>
-                        <br>
+                        <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
                         <li class="nav-item">
                             <a class="nav-link" a href="tutorial.pdf">
                                 <i class="fas fa-book text-orange"></i>

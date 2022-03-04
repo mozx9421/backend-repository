@@ -1,6 +1,7 @@
 <?php
     include('connect.php');
     $error = array();
+    $status = "กำลังใช้งาน";
     if(isset($_POST['save'])){
         $unit_id = $_POST['unit_id'];
         $unit_name = mysqli_real_escape_string($conn,$_POST['unit_name']);
@@ -20,7 +21,7 @@
         }   
         else
         {     
-            $sql = "INSERT INTO unit (unit_id,unit_name,unit_pack,unit_piece) VALUE ('$unit_id','$unit_name','$unit_pack','$unit_piece')";
+            $sql = "INSERT INTO unit (unit_id,unit_name,unit_pack,unit_piece,unit_status) VALUE ('$unit_id','$unit_name','$unit_pack','$unit_piece','$status')";
             if(mysqli_query($conn,$sql)){ 
                 echo "<script> alert ('บันทึกลงฐานข้อมูลสำเร็จ');
                     window.location.replace('unit.php'); </script>";  

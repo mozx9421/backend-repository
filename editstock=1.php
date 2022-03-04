@@ -13,13 +13,13 @@ if (!isset($_SESSION['username'], $_SESSION['emp_level'])) {
 $otpcheck = $_SESSION['username'];
 $sqlotp = "SELECT otp FROM emp_data WHERE emp_username ='$otpcheck'";
 $resultotp = mysqli_query($conn, $sqlotp);
-while($rowotp = mysqli_fetch_array($resultotp)){
-if ($rowotp['otp'] == "no") {
-  echo "<script>
+while ($rowotp = mysqli_fetch_array($resultotp)) {
+    if ($rowotp['otp'] == "no") {
+        echo "<script>
   alert('เข้าสู่ระบบครั้งเเรกกรุณาเปลี่ยนรหัสผ่าน');
   window.location.replace('firsttime_login.php');
 </script>";
-}
+    }
 }
 
 if (isset($_GET['logout'])) {
@@ -66,8 +66,8 @@ if (isset($_GET['logout'])) {
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" href="javascript:void(0)">
-                    <img src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                <a class="mr-4" href="javascript:void(0)">
+                    <img src="assets/img/brand/logo.png" width="175" height="75" alt="...">
                 </a>
             </div>
             <div class="navbar-inner">
@@ -110,14 +110,14 @@ if (isset($_GET['logout'])) {
                 </li>";
                         }
                         ?>
-                        <br>
+                        <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
                         <li class="nav-item">
                             <a class="nav-link" a href="index_manager.php?logout='1'">
                                 <i class="fas fa-sign-out-alt text-orange"></i>
                                 <span class="nav-link-text">ออกจากระบบ</span>
                             </a>
                         </li>
-                        <br>
+                        <hr style="width:85%;ailgn:center;background-color:#D5C1B5">
                         <li class="nav-item">
                             <a class="nav-link" a href="tutorial.pdf">
                                 <i class="fas fa-book text-orange"></i>
@@ -372,7 +372,7 @@ if (isset($_GET['logout'])) {
                                                     if ($('.product_qty', b).val() == "" || $('.product_qty', b).val() == 0) {
                                                         alert('กรุณาใส่จำนวน')
                                                         return false
-                                                    }else if($('.product_qty', b).val() < 0) {
+                                                    } else if ($('.product_qty', b).val() < 0) {
                                                         alert('จำนวนสินค้าไม่สามารถติดลบได้')
                                                         return false
                                                     } else if ($('.stock_comment', b).val() == "") {
@@ -382,7 +382,7 @@ if (isset($_GET['logout'])) {
                                                         alert('กรุณาเลือกสินค้า')
                                                         check = 1
                                                         return false
-                                                    }else if($('.product_qty', b).val() > 99) {
+                                                    } else if ($('.product_qty', b).val() > 99) {
                                                         alert('ใส่จำนวนสินค้ามากที่สุดได้ 99 เเพ็ค')
                                                         return false
                                                     }

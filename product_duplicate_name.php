@@ -24,7 +24,8 @@
         }   
             else
         {     
-            $sql = "INSERT INTO product (product_id,product_name,ctg_id,unit_id) VALUE ('$product_id','$product_name','$ctg_id','$unit_id')";
+            $status ="เปิดการขาย";
+            $sql = "INSERT INTO product (product_id,product_name,ctg_id,unit_id,product_status) VALUE ('$product_id','$product_name','$ctg_id','$unit_id','$status')";
 
             if(mysqli_query($conn,$sql)){ 
                 echo "<script> alert ('บันทึกลงฐานข้อมูลสำเร็จ');
