@@ -407,14 +407,17 @@ $this->Write(0, $txt2, '', 0, 'R', true, 0, false, true, 0);
         $current_time = date('j-n-Y');
         require_once('DT2.php');
         $current_time_convert =  DateThai($current_time);
-        $this->Cell(0, 8,"พิมพ์วันที่ " . $current_time_convert ."     "."โดย: ". $showname. "", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
+        $text = "หน้าที่ ";
+        $this->Cell(0, 8,"พิมพ์วันที่ " . $current_time_convert ."     "."โดย: ". $showname. "                                                                               ".$text."", 0, 1, 'L', 0, '', 0, false, 'M', 'M');
+        
+        
     }
 }
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
  $pdf->SetAuthor('Nicola Asuni');
 $pdf->SetTitle('Report Activity');
- $pdf->SetSubject('TCPDF Tutorial');
+  $pdf->SetSubject('TCPDF Tutorial');
  $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -425,10 +428,12 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
  $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
  $pdf->SetAutoPageBreak(TRUE,PDF_MARGIN_BOTTOM);
  $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
- if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-  require_once(dirname(__FILE__).'/lang/eng.php');
+ if (@file_exists(dirname(__FILE__).'/lang/th.php')) {
+  require_once(dirname(__FILE__).'/lang/th.php');
   $pdf->setLanguageArray($l);
  }
+;
+
 $pdf->SetFont('thsarabun', 'l', 16.28);
 $pdf->AddPage();
 

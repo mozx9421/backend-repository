@@ -6605,6 +6605,22 @@ input[type='button'].btn-block
     border-radius: .375rem;
 }
 
+.page-link-active
+{
+    line-height: 1.25;
+
+    position: relative;
+
+    display: block;
+
+    margin-left: -1px;
+    padding: .5rem .75rem;
+
+    color: #8898aa;
+    border: 1px solid #dee2e6; 
+    background-color: #00FE2A ;
+}
+
 .page-link
 {
     line-height: 1.25;

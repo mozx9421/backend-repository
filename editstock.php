@@ -313,15 +313,17 @@ if (isset($_GET['logout'])) {
                   $total_record = mysqli_num_rows($query2);
                   $total_page = ceil($total_record / $perpage);
                   $previous_page = $page - 1;
-                  $next_page = $page + 1;
+                  $next_page=$page;
+                  if($next_page){
+                    if($page<  $total_page){
+                      $next_page = $page + 1;
+                      }else{
+                        $next_page = $page;
+                      }
+                  }
                   if($previous_page === 0){
                     $previous_page = 1;
-                  } else if($next_page > $total_page){
-                    $next_page = $total_page;
-                  }else{
-                  $previous_page = $page - 1;
-                  $next_page = $page + 1;
-                  }
+                  } 
                   ?>
                 </div>
               </div>
@@ -342,9 +344,7 @@ if (isset($_GET['logout'])) {
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
-                <?php for ($it = 1; $it <= $total_page; $it++) { ?>
-                  <li class="page-item"><a class="page-link" href="editstock.php?page=<?php echo $it; ?>"><?php echo $it; ?></a></li>
-                <?php } ?>
+                <li class=" text-danger mt-1 mr-2 ml-2"><?php echo $page; ?></li>
                 <li class="page-item">
                   <a class="page-link" href="editstock.php?page=<?= $next_page; ?>" aria-label="Next">
                   <span class="fas fa-angle-right"></span>

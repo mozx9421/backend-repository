@@ -213,12 +213,12 @@ if (isset($_GET['logout'])) {
 
                     if ($round == 0) {
                       if ($rowcheckqty <= 10) { ?>
-                      <a href="warehouse.php">
+
                         <div class="alert col-md-4 ml-10 animate-left">
                           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                           <strong>เเจ้งเตือน:</strong> ปริมาณสินค้าในคลังเหลือน้อย
                         </div>
-                      </a>
+
                   <?php
                         $round = 1;
                       }
